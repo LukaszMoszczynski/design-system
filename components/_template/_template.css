@@ -1,0 +1,20 @@
+/* Component CSS: tokens only (var(--…), color-mix(), 0, 1px/2px hairlines, %, fr, keywords).
+   npm test fails on any hex colour or px/rem/em literal. Class names are prefixed ds-. */
+.ds-example {
+  padding: var(--space-8) var(--space-16);
+  border: 1px solid var(--color-border-default);
+  background: var(--color-surface-page);
+  color: var(--color-text-default);
+  font: inherit;
+  cursor: pointer;
+}
+
+.ds-example[aria-pressed='true'] {
+  background: var(--color-brand-primary);
+  color: var(--color-text-on-brand);
+}
+
+.ds-example:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}

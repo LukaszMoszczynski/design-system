@@ -8,6 +8,7 @@
     "tokens:check": "node scripts/check-tokens.mjs",
     "tokens": "npm run tokens:check && node scripts/build-tokens.mjs",
     "test": "vitest run",
+    "check-css-values": "node scripts/check-css-values.mjs",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test-storybook": "test-storybook"
