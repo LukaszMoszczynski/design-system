@@ -1,0 +1,111 @@
+/* Card/Post (.dcc-post-card--poziomy): soft card, radius 32, 24 px padding, photo (min 348 px, radius 32, muted surface
+   without one) beside the body, 24 px apart; the date pill 14 px from the photo corner; the title in the heading font
+   Medium at the 2XL size, primary; the excerpt 16 px below; the round arrow (60 px, 48 on phones) bottom-right.
+   Hover and keyboard focus: the photo zooms 5 % and the arrow swaps colour (accent ↔ primary).
+   Phones (≤ 781 px): stacked, 16 px padding, radius 20, a 244 px photo. */
+.ds-card-post {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--post-gap);
+  padding: var(--space-post-padding);
+  border-radius: var(--radius-post);
+  background: var(--color-surface-soft);
+  color: var(--color-text-default);
+  text-decoration: none;
+}
+
+.ds-card-post__media {
+  position: relative;
+  min-height: var(--post-media-min-height);
+  overflow: hidden;
+  border-radius: var(--radius-post);
+  background: var(--color-surface-muted);
+}
+
+.ds-card-post__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.ds-card-post__media .ds-tag {
+  position: absolute;
+  bottom: var(--space-14);
+  left: var(--space-14);
+}
+
+.ds-card-post__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.ds-card-post__title {
+  color: var(--color-brand-primary);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-name);
+}
+
+.ds-card-post__excerpt {
+  margin-top: var(--post-excerpt-gap);
+}
+
+.ds-card-post .ds-button-arrow {
+  align-self: flex-end;
+  width: var(--size-post-arrow);
+  height: var(--size-post-arrow);
+  margin-top: auto;
+}
+
+.ds-card-post--arrow-primary .ds-button-arrow {
+  background: var(--color-brand-primary);
+}
+
+a.ds-card-post:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+a.ds-card-post:focus-visible .ds-card-post__image {
+  transform: scale(1.05);
+}
+
+a.ds-card-post--arrow-accent:focus-visible .ds-button-arrow {
+  background: var(--color-brand-primary);
+}
+
+a.ds-card-post--arrow-primary:focus-visible .ds-button-arrow {
+  background: var(--color-brand-accent);
+}
+
+@media (hover: hover) {
+  a.ds-card-post:hover .ds-card-post__image {
+    transform: scale(1.05);
+  }
+
+  a.ds-card-post--arrow-accent:hover .ds-button-arrow {
+    background: var(--color-brand-primary);
+  }
+
+  a.ds-card-post--arrow-primary:hover .ds-button-arrow {
+    background: var(--color-brand-accent);
+  }
+}
+
+@media (max-width: 781px) {
+  .ds-card-post {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ds-card-post__media {
+    min-height: var(--post-media-height-mobile);
+  }
+
+  .ds-card-post__excerpt {
+    margin-bottom: var(--space-16);
+  }
+}

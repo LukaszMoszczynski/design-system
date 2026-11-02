@@ -1,5 +1,5 @@
 /* Badge/Circular (.dcc-badge): a 160 px card-colour disc, heading-font text (Medium 16, 6 % tracking) round a 58 px
-   radius in the text colour, and a centred accent dot with an on-brand diagonal arrow. The wording turns slowly unless
+   radius in the text colour, and a centred accent dot (35 % of the badge: 56 px) with an on-brand arrow or check. The wording turns slowly unless
    the visitor prefers reduced motion. */
 .ds-badge-circular {
   position: relative;
@@ -33,8 +33,8 @@
   inset: 0;
   display: grid;
   place-items: center;
-  width: var(--cta-badge-dot);
-  height: var(--cta-badge-dot);
+  width: 35%;
+  height: 35%;
   margin: auto;
   border-radius: var(--radius-full);
   background: var(--color-brand-accent);

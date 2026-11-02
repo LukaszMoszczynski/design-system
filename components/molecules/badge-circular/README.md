@@ -3,7 +3,7 @@
 Figma: Molecules → Badge/Circular (`51:51`). DCC: `dcc_badge()` (inc/helpers.php), `.dcc-badge` (assets/css/base.css), blocks/wezwanie.
 CSS: `atoms/icon/icon.css` + `molecules/badge-circular/badge-circular.css`. No JS.
 
-`renderBadgeCircular({ text, id })` →
+`renderBadgeCircular({ text, icon, id, className })` (`icon`: `arrow` | `check`; `className`: the placing component may resize or recolour it, e.g. the recommendation card) →
 
 ```html
 <span class="ds-badge-circular" role="img" aria-label="Wyzwanie? Znajdziemy rozwiązanie">
@@ -17,7 +17,7 @@ CSS: `atoms/icon/icon.css` + `molecules/badge-circular/badge-circular.css`. No J
 ```
 
 - 160 px card-colour disc, the wording on a 58 px radius (heading font Medium 16, 6 % tracking, text colour), a centred
-  accent dot with an on-brand arrow. The wording turns once in 16 s unless `prefers-reduced-motion: reduce`.
+  accent dot (35 % of the badge) with an on-brand arrow or check. The wording turns once in 16 s unless `prefers-reduced-motion: reduce`.
 - `id` names the text path; left empty, the template numbers it (`ds-badge-path-N`). Give a stable id when the page
   prints several badges from PHP.
 

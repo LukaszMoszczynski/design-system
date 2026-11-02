@@ -1,0 +1,150 @@
+/* Card/Hero tile (.dcc-hero__tile): min 243 px, radius 32, soft, padding 44 36 60 (room for the arrow); the title in the
+   heading font Medium at the tile-title size, an optional hashtag tag over a 2 px accent line, text up to 290 px, an
+   optional bold text link, and the accent Button arrow at right 24 / bottom 18. Light at rest.
+   Desktop (≥ 1025 px), as a link:
+   - hover: brand surface, on-brand text, rises 20 px (padding-bottom 80), the bottom-right corner opens into the
+     page-colour notch (57 px inner square, 24 px radius, two 20 px fillets) and the arrow slides into it, soft with a
+     dark glyph;
+   - keyboard focus: the hover colours and rise without the notch, the arrow a few px in, the ring 3 px outside.
+   Below 1025 px: 24/20 padding, radius 16, no corner arrow (the whole tile is the link), focus ring only. */
+.ds-card-hero-tile {
+  --hero-tile-notch-offset: calc(var(--herotile-notch) - var(--herotile-notch-inner));
+  --hero-tile-notch-side: calc(var(--hero-tile-notch-offset) + var(--herotile-notch-radius));
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: var(--herotile-min-height);
+  padding: var(--herotile-padding-top) var(--herotile-padding) var(--herotile-padding-bottom);
+  border-radius: var(--card-radius);
+  background: var(--color-surface-soft);
+  color: var(--color-text-default);
+  text-decoration: none;
+  transition: background-color 0.25s ease, color 0.25s ease, margin-top 0.25s ease, padding-bottom 0.25s ease;
+}
+
+/* The notch: page colour drawn over the corner (an inner rounded square and two fillets), shown on hover. */
+.ds-card-hero-tile::before {
+  content: '';
+  position: absolute;
+  right: -1px;
+  bottom: -1px;
+  z-index: -1;
+  width: var(--herotile-notch);
+  height: var(--herotile-notch);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  background:
+    radial-gradient(circle at 100% 100%, var(--color-surface-page) calc(var(--herotile-notch-radius) - 1px), transparent var(--herotile-notch-radius))
+      var(--hero-tile-notch-offset) var(--hero-tile-notch-offset) / var(--herotile-notch-radius) var(--herotile-notch-radius),
+    linear-gradient(var(--color-surface-page), var(--color-surface-page))
+      var(--hero-tile-notch-side) var(--hero-tile-notch-offset) / calc(var(--herotile-notch) - var(--hero-tile-notch-side)) var(--herotile-notch-inner),
+    linear-gradient(var(--color-surface-page), var(--color-surface-page))
+      var(--hero-tile-notch-offset) var(--hero-tile-notch-side) / var(--herotile-notch-radius) calc(var(--herotile-notch) - var(--hero-tile-notch-side)),
+    radial-gradient(circle at 0 0, transparent calc(var(--herotile-fillet) - 1px), var(--color-surface-page) var(--herotile-fillet))
+      var(--herotile-notch-inner) calc(var(--hero-tile-notch-offset) - var(--herotile-fillet)) / var(--herotile-fillet) var(--herotile-fillet),
+    radial-gradient(circle at 0 0, transparent calc(var(--herotile-fillet) - 1px), var(--color-surface-page) var(--herotile-fillet))
+      calc(var(--hero-tile-notch-offset) - var(--herotile-fillet)) var(--herotile-notch-inner) / var(--herotile-fillet) var(--herotile-fillet);
+  background-repeat: no-repeat;
+}
+
+.ds-card-hero-tile__title {
+  font-size: var(--font-size-tile-title);
+  line-height: var(--line-height-tile-title);
+}
+
+/* The Tag atom's hashtag look, at this tile's size: heading font 16 in the text colour over a 2 px accent line. */
+.ds-card-hero-tile .ds-tag--hashtag {
+  margin-top: var(--herotile-tag-gap);
+  padding-bottom: var(--herotile-link-gap);
+  border-bottom-width: var(--herotile-tag-line);
+  color: inherit;
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  letter-spacing: 0;
+}
+
+.ds-card-hero-tile__text {
+  max-width: var(--herotile-text-max-width);
+  margin-top: var(--herotile-text-gap);
+}
+
+.ds-card-hero-tile .ds-link {
+  color: inherit;
+}
+
+.ds-card-hero-tile > .ds-button-arrow {
+  position: absolute;
+  right: var(--herotile-arrow-right);
+  bottom: var(--herotile-arrow-bottom);
+  transition: background-color 0.2s ease, color 0.2s ease, right 0.25s ease, bottom 0.25s ease;
+}
+
+a.ds-card-hero-tile:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+@media (min-width: 1025px) {
+  a.ds-card-hero-tile:focus-visible {
+    margin-top: calc(var(--space-20) * -1);
+    padding-bottom: var(--herotile-padding-bottom-hover);
+    background: var(--color-surface-brand);
+    color: var(--color-text-on-brand);
+  }
+
+  a.ds-card-hero-tile:focus-visible > .ds-button-arrow {
+    right: calc(var(--space-4) + 1px);
+    bottom: var(--space-4);
+    background: var(--color-surface-soft);
+    color: var(--color-text-default);
+  }
+}
+
+@media (min-width: 1025px) and (hover: hover) {
+  a.ds-card-hero-tile:hover {
+    margin-top: calc(var(--space-20) * -1);
+    padding-bottom: var(--herotile-padding-bottom-hover);
+    border-bottom-right-radius: 0;
+    background: var(--color-surface-brand);
+    color: var(--color-text-on-brand);
+  }
+
+  a.ds-card-hero-tile:hover::before {
+    opacity: 1;
+  }
+
+  a.ds-card-hero-tile:hover > .ds-button-arrow {
+    right: 1px;
+    bottom: 0;
+    background: var(--color-surface-soft);
+    color: var(--color-text-default);
+  }
+}
+
+@media (max-width: 1024px) {
+  .ds-card-hero-tile {
+    min-height: 0;
+    padding: var(--space-24) var(--space-20);
+    border-radius: var(--card-radius-mobile);
+  }
+
+  .ds-card-hero-tile::before,
+  .ds-card-hero-tile > .ds-button-arrow {
+    display: none;
+  }
+
+  .ds-card-hero-tile__text {
+    max-width: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-card-hero-tile,
+  .ds-card-hero-tile::before,
+  .ds-card-hero-tile > .ds-button-arrow {
+    transition: none;
+  }
+}

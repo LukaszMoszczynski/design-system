@@ -11,5 +11,7 @@ export function renderLink({ text = 'Zobacz szczegóły', href = '#', variant = 
   const variantName = LINK_VARIANTS.includes(variant) ? variant : 'inline';
   const arrow = WITH_ARROW.has(variantName) ? renderIcon({ name: 'arrow-diagonal' }) : '';
   const content = arrow ? `<span class="ds-link__label">${escapeHtml(text)}</span>${arrow}` : escapeHtml(text);
+  // Without href: a span with the same look, for the visual link inside a card that is itself the link.
+  if (!href) return `<span class="ds-link ds-link--${variantName}">${content}</span>`;
   return `<a class="ds-link ds-link--${variantName}" href="${escapeHtml(href)}">${content}</a>`;
 }

@@ -1,0 +1,110 @@
+/* Card/Recommendation (.dcc-program--wyrozniony .dcc-program__card): soft card, radius 32, padding 24 24 28. The title
+   (heading font Medium at the 2XL size, primary) on a page-colour tab (min 89 px, radius 24, room on the right for the
+   badge); a 122 px Badge/Circular with the check in the top-right corner, 24 px above the card (primary disc, accent
+   dot, on-brand wording); the Check item reasons 24 px below the tab; a primary pill with the label and a chevron 32 px
+   below them; the benefits as outline Tag pills (1 px currentColor, 3/12 padding) 6 px apart, stacked.
+   Blue (.is-blue): brand surface, on-brand texts, accent badge disc with a primary dot, accent pill, white pill
+   borders, benefits flowing in rows. */
+.ds-card-recommendation {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: var(--recommend-padding) var(--recommend-padding) var(--recommend-padding-bottom);
+  border-radius: var(--card-radius);
+  background: var(--color-surface-soft);
+  color: var(--color-text-default);
+}
+
+.ds-card-recommendation--blue {
+  background: var(--color-surface-brand);
+  color: var(--color-text-on-brand);
+}
+
+.ds-card-recommendation__tab {
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  min-height: var(--recommend-tab-height);
+  padding: var(--space-12) calc(var(--recommend-badge) - var(--recommend-padding)) var(--space-16) var(--space-28);
+  border-radius: var(--radius-2xl);
+  background: var(--color-surface-page);
+}
+
+.ds-card-recommendation__title {
+  color: var(--color-brand-primary);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-name);
+}
+
+.ds-card-recommendation__badge {
+  position: absolute;
+  top: calc(var(--space-24) * -1);
+  right: var(--space-12);
+  width: var(--recommend-badge);
+  height: var(--recommend-badge);
+}
+
+.ds-card-recommendation__badge .ds-badge-circular__disc {
+  fill: var(--color-brand-primary);
+}
+
+.ds-card-recommendation__badge .ds-badge-circular__text {
+  fill: var(--color-text-on-brand);
+}
+
+.ds-card-recommendation--blue .ds-card-recommendation__badge .ds-badge-circular__disc {
+  fill: var(--color-brand-accent);
+}
+
+.ds-card-recommendation--blue .ds-card-recommendation__badge .ds-badge-circular__dot {
+  background: var(--color-brand-primary);
+}
+
+.ds-card-recommendation__reasons {
+  align-self: stretch;
+  margin-top: var(--recommend-title-gap);
+}
+
+.ds-card-recommendation__benefits-title {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin: var(--recommend-benefits-gap) 0 0;
+  padding: var(--space-4) var(--space-12);
+  border-radius: var(--radius-full);
+  background: var(--color-brand-primary);
+  color: var(--color-text-on-brand);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+.ds-card-recommendation--blue .ds-card-recommendation__benefits-title {
+  background: var(--color-brand-accent);
+  color: var(--color-text-on-brand);
+}
+
+.ds-card-recommendation__benefits {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--recommend-pill-gap);
+  margin: var(--recommend-pill-gap) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-card-recommendation--blue .ds-card-recommendation__benefits {
+  flex-flow: row wrap;
+}
+
+/* The Tag atom's outline pill, in currentColor (white on the blue card), 3/12 padding, wrapping a long benefit. */
+.ds-card-recommendation__benefits .ds-tag {
+  padding: var(--space-3) var(--space-12);
+  border-color: currentColor;
+  color: inherit;
+  white-space: normal;
+  text-align: left;
+}

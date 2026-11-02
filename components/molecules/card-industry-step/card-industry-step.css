@@ -1,0 +1,77 @@
+/* Card/Industry step (.dcc-karty--branza slide): 413 px tall so the row never jumps. A centred card (soft, radius 32,
+   32 px padding, min 280 px; the title in the heading font Medium at the 2XL size; challenge and action with bold
+   labels) over the 47 px number circle (Letter circle, industry) 44 px below, on a 1 px grey timeline through the
+   number's centre that runs half the slide gap past each side. is-active (the carousel's centred slide): the card is
+   42 px taller and blue with on-brand text, the number accent with its ring, the timeline a 2 px primary line. */
+.ds-card-industry-step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: calc(var(--industry-body-min-height) + var(--industry-inactive-offset) + var(--industry-number-gap) + var(--industry-number-size));
+  color: var(--color-text-default);
+  text-align: center;
+}
+
+.ds-card-industry-step::before {
+  content: '';
+  position: absolute;
+  right: calc(var(--space-gutter) / -2);
+  bottom: calc(var(--industry-number-size) / 2);
+  left: calc(var(--space-gutter) / -2);
+  height: var(--industry-line);
+  background: var(--color-border-strong);
+}
+
+.ds-card-industry-step__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-height: var(--industry-body-min-height);
+  padding: var(--industry-body-padding);
+  border-radius: var(--card-radius);
+  background: var(--color-surface-soft);
+  transition: background-color 0.3s ease, color 0.3s ease, min-height 0.3s ease;
+}
+
+.ds-card-industry-step__title {
+  margin-bottom: auto;
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-name);
+}
+
+.ds-card-industry-step__challenge,
+.ds-card-industry-step__action {
+  margin: var(--industry-text-gap) 0 0;
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+.ds-card-industry-step__action {
+  margin-top: var(--industry-action-gap);
+}
+
+.ds-card-industry-step__number {
+  position: relative;
+  padding-top: var(--industry-number-gap);
+}
+
+.ds-card-industry-step.is-active::before {
+  bottom: calc(var(--industry-number-size) / 2 - 1px);
+  height: var(--industry-line-active);
+  background: var(--color-brand-primary);
+}
+
+.ds-card-industry-step.is-active .ds-card-industry-step__card {
+  min-height: calc(var(--industry-body-min-height) + var(--industry-inactive-offset));
+  background: var(--color-surface-brand);
+  color: var(--color-text-on-brand);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-card-industry-step__card {
+    transition: none;
+  }
+}

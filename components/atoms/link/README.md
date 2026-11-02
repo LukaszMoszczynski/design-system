@@ -3,7 +3,7 @@
 Figma: Atoms → Link · Label → Link (`4:49`). DCC: `.dcc-karta__links a`, `.dcc-btn--link`, `.dcc-karty--obszar .dcc-karta__more`, `.dcc-footer a`.
 CSS: `atoms/link/link.css` plus `atoms/icon/icon.css`. No JS.
 
-`renderLink({ text, href, variant })`, `variant` one of `inline`, `list`, `arrow`, `brand`, `footer`, `bold`, `inverse`:
+`renderLink({ text, href, variant })`, `variant` one of `inline`, `list`, `arrow`, `brand`, `footer`, `bold`, `inverse`: (an empty `href` prints a `<span>` with the same look, for the visual link inside a card that is itself the link)
 
 ```html
 <a class="ds-link ds-link--inline" href="/kontakt/">Zobacz szczegóły</a>
