@@ -1,0 +1,264 @@
+/* Footer (.dcc-footer, blocks/stopka/style.css): a 1352 px brand card with 40 px corners. The accent newsletter panel
+   (centred, the Newsletter field atom), then a 480 px brand column 88 px from the columns (Biuro + Kontakt, a divider,
+   Menu + Usługi, 200 px each), then the legal line over a hairline. Phones stack everything, every column open (Figma). */
+.ds-footer__card {
+  box-sizing: border-box;
+  max-width: var(--footer-max-width);
+  margin-inline: auto;
+  padding: var(--space-footer-padding) var(--space-footer-padding) var(--space-footer-padding-bottom);
+  border-radius: var(--radius-footer);
+  background: var(--color-surface-brand);
+  color: var(--color-text-on-brand);
+}
+
+:where(.ds-footer) :is(p, h2, address) {
+  margin: 0;
+}
+
+:where(.ds-footer) ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-footer a:focus-visible {
+  outline-color: var(--color-text-on-brand);
+}
+
+/* Newsletter panel. */
+.ds-footer__newsletter {
+  padding: var(--space-newsletter-padding-y) var(--space-newsletter-padding-x);
+  border-radius: var(--radius-newsletter);
+  background: var(--color-brand-accent);
+  text-align: center;
+}
+
+.ds-footer__newsletter-title {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-3xl);
+  line-height: var(--font-line-height-3xl);
+}
+
+.ds-footer__newsletter-lead {
+  max-width: var(--newsletter-lead-max-width);
+  margin: var(--newsletter-lead-gap) auto 0;
+  font-family: var(--font-body);
+  font-size: var(--font-size-lead-large);
+  line-height: var(--line-height-lead-large);
+  text-wrap: wrap;
+}
+
+.ds-footer__form {
+  margin-top: var(--newsletter-form-gap);
+  text-align: left;
+}
+
+/* Brand column and columns. */
+.ds-footer__grid {
+  display: grid;
+  grid-template-columns: minmax(0, var(--footer-brand-column)) minmax(0, 1fr);
+  column-gap: var(--footer-column-gap);
+  padding: var(--footer-grid-padding-top) var(--space-footer-grid-x) 0;
+}
+
+.ds-footer__logo {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  border-radius: var(--radius-xs);
+}
+
+.ds-footer__logo:focus-visible,
+.ds-footer__tag-link:focus-visible,
+.ds-footer__line-link:focus-visible,
+.ds-footer__legal-link:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-text-on-brand);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.ds-footer__logo-image {
+  display: block;
+  width: var(--footer-logo-width);
+  max-width: 100%;
+  height: auto;
+}
+
+/* Figma's placeholders: a white logo block and two badges at 85 %. */
+.ds-footer__logo-placeholder {
+  display: block;
+  width: var(--footer-logo-width);
+  max-width: 100%;
+  height: var(--footer-logo-height);
+  border-radius: var(--radius-8);
+  background: var(--color-surface-card);
+}
+
+.ds-footer__badges {
+  display: flex;
+  gap: var(--space-16);
+  margin-top: var(--footer-badges-top);
+}
+
+.ds-footer__badge {
+  display: block;
+  height: var(--footer-badge-height);
+  width: auto;
+}
+
+.ds-footer__badge--placeholder {
+  width: calc(var(--space-48) * 2);
+  border-radius: var(--radius-8);
+  background: var(--color-surface-card);
+  opacity: 0.85;
+}
+
+.ds-footer__tag {
+  display: table;
+  margin-top: var(--space-24);
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+/* The line is the link's border, so it changes colour with it. */
+.ds-footer__tag-link {
+  display: block;
+  padding-bottom: var(--space-6);
+  border-bottom: var(--footer-tag-line) solid currentColor;
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.ds-footer__about {
+  max-width: var(--footer-about-max-width);
+  margin-top: var(--footer-about-top);
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+.ds-footer__row {
+  display: grid;
+  grid-template-columns: calc(var(--footer-column) * 2) minmax(0, 1fr);
+}
+
+.ds-footer__row--links {
+  grid-template-columns: var(--footer-column) minmax(0, 1fr);
+  margin-top: var(--space-32);
+  padding-top: var(--space-32);
+  border-top: 1px solid color-mix(in srgb, var(--color-text-on-brand) 70%, transparent);
+}
+
+.ds-footer__title {
+  margin-bottom: var(--footer-title-gap);
+  /* Figma: surface/soft (#e7f1fa on the blue). In Dark that token is a deep violet and vanishes on the blue card, so the
+     same pale tint is mixed from the card's own colours: #e7f0f7 in Light, and still light in Dark. */
+  color: color-mix(in srgb, var(--color-text-on-brand) 90%, var(--color-surface-brand));
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+.ds-footer__lines {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-4);
+  font-family: var(--font-heading);
+  font-style: normal;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-lg);
+  line-height: var(--font-line-height-lg);
+}
+
+.ds-footer__line-link,
+.ds-footer__legal-link {
+  color: inherit;
+  text-decoration: none;
+  border-radius: var(--radius-xs);
+  transition: color 0.2s ease;
+}
+
+@media (hover: hover) {
+  .ds-footer :is(.ds-footer__tag-link, .ds-footer__line-link, .ds-footer__legal-link):hover {
+    color: var(--color-brand-accent);
+  }
+}
+
+.ds-footer .ds-social-list {
+  gap: var(--space-4);
+}
+
+.ds-footer__links {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-4);
+}
+
+/* Legal line. */
+.ds-footer__legal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-8) var(--space-24);
+  margin: var(--footer-legal-top) var(--space-footer-grid-x) 0;
+  padding: var(--footer-legal-padding-top) var(--space-footer-legal-x) 0;
+  border-top: 1px solid color-mix(in srgb, var(--color-text-on-brand) 70%, transparent);
+  font-family: var(--font-body);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.ds-footer__legal-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--space-20);
+}
+
+/* Narrow laptops: the brand column above the columns. */
+@media (max-width: 1100px) {
+  .ds-footer__grid {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: var(--space-40);
+  }
+}
+
+@media (max-width: 781px) {
+  .ds-footer__newsletter {
+    text-align: left;
+  }
+
+  .ds-footer__newsletter-title {
+    font-size: var(--font-size-2xl);
+    line-height: var(--font-line-height-2xl);
+  }
+
+  .ds-footer__newsletter-lead {
+    display: none;
+  }
+
+  /* Missing tokens: the phone logo (Figma 240 × 36). */
+  .ds-footer__logo-image,
+  .ds-footer__logo-placeholder {
+    width: calc(var(--size-160) * 1.5);
+  }
+
+  .ds-footer__logo-placeholder {
+    height: calc(var(--size-18) * 2);
+  }
+
+  .ds-footer__row,
+  .ds-footer__row--links {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: var(--space-32);
+  }
+
+  .ds-footer__legal {
+    display: grid;
+    gap: 0;
+  }
+}
