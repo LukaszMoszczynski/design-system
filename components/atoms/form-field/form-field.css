@@ -1,0 +1,335 @@
+/* Field: a 56 px white box, 1 px default border, radius md. The label sits in the box and floats to the top at 12 px
+   once the field has a value or focus. Focus: primary border and the keyboard ring round the box. Error
+   (aria-invalid="true"): error colour on the border, the label and the message below. */
+.ds-field {
+  display: grid;
+  gap: var(--space-4);
+  font-family: var(--font-body);
+}
+
+.ds-field__box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: var(--field-height);
+  border: var(--field-border) solid var(--color-border-default);
+  border-radius: var(--field-radius);
+  background: var(--color-surface-card);
+  transition: border-color 0.15s ease;
+}
+
+.ds-field__control {
+  flex: 1;
+  min-width: 0;
+  align-self: stretch;
+  margin: 0;
+  padding: var(--space-24) var(--field-padding-x) var(--space-6);
+  border: 0;
+  border-radius: inherit;
+  background: none;
+  color: var(--color-text-default);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  appearance: none;
+}
+
+.ds-field__control:focus,
+.ds-field__control:focus-visible {
+  outline: none;
+}
+
+.ds-field__label {
+  position: absolute;
+  top: 50%;
+  left: var(--field-padding-x);
+  right: var(--field-padding-x);
+  overflow: hidden;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  pointer-events: none;
+  transform: translateY(-50%);
+  transition: top 0.15s ease, font-size 0.15s ease, line-height 0.15s ease, transform 0.15s ease;
+}
+
+/* Floated: a value, focus, or a select with a chosen option. */
+.ds-field__control:focus + .ds-field__label,
+.ds-field__control:not(:placeholder-shown) + .ds-field__label,
+.ds-field--select .ds-field__label {
+  top: var(--space-6);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+  transform: none;
+}
+
+/* A select still on its empty option, and not focused, keeps the label at rest. */
+.ds-field--select .ds-field__box:has(option[value='']:checked) .ds-field__control:not(:focus) + .ds-field__label {
+  top: 50%;
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  transform: translateY(-50%);
+}
+
+.ds-field__box:has(.ds-field__control:focus) {
+  border-color: var(--color-brand-primary);
+}
+
+.ds-field__box:has(.ds-field__control:focus-visible) {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.ds-field__box:has([aria-invalid='true']) {
+  border-color: var(--color-state-error);
+}
+
+.ds-field__box:has([aria-invalid='true']) .ds-field__label,
+.ds-field__message {
+  color: var(--color-state-error);
+}
+
+.ds-field__message {
+  margin: 0;
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+/* Select: room for the chevron (the arrow glyph turned down). */
+.ds-field--select .ds-field__control {
+  padding-right: calc(var(--field-padding-x) + var(--size-20) + var(--space-8));
+  cursor: pointer;
+}
+
+.ds-field__chevron {
+  position: absolute;
+  right: var(--field-padding-x);
+  top: 50%;
+  display: grid;
+  color: var(--color-text-default);
+  pointer-events: none;
+  transform: translateY(-50%) rotate(90deg);
+}
+
+.ds-field__chevron .ds-icon {
+  width: var(--size-20);
+  height: var(--size-20);
+}
+
+/* Textarea: 120 px; the label stays at the top line, floated or not. */
+.ds-field--textarea .ds-field__box {
+  align-items: stretch;
+  min-height: var(--field-textarea-height);
+}
+
+.ds-field--textarea .ds-field__control {
+  min-height: var(--field-textarea-height);
+  padding-top: calc(var(--space-16) + var(--line-height-small) + var(--space-2));
+  padding-bottom: var(--space-16);
+  resize: vertical;
+}
+
+.ds-field--textarea .ds-field__label,
+.ds-field--textarea .ds-field__control:focus + .ds-field__label,
+.ds-field--textarea .ds-field__control:not(:placeholder-shown) + .ds-field__label {
+  top: var(--space-16);
+  transform: none;
+}
+
+/* Search: a pill with a text-colour border and the magnifier at the start; the placeholder is the label. */
+.ds-field--search .ds-field__box {
+  gap: var(--space-24);
+  padding-left: var(--space-20);
+  border-color: var(--color-text-default);
+  border-radius: var(--radius-full);
+}
+
+.ds-field--search .ds-field__control {
+  padding: 0 var(--field-padding-x) 0 0;
+}
+
+.ds-field--search .ds-field__control::placeholder {
+  color: var(--color-text-muted);
+  opacity: 1;
+}
+
+.ds-field__search-icon {
+  flex: none;
+  width: var(--size-20);
+  height: var(--size-20);
+  color: var(--color-text-default);
+}
+
+/* Checkbox: a 20 px box, radius 4, strong border; checked = primary with a white tick. Focus rings the box. */
+.ds-checkbox {
+  display: flex;
+  align-items: center;
+  gap: var(--checkbox-gap);
+  color: var(--color-text-default);
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+.ds-checkbox__input {
+  flex: none;
+  width: var(--checkbox-size);
+  height: var(--checkbox-size);
+  margin: 0;
+  border: calc(var(--space-3) / 2) solid var(--color-border-strong);
+  border-radius: var(--checkbox-radius);
+  background: var(--color-surface-card) center / 80% no-repeat;
+  cursor: pointer;
+  appearance: none;
+}
+
+.ds-checkbox__input:checked {
+  border-color: var(--color-brand-primary);
+  background-color: var(--color-brand-primary);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M3.5 8.5 6.7 11.7 12.5 5.2' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+.ds-checkbox__input:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.ds-checkbox__label {
+  cursor: pointer;
+}
+
+.ds-checkbox__label a {
+  color: var(--color-brand-primary);
+}
+
+/* Newsletter field (.dcc-footer__newsletter): a white pill input (70 px, heading font 500 at the button size, the
+   placeholder in the text colour) and a 73 px primary circle with a white arrow that turns the text colour on hover.
+   Phones: 48 px input in body 16, 48 px submit. */
+.ds-newsletter-field {
+  display: flex;
+  align-items: center;
+  gap: var(--newsletter-form-gap);
+}
+
+.ds-newsletter-field__input {
+  flex: 1;
+  min-width: 0;
+  height: var(--size-newsletter-input);
+  padding: 0 var(--space-newsletter-input-x);
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-card);
+  color: var(--color-text-default);
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-button);
+  line-height: var(--line-height-button);
+}
+
+.ds-newsletter-field__input::placeholder {
+  color: var(--color-text-default);
+  opacity: 1;
+}
+
+.ds-newsletter-field__submit {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: var(--newsletter-submit);
+  height: var(--newsletter-submit);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--color-brand-primary);
+  color: var(--color-text-on-brand);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.ds-newsletter-field__submit .ds-icon {
+  width: 60%;
+  height: 60%;
+}
+
+.ds-newsletter-field__submit:focus-visible {
+  background: var(--color-surface-inverse);
+  color: var(--color-text-inverse);
+}
+
+@media (hover: hover) {
+  .ds-newsletter-field__submit:hover {
+    background: var(--color-surface-inverse);
+    color: var(--color-text-inverse);
+  }
+}
+
+@media (max-width: 781px) {
+  .ds-newsletter-field__input {
+    font-family: var(--font-body);
+    font-weight: var(--font-weight-regular);
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+  }
+
+  .ds-newsletter-field__submit {
+    width: var(--size-newsletter-input);
+    height: var(--size-newsletter-input);
+  }
+}
+
+/* Quantity stepper (.dcc-buy__qty): three 44 × 46 cells with 1 px dividers; primary signs, the number bold. */
+.ds-quantity {
+  display: inline-grid;
+  grid-template-columns: repeat(3, var(--stepper-cell-width));
+  height: var(--stepper-cell-height);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-card);
+}
+
+.ds-quantity__button,
+.ds-quantity__input {
+  min-width: 0;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  text-align: center;
+}
+
+.ds-quantity__button {
+  color: var(--color-brand-primary);
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-button);
+  line-height: var(--line-height-button);
+  cursor: pointer;
+}
+
+.ds-quantity__input {
+  border-inline: 1px solid var(--color-border-default);
+  color: var(--color-text-default);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  appearance: textfield;
+}
+
+.ds-quantity__input::-webkit-inner-spin-button,
+.ds-quantity__input::-webkit-outer-spin-button {
+  margin: 0;
+  appearance: none;
+}
+
+.ds-quantity__button:first-child {
+  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+}
+
+.ds-quantity__button:last-child {
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
