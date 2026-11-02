@@ -1,0 +1,8 @@
+/* Icon: a 24 px inline SVG drawn with currentColor. Parents resize it (button circle 20, arrow 18). */
+.ds-icon {
+  display: block;
+  flex: none;
+  width: var(--size-24);
+  height: var(--size-24);
+  max-width: none;
+}
