@@ -1,0 +1,162 @@
+/* Buy box (.dcc-buy, blocks/produkt/style.css): a 384 px brand box, 32 px padding, 16 px corners, blocks 24 px apart —
+   the price (heading font 500 36/40), the note and the brutto / netto switch, the term select (Form field), the quantity
+   row (Quantity stepper + „Razem”), the white facts card and the full-width Accent submit. */
+.ds-buy-box {
+  /* The pale text on the blue box: Figma's surface/soft; in Dark that token is a deep violet, so the tint is mixed from
+     the box's own colours (as in the Footer titles). */
+  --buy-box-soft-text: color-mix(in srgb, var(--color-text-on-brand) 90%, var(--color-surface-brand));
+  display: flex;
+  flex-direction: column;
+  gap: var(--buy-box-gap);
+  box-sizing: border-box;
+  width: min(var(--buy-box-width), 100%);
+  padding: var(--buy-box-padding);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-brand);
+  color: var(--color-text-on-brand);
+}
+
+:where(.ds-buy-box) :is(p, dl, dd) {
+  margin: 0;
+}
+
+.ds-buy-box__price {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-8);
+}
+
+/* Missing token: the 36 / 40 price size (Figma Text/Price). */
+.ds-buy-box__amount {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-medium);
+  font-size: calc(var(--space-18) * 2);
+  line-height: var(--space-40);
+}
+
+.ds-buy-box__note {
+  color: var(--buy-box-soft-text);
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+/* The switch: a translucent pill with two 84 × 32 halves; the pressed one is accent and bold. */
+.ds-buy-box__modes {
+  display: flex;
+  padding: var(--space-3);
+  border-radius: var(--radius-full);
+  background: color-mix(in srgb, var(--color-text-on-brand) 16%, transparent);
+}
+
+.ds-buy-box__mode {
+  width: calc(var(--size-42) * 2);
+  height: var(--space-32);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--color-text-on-brand);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.ds-buy-box__mode[aria-pressed='true'] {
+  background: var(--color-brand-accent);
+  font-weight: var(--font-weight-bold);
+  cursor: default;
+}
+
+.ds-buy-box__mode:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-text-on-brand);
+  outline-offset: var(--focus-ring-offset);
+}
+
+@media (hover: hover) {
+  .ds-buy-box__mode[aria-pressed='false']:hover {
+    background: color-mix(in srgb, var(--color-text-on-brand) 16%, transparent);
+  }
+}
+
+.ds-buy-box__quantity {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.ds-buy-box__label {
+  color: var(--buy-box-soft-text);
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+  text-transform: uppercase;
+}
+
+.ds-buy-box__row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
+}
+
+.ds-buy-box__total {
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+/* Facts: a white card of label / value pairs with hairline dividers. The icons are Figma's ring placeholders. */
+.ds-buy-box__facts {
+  padding: var(--space-4) var(--space-20);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-card);
+  color: var(--color-text-default);
+}
+
+.ds-buy-box__fact {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-14) 0;
+}
+
+.ds-buy-box__fact + .ds-buy-box__fact {
+  border-top: 1px solid var(--color-border-default);
+}
+
+.ds-buy-box__fact-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  color: var(--color-text-muted);
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+.ds-buy-box__fact-icon {
+  flex: none;
+  box-sizing: border-box;
+  width: var(--size-24);
+  height: var(--size-24);
+  border: var(--space-2) solid var(--color-brand-accent);
+  border-radius: var(--radius-full);
+}
+
+.ds-buy-box__fact-value {
+  padding-left: calc(var(--size-24) + var(--space-12));
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+/* Full width, the icon circle right after the label (Figma), not at the far end. */
+.ds-buy-box .ds-button {
+  justify-content: flex-start;
+  width: 100%;
+  box-sizing: border-box;
+}

@@ -3,7 +3,7 @@
 Figma: Atoms → Button (`3:125`), Button/Outline (`3:130`), Button/Arrow (`3:137`). DCC: `.dcc-btn*` and `.dcc-arrow` (assets/css/base.css).
 CSS: `atoms/button/button.css` plus `atoms/icon/icon.css`. No JS.
 
-## Button — `renderButton({ text, href, variant, shape, disabled, tag })` (`tag: 'span'`: the same look as a `<span>`, for the visual button inside a card that is itself the link)
+## Button — `renderButton({ text, href, variant, shape, disabled, tag, type })` (`tag: 'span'`: the same look as a `<span>`, for the visual button inside a card that is itself the link; `type: 'submit'`: a submit button, for a form such as the Buy box)
 
 ```html
 <a class="ds-button ds-button--primary" href="/oferta/">
