@@ -1,0 +1,71 @@
+/* Tag: a static pill. Body 16 at 4/12 padding unless the variant says otherwise.
+   soft (page colour) · white (card colour, the post date) · brand (primary, 8/16, button type) · outline (1 px text colour)
+   brand-small (primary, 4/12) · article / article-white (heading font 16, 8 px padding, 16 px radius)
+   hashtag (overline type in white over a 3 px accent line, for the dark hero). */
+.ds-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--tag-padding-y) var(--tag-padding-x);
+  border-radius: var(--tag-radius);
+  color: var(--color-text-default);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.ds-tag--soft {
+  background: var(--color-surface-page);
+}
+
+.ds-tag--white {
+  background: var(--color-surface-card);
+}
+
+.ds-tag--outline {
+  border: 1px solid var(--color-text-default);
+}
+
+.ds-tag--brand,
+.ds-tag--brand-small {
+  background: var(--color-brand-primary);
+  color: var(--color-text-on-brand);
+}
+
+.ds-tag--brand {
+  padding: var(--tag-brand-padding-y) var(--tag-brand-padding-x);
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-button);
+  line-height: var(--line-height-button);
+}
+
+.ds-tag--article,
+.ds-tag--article-white {
+  padding: var(--space-8);
+  border-radius: var(--radius-lg);
+  font-family: var(--font-heading);
+}
+
+.ds-tag--article {
+  background: var(--color-surface-soft);
+}
+
+.ds-tag--article-white {
+  background: var(--color-surface-card);
+}
+
+.ds-tag--hashtag {
+  padding: 0 0 var(--tag-padding-y);
+  border-bottom: var(--footer-tag-line) solid var(--color-brand-accent);
+  border-radius: 0;
+  color: var(--color-text-on-brand);
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-overline);
+  line-height: var(--line-height-overline);
+  letter-spacing: calc(var(--font-size-overline) * 0.06);
+}

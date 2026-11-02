@@ -1,0 +1,151 @@
+/* Nav link (.dcc-header__link): heading font 16 regular in the text colour. Hover/focus: accent, a hairline faux-bold
+   (text-shadow, so the width does not jump) and a 2 px accent line 6 px below. Current page: primary and bold. */
+.ds-nav-link {
+  position: relative;
+  color: var(--color-text-default);
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  text-decoration: none;
+  white-space: nowrap;
+  border-radius: var(--radius-xs);
+  transition: color 0.15s ease, text-shadow 0.15s ease;
+}
+
+.ds-nav-link::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: calc(-1 * (var(--nav-underline-offset) + var(--nav-underline)));
+  left: 0;
+  height: var(--nav-underline);
+  border-radius: var(--radius-full);
+  background: var(--color-brand-accent);
+  transform: scaleX(0);
+  transition: transform 0.15s ease;
+}
+
+.ds-nav-link[aria-current='page'] {
+  color: var(--color-brand-primary);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-nav-link:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+  color: var(--color-brand-accent);
+  text-shadow: calc(var(--space-1) * 0.45) 0 0 currentColor;
+}
+
+.ds-nav-link:focus-visible::after {
+  transform: scaleX(1);
+}
+
+@media (hover: hover) {
+  .ds-nav-link:hover {
+    color: var(--color-brand-accent);
+    text-shadow: calc(var(--space-1) * 0.45) 0 0 currentColor;
+  }
+
+  .ds-nav-link:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+/* Nav CTA (.dcc-header__cta): accent pill, page-colour label; hover/focus turn it the inverse surface.
+   Desktop: body font at the button size, 52 px; phones (header tokens switch at 781 px): heading font 500 16, 36 px. */
+.ds-nav-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--size-header-cta-min-height);
+  padding: var(--space-header-cta-y) var(--space-header-cta-x);
+  border-radius: var(--radius-full);
+  background: var(--color-brand-accent);
+  color: var(--color-surface-page);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-button);
+  line-height: var(--line-height-button);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.15s ease;
+}
+
+.ds-nav-cta:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+  background: var(--color-surface-inverse);
+}
+
+@media (hover: hover) {
+  .ds-nav-cta:hover {
+    background: var(--color-surface-inverse);
+  }
+}
+
+@media (max-width: 781px) {
+  .ds-nav-cta {
+    font-family: var(--font-heading);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+  }
+}
+
+/* Icon/Burger (.dcc-header__burger): a 44 px button, three 24 × 2 lines 8 px apart; open folds them into an ×. */
+.ds-nav-burger {
+  display: grid;
+  place-items: center;
+  width: var(--size-44);
+  height: var(--size-44);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-xs);
+  background: none;
+  color: var(--color-text-default);
+  cursor: pointer;
+}
+
+.ds-nav-burger__lines,
+.ds-nav-burger__lines::before,
+.ds-nav-burger__lines::after {
+  display: block;
+  width: var(--size-24);
+  height: var(--nav-underline);
+  border-radius: var(--radius-full);
+  background: currentColor;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.ds-nav-burger__lines {
+  position: relative;
+}
+
+.ds-nav-burger__lines::before,
+.ds-nav-burger__lines::after {
+  content: '';
+  position: absolute;
+  left: 0;
+}
+
+.ds-nav-burger__lines::before {
+  top: calc(-1 * var(--space-8));
+}
+
+.ds-nav-burger__lines::after {
+  top: var(--space-8);
+}
+
+.ds-nav-burger[aria-expanded='true'] .ds-nav-burger__lines {
+  background: transparent;
+}
+
+.ds-nav-burger[aria-expanded='true'] .ds-nav-burger__lines::before {
+  transform: translateY(var(--space-8)) rotate(45deg);
+}
+
+.ds-nav-burger[aria-expanded='true'] .ds-nav-burger__lines::after {
+  transform: translateY(calc(-1 * var(--space-8))) rotate(-45deg);
+}

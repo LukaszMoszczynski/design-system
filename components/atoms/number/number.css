@@ -1,0 +1,94 @@
+/* Letter circle (.dcc-model__letter): a primary circle with a page-colour letter in the button type.
+   Word: bigger, with a page-colour border (the row overlaps them by --model-word-overlap). Industry: a text-colour
+   circle with a body-font digit; active adds a 9 px accent ring outside. is-active = accent (the hover wave). */
+.ds-letter-circle {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: var(--letter-size);
+  height: var(--letter-size);
+  border-radius: var(--radius-full);
+  background: var(--color-brand-primary);
+  color: var(--color-surface-page);
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-button);
+  line-height: var(--line-height-button);
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ds-letter-circle--word {
+  width: var(--letter-size-in-word);
+  height: var(--letter-size-in-word);
+  border: var(--letter-border) solid var(--color-surface-page);
+}
+
+.ds-letter-circle--industry {
+  width: var(--industry-number-size);
+  height: var(--industry-number-size);
+  background: var(--color-text-default);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-question);
+}
+
+.ds-letter-circle.is-active {
+  background: var(--color-brand-accent);
+}
+
+.ds-letter-circle--industry.is-active {
+  box-shadow: 0 0 0 var(--industry-active-ring) var(--color-brand-accent);
+}
+
+/* Page number (.page-numbers): desktop 32 px round, body font at the LG size, muted; hover text colour;
+   current accent with an on-brand digit. Phones: 44 px soft pills in the heading font 500 16, current primary. */
+.ds-page-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--size-page-number);
+  height: var(--size-page-number);
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-full);
+  color: var(--color-text-muted);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-question);
+  text-decoration: none;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.ds-page-number:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+  color: var(--color-text-default);
+}
+
+@media (hover: hover) {
+  .ds-page-number:hover {
+    color: var(--color-text-default);
+  }
+}
+
+.ds-page-number[aria-current='page'] {
+  background: var(--color-brand-accent);
+  color: var(--color-text-on-brand);
+}
+
+@media (max-width: 781px) {
+  .ds-page-number {
+    background: var(--color-surface-soft);
+    color: var(--color-text-default);
+    font-family: var(--font-heading);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+  }
+
+  .ds-page-number[aria-current='page'] {
+    background: var(--color-brand-primary);
+    color: var(--color-surface-page);
+  }
+}
