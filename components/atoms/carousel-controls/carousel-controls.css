@@ -1,0 +1,104 @@
+/* Carousel controls (.dcc-carousel__nav / __btn / __dots). The nav row: prev, dots, next, 20 px apart. */
+.ds-carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--carousel-nav-gap);
+}
+
+/* Carousel/Arrow: a 40 px hit area with a 24 px chevron, muted; text colour on hover and focus; disabled at 35 %.
+   Swiper marks the end arrow with aria-disabled (or the disabled attribute / is-disabled, as the organism sets it). */
+.ds-carousel-arrow {
+  display: grid;
+  place-items: center;
+  width: var(--carousel-arrow-size);
+  height: var(--carousel-arrow-size);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.ds-carousel-arrow .ds-icon {
+  width: var(--carousel-arrow-glyph);
+  height: var(--carousel-arrow-glyph);
+}
+
+.ds-carousel-arrow:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+  color: var(--color-text-default);
+}
+
+@media (hover: hover) {
+  .ds-carousel-arrow:hover {
+    color: var(--color-text-default);
+  }
+}
+
+.ds-carousel-arrow:is(:disabled, [aria-disabled='true'], .is-disabled) {
+  color: var(--color-text-muted);
+  opacity: var(--opacity-disabled);
+  cursor: default;
+}
+
+/* Pagination/Dot: a 24 px tap target (WCAG 2.2) with a 12 px muted dot; hover/focus accent; current = 16 px accent. */
+.ds-carousel-controls__dots {
+  display: flex;
+  justify-content: center;
+}
+
+.ds-carousel-dot {
+  display: grid;
+  place-items: center;
+  width: var(--carousel-dot-size);
+  height: var(--carousel-dot-size);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: none;
+  cursor: pointer;
+}
+
+.ds-carousel-dot::before {
+  content: '';
+  width: var(--carousel-dot-glyph);
+  height: var(--carousel-dot-glyph);
+  border-radius: var(--radius-full);
+  background: var(--color-text-muted);
+  transition: background-color 0.2s ease, width 0.2s ease, height 0.2s ease;
+}
+
+.ds-carousel-dot:focus-visible::before {
+  background: var(--color-brand-accent);
+}
+
+@media (hover: hover) {
+  .ds-carousel-dot:hover::before {
+    background: var(--color-brand-accent);
+  }
+}
+
+.ds-carousel-dot[aria-current='true'] {
+  cursor: default;
+}
+
+.ds-carousel-dot[aria-current='true']::before {
+  width: var(--carousel-dot-glyph-active);
+  height: var(--carousel-dot-glyph-active);
+  background: var(--color-brand-accent);
+}
+
+/* „3 / 16”: stands in for the dots when they do not fit at 24 px each. */
+.ds-carousel-controls__counter {
+  min-width: var(--carousel-counter-min-width);
+  color: var(--color-text-default);
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-body);
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
