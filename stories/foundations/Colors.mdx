@@ -1,0 +1,19 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { ColorGroups } from './blocks.jsx';
+import { brandTokens, byPrefix, semanticTokens } from './token-list.js';
+
+<Meta title="Foundations/Colors" />
+
+# Colors
+
+Semantic colours (`tokens/semantic/*.json`) alias the brand palette (`tokens/brands/<brand>.json`).
+Components use only the semantic names. Each swatch shows the CSS custom property, the value resolved
+for the brand and theme picked in the toolbar, and the alias it points at.
+
+## Semantic
+
+<ColorGroups tokens={semanticTokens} depth={2} />
+
+## Brand palette
+
+<ColorGroups tokens={byPrefix(brandTokens, 'palette')} depth={2} />

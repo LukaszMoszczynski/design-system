@@ -7,11 +7,24 @@
     "sync:write": "node scripts/sync/write-tokens.mjs tmp/figma-export.json",
     "tokens:check": "node scripts/check-tokens.mjs",
     "tokens": "npm run tokens:check && node scripts/build-tokens.mjs",
-    "test": "vitest run"
+    "test": "vitest run",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "test-storybook": "test-storybook"
   },
   "devDependencies": {
+    "@storybook/addon-a11y": "^10.6.5",
+    "@storybook/addon-docs": "^10.6.5",
+    "@storybook/html-vite": "^10.6.5",
+    "@storybook/test-runner": "^0.26.0",
+    "concurrently": "^10.0.6",
     "happy-dom": "^21.0.4",
+    "http-server": "^14.1.1",
+    "storybook": "^10.6.5",
+    "storybook-addon-pseudo-states": "^10.6.5",
     "style-dictionary": "^4.4.0",
-    "vitest": "^5.1.0"
+    "swiper": "^11.2.10",
+    "vitest": "^5.1.0",
+    "wait-on": "^9.5.1"
   }
 }

@@ -1,0 +1,13 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { ShadowSamples } from './blocks.jsx';
+import { semanticTokens } from './token-list.js';
+
+<Meta title="Foundations/Shadows" />
+
+# Shadows
+
+Shadows are tinted with `--color-shadow` (navy in DCC light, black in dark). The Figma effect styles
+Shadow/Card and Shadow/Lift are not exported as tokens yet, so the two boxes below are samples that only
+show the colour; their offset and blur are not tokens.
+
+<ShadowSamples token={semanticTokens.find((token) => token.path === 'color.shadow')} />

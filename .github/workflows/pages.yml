@@ -1,0 +1,48 @@
+name: Storybook on GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run tokens:check
+      - run: npm test
+      - run: npm run build-storybook
+      - name: Absolute asset URLs check on the static build
+        run: npx vitest run tests/pages-paths.test.js
+      - name: Install Chromium for the test runner
+        run: npx playwright install --with-deps chromium
+      - name: Stories render and pass a11y
+        run: npx concurrently -k -s first "npx http-server storybook-static -p 6006 -s" "npx wait-on tcp:6006 && npx test-storybook --url http://127.0.0.1:6006"
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: storybook-static
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

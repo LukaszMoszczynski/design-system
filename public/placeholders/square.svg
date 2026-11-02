@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" viewBox="0 0 1000 1000" role="img" aria-label="Placeholder image 1000×1000">
+  <rect width="1000" height="1000" fill="#d9dde3"/>
+  <g fill="#aab1bb" transform="translate(440 455)">
+    <circle cx="36" cy="26" r="16"/>
+    <path d="M0 90 42 44l26 26 22-20 30 40z"/>
+  </g>
+</svg>

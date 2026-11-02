@@ -1,0 +1,19 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { FontFamilies, FontWeights, TypeScale } from './blocks.jsx';
+import { brandTokens, breakpointTokens } from './token-list.js';
+
+<Meta title="Foundations/Typography" />
+
+# Typography
+
+Font families, weights and brand sizes come from `tokens/brands/<brand>.json`. The type scale from
+`tokens/breakpoint/*.json` is fluid: each size runs from its Mobile value at 375 px to its Desktop value
+at 1200 px. Values below are resolved at the current width.
+
+<FontFamilies tokens={brandTokens} />
+
+<FontWeights tokens={brandTokens} />
+
+<TypeScale title="Type scale (breakpoint)" tokens={breakpointTokens} />
+
+<TypeScale title="Brand sizes" tokens={brandTokens} />

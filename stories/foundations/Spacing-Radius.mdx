@@ -1,0 +1,16 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { RadiusScale, SpaceScale } from './blocks.jsx';
+import { brandTokens, breakpointTokens, byPrefix } from './token-list.js';
+
+<Meta title="Foundations/Spacing & Radius" />
+
+# Spacing and radius
+
+The scales are per brand (`tokens/brands/<brand>.json`). Breakpoint radii change between Desktop and
+Mobile (`tokens/breakpoint/*.json`).
+
+<SpaceScale title="space (brand)" tokens={byPrefix(brandTokens, 'space')} />
+
+<RadiusScale title="radius (brand)" tokens={byPrefix(brandTokens, 'radius')} />
+
+<RadiusScale title="radius (breakpoint)" tokens={byPrefix(breakpointTokens, 'radius')} />
