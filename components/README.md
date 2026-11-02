@@ -84,6 +84,20 @@ Test it with `tests/components/_template.test.js` as the pattern: `loadScript(pa
 `tests/helpers/load-script.js` evaluates the script in a happy-dom window; the test calls `init` twice, triggers once and
 asserts one state change.
 
+### Motion (GSAP)
+
+GSAP is the animation tool (owner). **Enqueue `gsap` (+ `ScrollTrigger`) before the component scripts; components degrade
+without it.** Storybook loads both as `window.gsap` / `window.ScrollTrigger` in `.storybook/preview.js`, the way a site
+enqueues them.
+
+- GSAP: real motion, such as an accordion's height, the model's hover wave, reveals and counters. Match the easing and
+  duration of the DCC site (`assets/js/app.js`).
+- CSS transitions: simple colour, border, shadow (and single-element hover transform) changes.
+- A script reads `window.gsap` when it animates. Without it, or with `prefers-reduced-motion: reduce`, it falls back to the
+  instant or native behaviour (a `<details>` still opens). It stays idempotent.
+- Tests: every animated component has `works without gsap` and `uses gsap when present` (a stubbed `window.gsap`), see
+  `tests/components/accordion.test.js`.
+
 ## Documenting a component
 
 For each component give: the markup with every class and attribute, the CSS files to copy, the JS file and its `init`

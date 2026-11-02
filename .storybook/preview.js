@@ -5,12 +5,18 @@ import '../brands/dcc/fonts.css';
 import '../brands/omelanski/fonts.css';
 import 'swiper/swiper-bundle.css';
 import Swiper from 'swiper/bundle';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { DEFAULT_GLOBALS, followToolbarOnDocsPages, withBrandTheme, withComponentScripts } from './decorators.js';
 import { withForcedState } from './state.js';
 
-// Every component stylesheet, base.css included. Components load Swiper the way a site does: from window.
+// Every component stylesheet, base.css included. Components load Swiper and GSAP the way a site does: from window.
 import.meta.glob('../components/**/*.css', { eager: true });
 window.Swiper = Swiper;
+// GSAP is the animation tool (owner): components read window.gsap / window.ScrollTrigger and degrade without them.
+gsap.registerPlugin(ScrollTrigger);
+window.gsap = gsap;
+window.ScrollTrigger = ScrollTrigger;
 
 followToolbarOnDocsPages();
 

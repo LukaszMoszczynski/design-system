@@ -23,8 +23,13 @@ CSS: `atoms/icon/icon.css`, `atoms/text/text.css` + `molecules/accordion/accordi
   Two columns puts the first half of the items in the left column (64 px gap, container width) and stacks below 782 px.
 - Default state: every item closed (Figma's open first row is an example).
 - Native `<details>`: opening and closing work without JS, and the browser's find-in-page opens a matching item.
-  `accordion.js` only matters with `data-ds-single`: opening an item closes the other open items of the same list.
-  Register: enqueue the script; it auto-inits, `window.DS.accordion.init(container)` after injecting markup. Idempotent.
+  `accordion.js` (also used by Accordion/Challenge) adds:
+  - `data-ds-single`: opening an item closes the other open items of the same list;
+  - with `window.gsap`: the height animates on open and close (0.3 s, `power1.out`, the site's 300 ms ease-out); a closing
+    item carries `is-closing`, so the open look ends with the height. A `name` group moves to `data-ds-group`, so the
+    previous item closes animated instead of at once. Without GSAP or with reduced motion: native behaviour.
+  Register: enqueue GSAP first, then the script; it auto-inits, `window.DS.accordion.init(container)` after injecting
+  markup. Idempotent.
 
 WordPress: one `<details>` per FAQ row; `esc_html()` the question, `wp_kses_post()` the answer (the answer box takes
 paragraphs and lists). Add `data-ds-single` when the block option "one open at a time" is on.

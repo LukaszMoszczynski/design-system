@@ -69,11 +69,11 @@
 }
 
 .ds-accordion__minus,
-.ds-accordion__item[open] .ds-accordion__plus {
+.ds-accordion__item[open]:not(.is-closing) .ds-accordion__plus {
   visibility: hidden;
 }
 
-.ds-accordion__item[open] .ds-accordion__minus {
+.ds-accordion__item[open]:not(.is-closing) .ds-accordion__minus {
   visibility: visible;
 }
 
@@ -83,7 +83,7 @@
 }
 
 .ds-accordion__summary:focus-visible,
-.ds-accordion__item[open] .ds-accordion__summary {
+.ds-accordion__item[open]:not(.is-closing) .ds-accordion__summary {
   color: var(--color-brand-primary);
 }
 

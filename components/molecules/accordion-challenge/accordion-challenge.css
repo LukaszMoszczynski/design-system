@@ -17,7 +17,7 @@
   transition: background-color 0.3s ease-out, color 0.3s ease-out;
 }
 
-.ds-accordion-challenge[open] {
+.ds-accordion-challenge[open]:not(.is-closing) {
   background: var(--color-surface-brand);
   color: var(--color-text-on-brand);
 }
@@ -68,20 +68,22 @@
 }
 
 .ds-accordion-challenge__minus,
-.ds-accordion-challenge[open] .ds-accordion-challenge__plus {
+.ds-accordion-challenge[open]:not(.is-closing) .ds-accordion-challenge__plus {
   visibility: hidden;
 }
 
-.ds-accordion-challenge[open] .ds-accordion-challenge__minus {
+.ds-accordion-challenge[open]:not(.is-closing) .ds-accordion-challenge__minus {
   visibility: visible;
 }
 
-.ds-accordion-challenge:not([open]) .ds-accordion-challenge__summary:focus-visible {
+.ds-accordion-challenge:not([open]) .ds-accordion-challenge__summary:focus-visible,
+.ds-accordion-challenge.is-closing .ds-accordion-challenge__summary:focus-visible {
   color: var(--color-brand-primary);
 }
 
 @media (hover: hover) {
-  .ds-accordion-challenge:not([open]) .ds-accordion-challenge__summary:hover {
+  .ds-accordion-challenge:not([open]) .ds-accordion-challenge__summary:hover,
+  .ds-accordion-challenge.is-closing .ds-accordion-challenge__summary:hover {
     color: var(--color-brand-primary);
   }
 }
@@ -100,7 +102,7 @@
   }
 
   .ds-accordion-challenge,
-  .ds-accordion-challenge[open] {
+  .ds-accordion-challenge[open]:not(.is-closing) {
     border-radius: 0;
     border-bottom: var(--accordion-divider) solid var(--color-border-default);
     background: none;

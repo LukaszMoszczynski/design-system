@@ -2,7 +2,8 @@
 
 Figma: Molecules → Accordion/Challenge (`25:211`: Desktop Collapsed, Hover, Expanded; Mobile Collapsed, Expanded).
 DCC: blocks/lista-wyzwan (`.dcc-lista-wyzwan__item`).
-CSS: `atoms/icon/icon.css`, `atoms/text/text.css`, `atoms/link/link.css` + `molecules/accordion-challenge/accordion-challenge.css`. No JS.
+CSS: `atoms/icon/icon.css`, `atoms/text/text.css`, `atoms/link/link.css` + `molecules/accordion-challenge/accordion-challenge.css`.
+JS (optional, motion only): `molecules/accordion/accordion.js` (GSAP height animation; see the Accordion README).
 
 - `renderAccordionChallenge({ question, answer, linkText, href, name, open })` →
 

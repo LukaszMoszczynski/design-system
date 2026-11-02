@@ -1,5 +1,7 @@
 import { STATE_ARG_TYPES, forceState, overviewCell, overviewGrid } from '../../../.storybook/state.js';
 import { DEFAULT_CHALLENGES, renderAccordionChallenge, renderAccordionChallengeList } from './accordion-challenge.template.js';
+// The accordion script animates the height with GSAP (and degrades without it).
+import '../accordion/accordion.js';
 
 const frame = (markup) => `<div style="padding: var(--space-24) var(--space-gutter)">${markup}</div>`;
 const item = (args) => `<div class="ds-accordion-challenge-list">${renderAccordionChallenge(args)}</div>`;
@@ -23,7 +25,7 @@ export default {
     docs: {
       description: {
         component:
-          '`details.ds-accordion-challenge[name] > summary.ds-accordion-challenge__summary (span.ds-accordion-challenge__icon with the plus/minus Icons + span.ds-accordion-challenge__question) + div.ds-accordion-challenge__body (Text + Link inverse)`; list `div.ds-accordion-challenge-list`. No JS: the shared `name` makes it an exclusive accordion. Figma Viewport=Mobile: the Mobile 390 viewport.',
+          '`details.ds-accordion-challenge[name] > summary.ds-accordion-challenge__summary (span.ds-accordion-challenge__icon with the plus/minus Icons + span.ds-accordion-challenge__question) + div.ds-accordion-challenge__body (Text + Link inverse)`; list `div.ds-accordion-challenge-list`. Works without JS: the shared `name` makes it an exclusive accordion; `accordion/accordion.js` animates the height with GSAP. Figma Viewport=Mobile: the Mobile 390 viewport.',
       },
     },
   },

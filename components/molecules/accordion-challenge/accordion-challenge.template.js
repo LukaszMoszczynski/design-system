@@ -1,5 +1,6 @@
 // Accordion/Challenge: the "which challenge is yours" rows. Figma: Molecules → Accordion/Challenge (25:211).
-// DCC: blocks/lista-wyzwan (.dcc-lista-wyzwan__item). Native <details>: works without JS; items of one list share a
+// DCC: blocks/lista-wyzwan (.dcc-lista-wyzwan__item). Native <details>: works without JS (accordion/accordion.js adds the
+// GSAP height animation); items of one list share a
 // `name`, so the browser keeps one open at a time (exclusive accordion). Every item starts closed.
 // Composes the plus/minus Icons, the Text atom (answer) and the Link atom (inverse: white on the open blue row).
 import { escapeHtml } from '../../_shared/escape.js';

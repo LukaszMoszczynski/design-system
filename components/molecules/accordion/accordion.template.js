@@ -1,7 +1,8 @@
 // Accordion: FAQ rows on native <details>/<summary>, so they open and close without JS.
 // Figma: Molecules → Accordion/Item (10:54) and Accordion (10:121, Layout Two columns / One column). DCC: blocks/faq.
 // The Icon atom draws the plus and the minus; CSS shows one or the other from [open]. Every item starts closed
-// (Figma's open first row is an example). data-ds-single on the list: accordion.js keeps one item open at a time.
+// (Figma's open first row is an example). accordion.js: data-ds-single keeps one item open per list; with GSAP it
+// animates the height.
 import { escapeHtml } from '../../_shared/escape.js';
 import { renderIcon } from '../../atoms/icon/icon.template.js';
 import { renderText } from '../../atoms/text/text.template.js';
