@@ -25,6 +25,24 @@ follows the rules below. `_template/` is a working example of all of them (not s
   selector array; `true` forces the state on every element, the label and icon spans included.
 - Default state is the one at rest (closed, not hovered). Polish strings go in the default `args`.
 
+## Arg names (templates and stories)
+
+One vocabulary for every `render<PascalName>(args)`, so a molecule passes the same names to every atom:
+
+| Arg | Meaning | Examples |
+| --- | --- | --- |
+| `text` | the visible text | `renderButton({ text })`, `renderLink`, `renderTag`, `renderNavLink`, breadcrumb `items: [{ text, href }]`, select `options: [{ value, text }]` |
+| `ariaLabel` | the accessible name of an icon-only control or a landmark (never shown) | `renderButtonArrow`, `renderCarouselArrow`, `renderSocialButton`, `renderNavBurger`, `renderBreadcrumbs` (the nav) |
+| `variant` | the look (Figma Style / Kind / Variant / Context) | `primary`, `inverted`, `raised`, `inline`, `step` |
+| `size` | the size, where an atom has sizes | (none of the atoms yet) |
+| `href` | the link target; given, the atom renders `<a href>` | `renderButton`, `renderTag`, `renderButtonOutline` |
+
+Other axes keep their own names when they are independent of the look: `shape` (button arrow/pill), `tone` (text colour),
+`tag` (HTML element), `name` (which icon or which form field), `network`, `direction`, and the states `disabled`,
+`current`, `active`, `open`, `checked`. `label` is used only by form controls, for the text of their visible
+`<label>` element (`renderFormField`, `renderCheckbox`); it never means an aria-label. Secondary accessible names are
+`<thing>AriaLabel` (`submitAriaLabel`).
+
 ## Guards (run by `npm test`)
 
 - `scripts/check-css-values.mjs` over `components/**/*.css`. Allowed values: `var(--…)`, `color-mix()`, `0`,

@@ -5,7 +5,7 @@ DCC: checkout fields (components/koszyk-strona.css), `.dcc-footer__newsletter` f
 CSS: `atoms/form-field/form-field.css` plus `atoms/icon/icon.css`. No JS: the label floats in CSS; the stepper's buttons and
 the newsletter submit are wired by the organisms (buy box, footer).
 
-## Field — `renderFormField({ type, label, name, id, value, options, error, required })`
+## Field — `renderFormField({ type, label, placeholder, ariaLabel, name, id, value, options, error, required })`
 
 ```html
 <div class="ds-field ds-field--text">
@@ -17,23 +17,25 @@ the newsletter submit are wired by the organisms (buy box, footer).
 </div>
 ```
 
-- `type`: `text`, `email`, `tel` (class `ds-field--text`), `select` (`options: [{ value, label }]`, an empty first option,
-  `.ds-field__chevron`), `textarea` (120 px), `search` (pill, magnifier, the label is the placeholder and `aria-label`).
+- `type`: `text`, `email`, `tel` (class `ds-field--text`), `select` (`options: [{ value, text }]`, an empty first option,
+  `.ds-field__chevron`), `textarea` (120 px), `search` (pill, magnifier, no `<label>`: `placeholder` is shown and `ariaLabel`, default the placeholder, names it).
+- `label` is the text of the visible `<label>` element: the one place `label` is used (form controls), never for an aria-label.
 - The label must come right after the control: it floats on `:focus` / `:not(:placeholder-shown)` (keep `placeholder=" "`);
   a select floats it unless its empty option is chosen.
 - Focus: primary border + ring round the box. Error: `aria-invalid="true"` on the control → error border, label, message.
 
 ## Checkbox — `renderCheckbox({ label, name, id, checked, required })`
 
-`<div class="ds-checkbox"><input type="checkbox" class="ds-checkbox__input" …><label class="ds-checkbox__label" for>…</label></div>`.
+`<div class="ds-checkbox"><span class="ds-checkbox__box"><input type="checkbox" class="ds-checkbox__input" …><svg class="ds-checkbox__tick" …></svg></span><label class="ds-checkbox__label" for>…</label></div>`.
+The tick is inline SVG in `currentColor` (`--color-text-on-brand`), shown by `.ds-checkbox__input:checked + .ds-checkbox__tick`.
 Links inside the label are primary (`.ds-checkbox__label a`).
 
-## Newsletter field — `renderNewsletterField({ placeholder, name, label, submitLabel })`
+## Newsletter field — `renderNewsletterField({ placeholder, name, ariaLabel, submitAriaLabel })`
 
 `<div class="ds-newsletter-field"><input type="email" class="ds-newsletter-field__input" …><button type="submit" class="ds-newsletter-field__submit" aria-label>…</button></div>`;
 put it inside the footer's `<form>`. 70 px input / 73 px submit; below 782 px both 48 px.
 
-## Quantity stepper — `renderQuantityStepper({ value, min, max, name, label })`
+## Quantity stepper — `renderQuantityStepper({ value, min, max, name, ariaLabel })`
 
 `<div class="ds-quantity" data-ds-quantity>` with `button[data-ds-quantity-minus]`, `input.ds-quantity__input[type=number]`,
 `button[data-ds-quantity-plus]`.

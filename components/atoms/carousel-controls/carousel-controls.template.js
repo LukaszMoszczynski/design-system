@@ -7,10 +7,10 @@ import { renderIcon } from '../icon/icon.template.js';
 
 const ARROW_LABELS = { prev: 'Poprzednie', next: 'Następne' };
 
-export function renderCarouselArrow({ direction = 'next', label = '', disabled = false } = {}) {
+export function renderCarouselArrow({ direction = 'next', ariaLabel = '', disabled = false } = {}) {
   const directionName = direction === 'prev' ? 'prev' : 'next';
   const icon = renderIcon({ name: directionName === 'prev' ? 'chevron-left' : 'chevron-right' });
-  const name = escapeHtml(label || ARROW_LABELS[directionName]);
+  const name = escapeHtml(ariaLabel || ARROW_LABELS[directionName]);
   return `<button type="button" class="ds-carousel-arrow ds-carousel-arrow--${directionName}" data-ds-carousel-${directionName} aria-label="${name}"${disabled ? ' disabled' : ''}>${icon}</button>`;
 }
 

@@ -1,8 +1,8 @@
-import { SOCIAL_NETWORKS, SOCIAL_STYLES, renderSocialButton, renderSocialList } from './social-button.template.js';
+import { SOCIAL_NETWORKS, SOCIAL_VARIANTS, renderSocialButton, renderSocialList } from './social-button.template.js';
 
 // Raised buttons sit on a card, as in the footer and the contact block.
 const frame = (args, markup) =>
-  `<div style="display: inline-block; padding: var(--space-24); background: ${args.style === 'raised' ? 'var(--color-surface-card)' : 'var(--color-surface-page)'}">${markup}</div>`;
+  `<div style="display: inline-block; padding: var(--space-24); background: ${args.variant === 'raised' ? 'var(--color-surface-card)' : 'var(--color-surface-page)'}">${markup}</div>`;
 
 export default {
   title: 'Atoms/Social Button',
@@ -10,10 +10,10 @@ export default {
   argTypes: {
     network: { control: 'select', options: Object.keys(SOCIAL_NETWORKS), description: 'Figma Icon/Social Network.' },
     href: { control: 'text' },
-    label: { control: 'text', description: 'aria-label; defaults to the network name.' },
-    style: { control: 'inline-radio', options: SOCIAL_STYLES, description: 'Figma Style: Plain, Raised.' },
+    ariaLabel: { control: 'text', description: 'Accessible name; defaults to the network name.' },
+    variant: { control: 'inline-radio', options: SOCIAL_VARIANTS, description: 'Figma Style: Plain, Raised.' },
   },
-  args: { network: 'linkedin', href: '#', label: '', style: 'plain' },
+  args: { network: 'linkedin', href: '#', ariaLabel: '', variant: 'plain' },
   parameters: {
     docs: {
       description: {
@@ -27,9 +27,9 @@ export default {
 export const Plain = {};
 export const PlainHover = { globals: { pseudo: { hover: ['.ds-social-button'] } } };
 export const PlainFocus = { globals: { pseudo: { focusVisible: ['.ds-social-button'] } } };
-export const Raised = { args: { style: 'raised' } };
-export const RaisedHover = { args: { style: 'raised' }, globals: { pseudo: { hover: ['.ds-social-button'] } } };
-export const RaisedFocus = { args: { style: 'raised' }, globals: { pseudo: { focusVisible: ['.ds-social-button'] } } };
+export const Raised = { args: { variant: 'raised' } };
+export const RaisedHover = { args: { variant: 'raised' }, globals: { pseudo: { hover: ['.ds-social-button'] } } };
+export const RaisedFocus = { args: { variant: 'raised' }, globals: { pseudo: { focusVisible: ['.ds-social-button'] } } };
 
 // Figma Icon/Social: the five network glyphs.
-export const Networks = { render: (args) => frame(args, renderSocialList({ style: args.style })) };
+export const Networks = { render: (args) => frame(args, renderSocialList({ variant: args.variant })) };

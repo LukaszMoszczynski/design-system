@@ -14,7 +14,7 @@ CSS: `atoms/carousel-controls/carousel-controls.css` plus `atoms/icon/icon.css`.
 </div>
 ```
 
-Functions: `renderCarouselControls({ count, active, counter, prevDisabled, nextDisabled })`, `renderCarouselArrow({ direction, label, disabled })`,
+Functions: `renderCarouselControls({ count, active, counter, prevDisabled, nextDisabled })`, `renderCarouselArrow({ direction, ariaLabel, disabled })`,
 `renderCarouselDot({ index, active })`, `renderCarouselCounter({ active, count })`.
 
 - Arrow: 40 px hit area, 24 px chevron, muted → text colour on hover/focus; disabled (`:disabled`, `aria-disabled="true"` or

@@ -8,10 +8,10 @@ export default {
   title: 'Atoms/Button Outline',
   render: (args) => `<div style="padding: var(--space-24); color: var(--color-text-default)">${renderButtonOutline(args)}</div>`,
   argTypes: {
-    label: { control: 'text' },
+    text: { control: 'text', description: 'Visible text.' },
     href: { control: 'text', description: 'Empty inside a card that is itself the link (renders a `<span>`).' },
   },
-  args: { label: 'Więcej', href: '' },
+  args: { text: 'Więcej', href: '' },
   parameters: {
     docs: {
       description: {

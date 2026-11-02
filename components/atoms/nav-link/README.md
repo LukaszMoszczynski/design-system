@@ -6,9 +6,9 @@ CSS: `atoms/nav-link/nav-link.css`. No JS: the header organism toggles the burge
 
 | Function | Markup |
 | --- | --- |
-| `renderNavLink({ label, href, current })` | `<a class="ds-nav-link" href aria-current="page"?>Oferta</a>` |
-| `renderNavCta({ label, href })` | `<a class="ds-nav-cta" href="tel:…">Dzwonię</a>` |
-| `renderNavBurger({ open, label, controls })` | `<button type="button" class="ds-nav-burger" aria-expanded="false" aria-label="Menu" aria-controls?><span class="ds-nav-burger__lines"></span></button>` |
+| `renderNavLink({ text, href, current })` | `<a class="ds-nav-link" href aria-current="page"?>Oferta</a>` |
+| `renderNavCta({ text, href })` | `<a class="ds-nav-cta" href="tel:…">Dzwonię</a>` |
+| `renderNavBurger({ open, ariaLabel, controls })` | `<button type="button" class="ds-nav-burger" aria-expanded="false" aria-label="Menu" aria-controls?><span class="ds-nav-burger__lines"></span></button>` |
 
 - Nav link: hover/focus accent with a hairline faux-bold (text-shadow, no width jump) and a 2 px accent line 6 px below; current: primary, bold.
 - Nav CTA: accent pill, page-colour label; hover/focus the inverse surface. Below 782 px the header tokens make it 36 px tall

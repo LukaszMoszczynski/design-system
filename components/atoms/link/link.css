@@ -1,5 +1,7 @@
-/* Link: body text (Carlito 16 / 24), no underline. Kinds:
-   inline  — text colour, primary on hover/focus (in running text and card link lists);
+/* Link: body text (Carlito 16 / 24). Variants:
+   inline  — a link in running text: the paragraph's colour, UNDERLINED at rest (WCAG 1.4.1: not by colour alone;
+             a deliberate deviation from Figma, which draws it without), primary on hover/focus;
+   list    — the same without the underline, for link lists and groups (card links, Figma "Inline");
    arrow   — text colour + 14 px arrow, accent on hover/focus;
    brand   — always primary, 12 px arrow;
    footer  — white on the blue footer card, accent on hover/focus;
@@ -15,6 +17,13 @@
   text-decoration: none;
   border-radius: var(--breadcrumb-focus-radius);
   transition: color 0.2s ease;
+}
+
+.ds-link--inline {
+  font: inherit;
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
 }
 
 .ds-link .ds-icon {
@@ -59,7 +68,7 @@
   outline-offset: var(--focus-ring-offset);
 }
 
-.ds-link--inline:focus-visible {
+.ds-link:is(.ds-link--inline, .ds-link--list):focus-visible {
   color: var(--color-brand-primary);
 }
 
@@ -72,7 +81,7 @@
 }
 
 @media (hover: hover) {
-  .ds-link--inline:hover {
+  .ds-link:is(.ds-link--inline, .ds-link--list):hover {
     color: var(--color-brand-primary);
   }
 

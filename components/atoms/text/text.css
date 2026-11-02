@@ -1,9 +1,16 @@
 /* Text styles (Figma Text section). Headings: heading font, Bold down to 2XL, Medium below. Body styles: body font.
-   The class wins over the tag defaults in base.css, so <h2 class="ds-text ds-text--lg"> looks like LG. */
+   The class wins over the tag defaults in base.css, so <h2 class="ds-text ds-text--lg"> looks like LG.
+   Colour is inherited from the surface (page, blue card, Dark); a tone modifier sets a text token instead. */
 .ds-text {
   margin: 0;
-  color: var(--color-text-default);
+  color: inherit;
 }
+
+.ds-text--default { color: var(--color-text-default); }
+.ds-text--muted { color: var(--color-text-muted); }
+.ds-text--primary { color: var(--color-brand-primary); }
+.ds-text--accent { color: var(--color-brand-accent); }
+.ds-text--on-brand { color: var(--color-text-on-brand); }
 
 .ds-text--4xl,
 .ds-text--3xl,

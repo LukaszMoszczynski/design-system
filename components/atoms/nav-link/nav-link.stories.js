@@ -12,11 +12,11 @@ export default {
   title: 'Atoms/Nav Link',
   render: (args) => frame(renderNavLink(args)),
   argTypes: {
-    label: { control: 'text' },
+    text: { control: 'text', description: 'Visible text.' },
     href: { control: 'text' },
     current: { control: 'boolean', description: 'Figma State=Current (aria-current="page").' },
   },
-  args: { label: 'Oferta', href: '#', current: false },
+  args: { text: 'Oferta', href: '#', current: false },
   parameters: {
     docs: {
       description: {

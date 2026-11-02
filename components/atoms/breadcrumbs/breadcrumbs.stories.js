@@ -1,9 +1,9 @@
 import { renderBreadcrumbs } from './breadcrumbs.template.js';
 
-const HOME = { label: 'Strona główna', href: '/' };
-const TRAINING = { label: 'Szkolenia', href: '/szkolenia/' };
-const PROGRAMS = { label: 'Programy rozwojowe', href: '/szkolenia/programy/' };
-const CURRENT = { label: 'Negocjacje handlowe' };
+const HOME = { text: 'Strona główna', href: '/' };
+const TRAINING = { text: 'Szkolenia', href: '/szkolenia/' };
+const PROGRAMS = { text: 'Programy rozwojowe', href: '/szkolenia/programy/' };
+const CURRENT = { text: 'Negocjacje handlowe' };
 const MOBILE = { viewport: { value: 'mobile', isRotated: false } };
 // Item states (Figma Breadcrumb/Item) are forced on the first link only.
 const FIRST_LINK = '.ds-breadcrumbs__item:first-child .ds-breadcrumbs__link';
@@ -12,10 +12,10 @@ export default {
   title: 'Atoms/Breadcrumbs',
   render: (args) => `<div style="padding: var(--space-gutter)">${renderBreadcrumbs(args)}</div>`,
   argTypes: {
-    items: { control: 'object', description: '`[{ label, href }]`; the last item is the current page (no href).' },
-    label: { control: 'text', description: 'aria-label of the `<nav>`.' },
+    items: { control: 'object', description: '`[{ text, href }]`; the last item is the current page (no href).' },
+    ariaLabel: { control: 'text', description: 'Accessible name of the `<nav>`.' },
   },
-  args: { items: [HOME, CURRENT], label: 'Ścieżka nawigacji' },
+  args: { items: [HOME, CURRENT], ariaLabel: 'Ścieżka nawigacji' },
   parameters: {
     docs: {
       description: {

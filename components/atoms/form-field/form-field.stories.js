@@ -4,8 +4,8 @@ const frame = (markup, width = 'var(--size-card-width)') => `<div style="padding
 const FOCUS = { pseudo: { focus: ['.ds-field__control'], focusVisible: ['.ds-field__control'] } };
 const MOBILE = { viewport: { value: 'mobile', isRotated: false } };
 const COUNTRIES = [
-  { value: 'pl', label: 'Polska' },
-  { value: 'de', label: 'Niemcy' },
+  { value: 'pl', text: 'Polska' },
+  { value: 'de', text: 'Niemcy' },
 ];
 const SAMPLE = {
   text: { label: 'Adres e-mail', type: 'email', value: 'anna@firma.pl' },
@@ -27,15 +27,17 @@ export default {
   render: (args) => frame(renderFormField(args)),
   argTypes: {
     type: { control: 'select', options: FIELD_TYPES, description: 'Figma Type: Text (text/email/tel), Select, Textarea, Search.' },
-    label: { control: 'text', description: 'Floating label (the placeholder for search).' },
+    label: { control: 'text', description: 'Text of the visible floating `<label>` (not used by search).' },
+    placeholder: { control: 'text', description: 'search only: the visible placeholder.' },
+    ariaLabel: { control: 'text', description: 'search only: accessible name (default: the placeholder).' },
     name: { control: 'text' },
     id: { control: 'text' },
     value: { control: 'text', description: 'Empty = Figma State=Default; a value = Filled.' },
-    options: { control: 'object', description: 'select only: `[{ value, label }]`.' },
+    options: { control: 'object', description: 'select only: `[{ value, text }]`.' },
     error: { control: 'text', description: 'Figma State=Error: sets aria-invalid and the message.' },
     required: { control: 'boolean' },
   },
-  args: { type: 'email', label: 'Adres e-mail', name: 'email', id: 'story-field', value: '', options: [], error: '', required: false },
+  args: { type: 'email', label: 'Adres e-mail', placeholder: 'Szukaj', ariaLabel: '', name: 'email', id: 'story-field', value: '', options: [], error: '', required: false },
   parameters: {
     docs: {
       description: {
@@ -58,7 +60,7 @@ export const Textarea = field('textarea', 'default');
 export const TextareaFilled = field('textarea', 'filled');
 export const TextareaFocus = field('textarea', 'focus');
 export const TextareaError = field('textarea', 'error');
-export const Search = { args: { type: 'search', label: 'Szukaj na blogu', name: 's', id: 'story-search' } };
+export const Search = { args: { type: 'search', placeholder: 'Szukaj na blogu', name: 's', id: 'story-search' } };
 export const SearchFocus = { ...Search, globals: FOCUS };
 
 // Figma Checkbox: Checked Off/On × Default/Focus.

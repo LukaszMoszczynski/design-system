@@ -29,6 +29,17 @@ describe('checkCssText', () => {
     expect(values('.a { margin: -3px }')).toEqual(['-3px']);
   });
 
+  it('flags colour literals inside a data URI, encoded or not', () => {
+    const tick = `.a { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none'%3E%3Cpath stroke='white' d='M0 0'/%3E%3C/svg%3E") }`;
+    expect(values(tick)).toEqual(["data: stroke='white"]);
+    expect(values(`.a { mask: url('data:image/svg+xml,<svg fill="%23fff"></svg>') }`)).toEqual(['data: fill="#fff']);
+    expect(values(`.a { mask: url("data:image/svg+xml,<svg style='color:red'></svg>") }`)).toEqual(['data: color:red']);
+  });
+
+  it('allows currentColor, none and transparent inside a data URI', () => {
+    expect(values(`.a { mask: url("data:image/svg+xml,<svg fill='none' stroke='currentColor'><stop stop-color='transparent'/></svg>") }`)).toEqual([]);
+  });
+
   it('flags a literal in a custom property definition', () => {
     expect(values('.a { --gap: 12px }')).toEqual(['12px']);
   });

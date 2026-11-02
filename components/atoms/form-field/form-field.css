@@ -163,7 +163,8 @@
   color: var(--color-text-default);
 }
 
-/* Checkbox: a 20 px box, radius 4, strong border; checked = primary with a white tick. Focus rings the box. */
+/* Checkbox: a 20 px box, radius 4, strong border; checked = primary with an on-brand tick (inline SVG in currentColor,
+   so it follows the brand and theme). Focus rings the box. */
 .ds-checkbox {
   display: flex;
   align-items: center;
@@ -174,14 +175,24 @@
   line-height: var(--line-height-body);
 }
 
-.ds-checkbox__input {
+.ds-checkbox__box {
+  display: grid;
   flex: none;
+  place-items: center;
+}
+
+.ds-checkbox__input,
+.ds-checkbox__tick {
+  grid-area: 1 / 1;
+}
+
+.ds-checkbox__input {
   width: var(--checkbox-size);
   height: var(--checkbox-size);
   margin: 0;
   border: calc(var(--space-3) / 2) solid var(--color-border-strong);
   border-radius: var(--checkbox-radius);
-  background: var(--color-surface-card) center / 80% no-repeat;
+  background: var(--color-surface-card);
   cursor: pointer;
   appearance: none;
 }
@@ -189,7 +200,18 @@
 .ds-checkbox__input:checked {
   border-color: var(--color-brand-primary);
   background-color: var(--color-brand-primary);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M3.5 8.5 6.7 11.7 12.5 5.2' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+.ds-checkbox__tick {
+  width: calc(var(--checkbox-size) * 0.8);
+  height: calc(var(--checkbox-size) * 0.8);
+  color: var(--color-text-on-brand);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ds-checkbox__input:checked + .ds-checkbox__tick {
+  opacity: 1;
 }
 
 .ds-checkbox__input:focus-visible {

@@ -14,18 +14,18 @@ export const SOCIAL_ICONS = {
 };
 
 export const SOCIAL_NETWORKS = { linkedin: 'LinkedIn', facebook: 'Facebook', instagram: 'Instagram', youtube: 'YouTube', spotify: 'Spotify' };
-export const SOCIAL_STYLES = ['plain', 'raised'];
+export const SOCIAL_VARIANTS = ['plain', 'raised'];
 
-export function renderSocialButton({ network = 'linkedin', href = '#', label = '', style = 'plain' } = {}) {
+export function renderSocialButton({ network = 'linkedin', href = '#', ariaLabel = '', variant = 'plain' } = {}) {
   const networkName = SOCIAL_ICONS[network] ? network : 'linkedin';
-  const classes = ['ds-social-button', style === 'raised' ? 'ds-social-button--raised' : ''].filter(Boolean).join(' ');
-  const name = escapeHtml(label || SOCIAL_NETWORKS[networkName]);
+  const classes = ['ds-social-button', variant === 'raised' ? 'ds-social-button--raised' : ''].filter(Boolean).join(' ');
+  const name = escapeHtml(ariaLabel || SOCIAL_NETWORKS[networkName]);
   const icon = `<svg class="ds-social-button__icon" viewBox="0 0 44 44" fill="none" aria-hidden="true" focusable="false">${SOCIAL_ICONS[networkName]}</svg>`;
   return `<a class="${classes}" href="${escapeHtml(href)}" target="_blank" rel="noopener" aria-label="${name}">${icon}</a>`;
 }
 
-// A row of social buttons (footer, contact, people, post sharing). items: [{ network, href, label? }].
-export function renderSocialList({ items = Object.keys(SOCIAL_NETWORKS).map((network) => ({ network, href: '#' })), style = 'plain' } = {}) {
-  const list = items.map((item) => `<li>${renderSocialButton({ ...item, style })}</li>`).join('');
+// A row of social buttons (footer, contact, people, post sharing). items: [{ network, href, ariaLabel? }].
+export function renderSocialList({ items = Object.keys(SOCIAL_NETWORKS).map((network) => ({ network, href: '#' })), variant = 'plain' } = {}) {
+  const list = items.map((item) => `<li>${renderSocialButton({ ...item, variant })}</li>`).join('');
   return `<ul class="ds-social-list" role="list">${list}</ul>`;
 }

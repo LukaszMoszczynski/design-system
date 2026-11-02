@@ -69,3 +69,19 @@
   line-height: var(--line-height-overline);
   letter-spacing: calc(var(--font-size-overline) * 0.06);
 }
+
+/* A link tag (href): the focus ring, and a hairline outline on hover so it reads as clickable. */
+a.ds-tag {
+  transition: box-shadow 0.2s ease;
+}
+
+a.ds-tag:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+@media (hover: hover) {
+  a.ds-tag:hover {
+    box-shadow: inset 0 0 0 1px currentColor;
+  }
+}

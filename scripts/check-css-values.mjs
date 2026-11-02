@@ -45,6 +45,31 @@ function maskValue(value) {
     .replace(/--[\w-]+/g, spaces);
 }
 
+// Colour literals inside an inline SVG/data URI (fill="white", stroke='%23fff', style="color:red"): a picture with a
+// baked-in colour cannot follow the brand or the theme. currentColor, none, transparent and inherit are fine.
+const DATA_URL = /url\(\s*(['"]?)data:([^)]*?)\1\s*\)/gi;
+const DATA_PAINT = /(?:fill|stroke|stop-color|flood-color|lighting-color|color)\s*[=:]\s*['"]?\s*([^'";\s)>]+)/gi;
+const DATA_PAINT_ALLOWED = /^(?:currentColor|none|transparent|inherit|url\(.*)$/i;
+
+function dataUrlColours(value) {
+  const found = [];
+  for (const match of value.matchAll(DATA_URL)) {
+    let body = match[2];
+    try {
+      body = decodeURIComponent(body);
+    } catch {
+      // A malformed escape: check the raw text.
+    }
+    for (const paint of body.matchAll(DATA_PAINT)) {
+      if (!DATA_PAINT_ALLOWED.test(paint[1])) found.push({ index: match.index, text: `data: ${paint[0].trim()}` });
+    }
+    for (const hex of body.matchAll(HEX_COLOR)) {
+      if (!found.some((item) => item.text.includes(hex[0]))) found.push({ index: match.index, text: `data: ${hex[0]}` });
+    }
+  }
+  return found;
+}
+
 export function checkCssText(css, file = '') {
   const source = blank(css);
   const offences = [];
@@ -61,6 +86,7 @@ export function checkCssText(css, file = '') {
       if (!HAIRLINE.test(match[0]) && !/^[+-]?0*\.?0+[a-z]+$/i.test(match[0])) flag(match);
     }
     for (const match of masked.matchAll(NAMED_COLOR)) flag(match);
+    for (const colour of dataUrlColours(declaration[2])) flag({ index: colour.index }, colour.text);
   }
   return offences;
 }
