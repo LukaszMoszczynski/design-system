@@ -1,0 +1,55 @@
+/* Breadcrumbs: body 16, muted links (primary on hover/focus), the current page bold in the text colour.
+   Items wrap with an 8 px gap and a 6 px row gap; each › sits after its item, so a long trail breaks after a ›
+   (Figma, Levels=4 Mobile). Every item is at least 24 px high (tap target). */
+.ds-breadcrumbs__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--breadcrumb-row-gap) var(--breadcrumb-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--color-text-muted);
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+.ds-breadcrumbs__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--breadcrumb-gap);
+  min-height: var(--breadcrumb-item-min-height);
+}
+
+.ds-breadcrumbs__item:not(:last-child)::after {
+  content: '›' / '';
+  color: var(--color-border-strong);
+}
+
+.ds-breadcrumbs__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--breadcrumb-item-min-height);
+  border-radius: var(--breadcrumb-focus-radius);
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.ds-breadcrumbs__link:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+  color: var(--color-brand-primary);
+}
+
+@media (hover: hover) {
+  .ds-breadcrumbs__link:hover {
+    color: var(--color-brand-primary);
+  }
+}
+
+.ds-breadcrumbs__current {
+  color: var(--color-text-default);
+  font-weight: var(--font-weight-bold);
+}
