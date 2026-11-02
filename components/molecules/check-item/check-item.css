@@ -1,0 +1,38 @@
+/* Check item (.dcc-list-check li): 27 px accent circle with an on-brand tick, text 9 px after it; rows 12 px apart.
+   Text in the body style and the surface's text colour; on-brand for a blue card. */
+.ds-check-list {
+  display: grid;
+  gap: var(--check-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--color-text-default);
+}
+
+.ds-check-list--on-brand {
+  color: var(--color-text-on-brand);
+}
+
+.ds-check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--check-indent);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+.ds-check-item__icon {
+  flex: none;
+  width: var(--check-size);
+  height: var(--check-size);
+  border-radius: var(--radius-full);
+  background: var(--color-brand-accent);
+  color: var(--color-text-on-brand);
+}
+
+.ds-check-item__text {
+  flex: 1;
+  min-width: 0;
+}

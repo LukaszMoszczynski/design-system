@@ -1,0 +1,58 @@
+/* Heading group (.dcc-heading-group): overline, 3XL title and lead 12 px apart; the lead gets 8 px more.
+   Text styles come from the Text atom; this file only lays them out and colours the lead. */
+.ds-heading-group {
+  display: grid;
+  gap: var(--heading-gap);
+  max-width: var(--heading-max-width);
+}
+
+.ds-heading-group > * {
+  min-width: 0;
+}
+
+.ds-heading-group__lead {
+  margin-top: var(--heading-lead-gap);
+  color: var(--color-text-muted);
+}
+
+/* A hashtag overline ("#PozytywnieRozwojowi") keeps its camelCase: no capitals, no tracking. */
+.ds-heading-group__overline.is-hashtag {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* Centered: the container width, everything centred (the "Rekomendacje" heading). */
+.ds-heading-group--centered {
+  max-width: var(--size-container);
+  margin-inline: auto;
+  justify-items: center;
+  text-align: center;
+}
+
+.ds-heading-group--split {
+  max-width: var(--size-container);
+}
+
+.ds-heading-group--split .ds-heading-group__lead {
+  color: var(--color-text-default);
+}
+
+/* Split (desktop only): the lead in a 520 px right column, 64 px away, level with the overline. Below 1025 px it stacks. */
+@media (min-width: 1025px) {
+  .ds-heading-group--split {
+    grid-template-columns: minmax(0, 1fr) minmax(0, var(--heading-lead-column));
+    column-gap: var(--heading-split-gap);
+    align-items: start;
+  }
+
+  .ds-heading-group--split .ds-heading-group__lead {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    margin-top: 0;
+  }
+
+  .ds-heading-group--split .ds-heading-group__overline,
+  .ds-heading-group--split .ds-heading-group__title {
+    grid-column: 1;
+  }
+}

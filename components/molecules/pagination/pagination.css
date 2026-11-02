@@ -1,0 +1,45 @@
+/* Pagination/Pages (.dcc-blog-lista__pagination): a centred row of Page number atoms, 8 px apart (12 px on phones,
+   wrapping), and a next chevron in the muted colour (text colour on hover). Phones: no arrow.
+   Dots and Counter use atoms/carousel-controls/carousel-controls.css. */
+.ds-pagination__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-page-number-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-pagination__next {
+  display: grid;
+  place-items: center;
+  height: var(--size-page-number);
+  border-radius: var(--radius-full);
+  color: var(--color-text-muted);
+  transition: color 0.2s ease;
+}
+
+.ds-pagination__next .ds-icon {
+  width: var(--carousel-arrow-glyph);
+  height: var(--carousel-arrow-glyph);
+}
+
+.ds-pagination__next:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+  color: var(--color-text-default);
+}
+
+@media (hover: hover) {
+  .ds-pagination__next:hover {
+    color: var(--color-text-default);
+  }
+}
+
+@media (max-width: 781px) {
+  .ds-pagination__next-item {
+    display: none;
+  }
+}

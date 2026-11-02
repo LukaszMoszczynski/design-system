@@ -1,0 +1,60 @@
+/* Badge/Circular (.dcc-badge): a 160 px card-colour disc, heading-font text (Medium 16, 6 % tracking) round a 58 px
+   radius in the text colour, and a centred accent dot with an on-brand diagonal arrow. The wording turns slowly unless
+   the visitor prefers reduced motion. */
+.ds-badge-circular {
+  position: relative;
+  display: inline-block;
+  flex: none;
+  width: var(--cta-badge);
+  height: var(--cta-badge);
+}
+
+.ds-badge-circular__ring {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.ds-badge-circular__disc {
+  fill: var(--color-surface-card);
+}
+
+.ds-badge-circular__text {
+  fill: var(--color-text-default);
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-body);
+  letter-spacing: calc(var(--font-size-body) * 0.06);
+}
+
+.ds-badge-circular__dot {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  width: var(--cta-badge-dot);
+  height: var(--cta-badge-dot);
+  margin: auto;
+  border-radius: var(--radius-full);
+  background: var(--color-brand-accent);
+  color: var(--color-text-on-brand);
+}
+
+.ds-badge-circular__dot .ds-icon {
+  width: var(--size-24);
+  height: var(--size-24);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ds-badge-circular__text {
+    transform-origin: 0 0;
+    animation: ds-badge-circular-spin 16s linear infinite;
+  }
+}
+
+@keyframes ds-badge-circular-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
