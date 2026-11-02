@@ -49,7 +49,7 @@ function cssNameExtension(variable) {
   const match = CSS_VAR.exec(variable.codeSyntax || '');
   const defaultName = variable.name.split('/').join('-');
   // Code syntax that is not a plain var(--name) (e.g. "min-height: 800px") is ignored.
-  return match && match[1] !== defaultName ? { 'dcc.cssName': match[1] } : null;
+  return match && match[1] !== defaultName ? { 'ds.cssName': match[1] } : null;
 }
 
 function buildToken(variable, modeId) {

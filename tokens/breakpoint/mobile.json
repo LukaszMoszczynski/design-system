@@ -75,63 +75,63 @@
         "$type": "dimension",
         "$value": "24px",
         "$extensions": {
-          "dcc.cssName": "line-height-body"
+          "ds.cssName": "line-height-body"
         }
       },
       "button": {
         "$type": "dimension",
         "$value": "17.6px",
         "$extensions": {
-          "dcc.cssName": "line-height-button"
+          "ds.cssName": "line-height-button"
         }
       },
       "overline": {
         "$type": "dimension",
         "$value": "14.4px",
         "$extensions": {
-          "dcc.cssName": "line-height-overline"
+          "ds.cssName": "line-height-overline"
         }
       },
       "small": {
         "$type": "dimension",
         "$value": "16.8px",
         "$extensions": {
-          "dcc.cssName": "line-height-small"
+          "ds.cssName": "line-height-small"
         }
       },
       "number": {
         "$type": "dimension",
         "$value": "64px",
         "$extensions": {
-          "dcc.cssName": "line-height-number"
+          "ds.cssName": "line-height-number"
         }
       },
       "question": {
         "$type": "dimension",
         "$value": "22.4px",
         "$extensions": {
-          "dcc.cssName": "line-height-question"
+          "ds.cssName": "line-height-question"
         }
       },
       "tile-title": {
         "$type": "dimension",
         "$value": "25px",
         "$extensions": {
-          "dcc.cssName": "line-height-tile-title"
+          "ds.cssName": "line-height-tile-title"
         }
       },
       "lead-large": {
         "$type": "dimension",
         "$value": "27px",
         "$extensions": {
-          "dcc.cssName": "line-height-lead-large"
+          "ds.cssName": "line-height-lead-large"
         }
       },
       "name": {
         "$type": "dimension",
         "$value": "26.4px",
         "$extensions": {
-          "dcc.cssName": "line-height-name"
+          "ds.cssName": "line-height-name"
         }
       }
     }

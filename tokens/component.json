@@ -964,7 +964,7 @@
       "$type": "dimension",
       "$value": "44px",
       "$extensions": {
-        "dcc.cssName": "dcc-social-size"
+        "ds.cssName": "dcc-social-size"
       }
     },
     "gap": {
@@ -1087,7 +1087,7 @@
       "$type": "dimension",
       "$value": "{radius.md}",
       "$extensions": {
-        "dcc.cssName": "dcc-radius-md"
+        "ds.cssName": "dcc-radius-md"
       }
     },
     "border": {
@@ -1390,7 +1390,7 @@
       "$type": "dimension",
       "$value": "12px",
       "$extensions": {
-        "dcc.cssName": "dcc-radius-md"
+        "ds.cssName": "dcc-radius-md"
       }
     },
     "thumb": {

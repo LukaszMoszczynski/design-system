@@ -43,4 +43,50 @@ describe('writeTokens', () => {
   it('keeps placeholder descriptions', () => {
     expect(read(dir, 'brands/omelanski.json').font.family.heading.$description).toBe('placeholder');
   });
+
+  describe("with hand-made variables", () => {
+    const rawWith = (variables) => ({
+      collections: [{ name: "Brand", modes: [{ modeId: "1:0", name: "DCC" }, { modeId: "1:1", name: "Other" }], variables }],
+    });
+    const variable = (name, type, codeSyntax, value) => ({
+      name, type, codeSyntax, description: "", valuesByMode: { "1:0": value, "1:1": value },
+    });
+    const writeOne = (variables) => {
+      const out = mkdtempSync(join(tmpdir(), "tokens-"));
+      writeTokens(rawWith(variables), out);
+      return read(out, "brands/dcc.json");
+    };
+
+    it("writes ds.cssName only when the code syntax is a plain var(--x) that differs from the path", () => {
+      const tokens = writeOne([
+        variable("font/family/heading", "STRING", "var(--font-heading)", "Ubuntu"),
+        variable("radius/lg", "FLOAT", "var(--radius-lg)", 16),
+        variable("radius/md", "FLOAT", "", 12),
+        variable("hero/min-height", "FLOAT", "min-height: 800px", 800),
+      ]);
+      expect(tokens.font.family.heading.$extensions).toEqual({ "ds.cssName": "font-heading" });
+      expect(tokens.radius.lg.$extensions).toBeUndefined();
+      expect(tokens.radius.md.$extensions).toBeUndefined();
+      expect(tokens.hero["min-height"].$extensions).toBeUndefined();
+    });
+
+    it("maps STRING font weights to fontWeight numbers", () => {
+      const tokens = writeOne([
+        variable("font/weight/regular", "STRING", "", "Regular"),
+        variable("font/weight/medium", "STRING", "", "Medium"),
+        variable("font/weight/bold", "STRING", "", "Bold"),
+      ]);
+      expect(tokens.font.weight.regular).toEqual({ $type: "fontWeight", $value: 400 });
+      expect(tokens.font.weight.medium).toEqual({ $type: "fontWeight", $value: 500 });
+      expect(tokens.font.weight.bold).toEqual({ $type: "fontWeight", $value: 700 });
+    });
+
+    it("throws on an unknown font weight", () => {
+      expect(() => writeOne([variable("font/weight/odd", "STRING", "", "Wobbly")])).toThrow(/Unknown font weight/);
+    });
+
+    it("throws on an unsupported STRING variable", () => {
+      expect(() => writeOne([variable("label/text", "STRING", "", "Hi")])).toThrow(/Unsupported STRING/);
+    });
+  });
 });

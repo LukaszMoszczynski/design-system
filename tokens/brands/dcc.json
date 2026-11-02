@@ -318,14 +318,14 @@
         "$type": "fontFamily",
         "$value": "Ubuntu",
         "$extensions": {
-          "dcc.cssName": "font-heading"
+          "ds.cssName": "font-heading"
         }
       },
       "body": {
         "$type": "fontFamily",
         "$value": "Carlito",
         "$extensions": {
-          "dcc.cssName": "font-body"
+          "ds.cssName": "font-body"
         }
       },
       "mono": {
@@ -333,7 +333,7 @@
         "$value": "JetBrains Mono",
         "$description": "placeholder · DCC has no mono font in its source; the Omelanski value is real",
         "$extensions": {
-          "dcc.cssName": "font-mono"
+          "ds.cssName": "font-mono"
         }
       }
     },
