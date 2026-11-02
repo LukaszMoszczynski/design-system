@@ -1,0 +1,206 @@
+/* Mega menu (.dcc-mega, blocks/naglowek/style.css): an 880 px panel with 24 px corners and the card shadow. Inside the
+   header it hangs 12 px under the bar, centred. Bestsellers on the soft surface, the offer areas in three columns, the
+   shop band on the brand surface. Links: accent with a 2 px underline 4 px below on hover and focus. */
+.ds-mega-menu {
+  box-sizing: border-box;
+  /* Missing token: the panel width (Figma 880 px = 5.5 × size/160). */
+  width: min(calc(var(--size-160) * 5.5), 100%);
+  overflow: hidden;
+  border-radius: var(--radius-2xl);
+  background: var(--color-surface-page);
+  box-shadow: var(--shadow-card);
+}
+
+.ds-mega-menu[hidden] {
+  display: none;
+}
+
+.ds-header .ds-mega-menu {
+  position: absolute;
+  top: calc(100% + var(--space-12));
+  right: 0;
+  left: 0;
+  z-index: 10;
+  margin-inline: auto;
+}
+
+/* Element resets at zero specificity, so every class below wins. */
+:where(.ds-mega-menu) p {
+  margin: 0;
+}
+
+:where(.ds-mega-menu) ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+:where(.ds-mega-menu) a:not(.ds-button) {
+  color: var(--color-text-default);
+  text-decoration: none;
+  border-radius: var(--radius-xs);
+  transition: color 0.15s ease;
+}
+
+.ds-mega-menu a:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* Bestsellers: the overline-style label and three title + description links. */
+.ds-mega-menu__bestsellers {
+  display: grid;
+  gap: var(--space-16);
+  padding: var(--space-32) var(--space-40);
+  background: var(--color-surface-soft);
+}
+
+.ds-mega-menu__label {
+  color: var(--color-brand-accent);
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+  letter-spacing: calc(var(--font-size-small) * 0.14);
+  text-transform: uppercase;
+}
+
+.ds-mega-menu__bestseller-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-32);
+}
+
+.ds-mega-menu__bestseller {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.ds-mega-menu__bestseller-title {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+.ds-mega-menu__bestseller-text {
+  color: var(--color-brand-primary);
+  font-family: var(--font-body);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+/* Offer areas: three columns, 24 px apart both ways. */
+.ds-mega-menu__areas {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-24);
+  padding: var(--space-32) var(--space-40);
+}
+
+.ds-mega-menu__area {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.ds-mega-menu__area-name {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+.ds-mega-menu__links {
+  display: grid;
+  gap: var(--space-8);
+}
+
+.ds-mega-menu__link {
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+/* „Zobacz wszystkie”: 12 px primary, the arrow at the column's end. */
+.ds-mega-menu .ds-mega-menu__all {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-8);
+  padding-top: var(--space-4);
+  color: var(--color-brand-primary);
+  font-family: var(--font-body);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.ds-mega-menu__all .ds-icon {
+  width: var(--space-14);
+  height: var(--space-14);
+  transition: transform 0.2s ease;
+}
+
+.ds-mega-menu :is(.ds-mega-menu__link, .ds-mega-menu__bestseller, .ds-mega-menu__all):focus-visible {
+  color: var(--color-brand-accent);
+}
+
+.ds-mega-menu .ds-mega-menu__link:focus-visible,
+.ds-mega-menu .ds-mega-menu__all:focus-visible span,
+.ds-mega-menu .ds-mega-menu__bestseller:focus-visible .ds-mega-menu__bestseller-title {
+  text-decoration: underline;
+  text-decoration-thickness: var(--space-2);
+  text-underline-offset: var(--space-4);
+}
+
+@media (hover: hover) {
+  .ds-mega-menu :is(.ds-mega-menu__link, .ds-mega-menu__bestseller, .ds-mega-menu__all):hover {
+    color: var(--color-brand-accent);
+  }
+
+  .ds-mega-menu .ds-mega-menu__link:hover,
+  .ds-mega-menu .ds-mega-menu__all:hover span,
+  .ds-mega-menu .ds-mega-menu__bestseller:hover .ds-mega-menu__bestseller-title {
+    text-decoration: underline;
+    text-decoration-thickness: var(--space-2);
+    text-underline-offset: var(--space-4);
+  }
+
+  .ds-mega-menu .ds-mega-menu__all:hover .ds-icon {
+    transform: translateX(var(--space-2));
+  }
+}
+
+/* Shop band: the brand surface, text left, a Light pill right. */
+.ds-mega-menu__shop {
+  display: flex;
+  align-items: center;
+  gap: var(--space-24);
+  padding: var(--space-24) var(--space-40);
+  background: var(--color-surface-brand);
+  color: var(--color-text-on-brand);
+}
+
+.ds-mega-menu__shop-text {
+  display: grid;
+  flex: 1 1 0;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.ds-mega-menu__shop-title {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+.ds-mega-menu__shop-desc {
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+.ds-mega-menu__shop .ds-button {
+  flex: none;
+}

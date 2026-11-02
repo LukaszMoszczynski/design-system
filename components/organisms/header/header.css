@@ -1,0 +1,197 @@
+/* Header (.dcc-header, blocks/naglowek/style.css): a 1281 px rounded bar in the page colour with the logo and badge,
+   the main navigation (Nav link atoms; the offer item carries the Mega menu caret), a hairline divider and the Nav CTA.
+   is-scrolled adds the card shadow (header.js tweens it with GSAP). Up to 1024 px the navigation folds into the burger
+   (Mobile menu); the phone sizes come from the header tokens at 781 px.
+   The header is not fixed by itself: the site places it (DCC: a fixed wrapper 20 px from the top). */
+.ds-header {
+  position: relative;
+  box-sizing: border-box;
+  width: min(var(--header-width), 100%);
+  margin-inline: auto;
+}
+
+.ds-header__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-header-gap);
+  box-sizing: border-box;
+  min-height: var(--size-header-height);
+  padding: var(--space-header-padding-y) var(--space-header-padding-right) var(--space-header-padding-y) var(--space-header-padding-left);
+  border-radius: var(--radius-header);
+  background: var(--color-surface-page);
+  backdrop-filter: blur(calc(var(--space-10) + 1px));
+}
+
+.ds-header.is-scrolled .ds-header__bar {
+  box-shadow: var(--shadow-card);
+}
+
+.ds-header__brand {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--header-brand-gap);
+}
+
+.ds-header__logo {
+  display: block;
+  flex: none;
+  border-radius: var(--radius-xs);
+}
+
+.ds-header__logo:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.ds-header__logo-image {
+  display: block;
+  height: var(--header-logo-height);
+  width: auto;
+}
+
+/* Figma's placeholders: a primary block for the logo, a soft one for the badge. */
+.ds-header__logo-placeholder {
+  display: block;
+  width: var(--header-logo-width);
+  height: var(--header-logo-height);
+  border-radius: var(--radius-6);
+  background: var(--color-brand-primary);
+}
+
+.ds-header__badge {
+  display: block;
+  flex: none;
+  height: var(--header-badge-height);
+  width: auto;
+}
+
+.ds-header__badge--placeholder {
+  width: var(--header-badge-width);
+  border-radius: var(--radius-6);
+  background: var(--color-surface-soft);
+}
+
+.ds-header__nav {
+  display: flex;
+  flex: 1 1 auto;
+  justify-content: flex-end;
+  min-width: 0;
+}
+
+.ds-header__menu {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8) var(--nav-link-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-header__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* The Mega menu caret: the right chevron turned down (up while open), 16 px; the hit area reaches 4 px past it. */
+.ds-header__toggle {
+  display: grid;
+  place-items: center;
+  width: calc(var(--size-16) + var(--space-8));
+  height: calc(var(--size-16) + var(--space-8));
+  margin: calc(var(--space-4) * -1);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-xs);
+  background: none;
+  color: var(--color-text-default);
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.ds-header__toggle .ds-icon {
+  width: var(--size-16);
+  height: var(--size-16);
+  transform: rotate(90deg);
+  transition: transform 0.2s ease;
+}
+
+.ds-header__toggle[aria-expanded='true'] {
+  color: var(--color-brand-accent);
+}
+
+.ds-header__toggle[aria-expanded='true'] .ds-icon {
+  transform: rotate(-90deg);
+}
+
+.ds-header__toggle:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: 0;
+  color: var(--color-brand-accent);
+}
+
+/* The caret goes accent with its link. */
+@media (hover: hover) {
+  .ds-header__item:hover .ds-header__toggle {
+    color: var(--color-brand-accent);
+  }
+}
+
+.ds-header__item:has(.ds-nav-link:focus-visible) .ds-header__toggle {
+  color: var(--color-brand-accent);
+}
+
+.ds-header__actions {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--header-actions-gap);
+}
+
+.ds-header__actions::before {
+  content: '';
+  width: 1px;
+  height: var(--header-divider-height);
+  background: var(--color-border-default);
+}
+
+.ds-header__actions .ds-nav-burger {
+  display: none;
+}
+
+/* Up to 1024 px: the burger instead of the navigation, a square full-width bar, no badge. */
+@media (max-width: 1024px) {
+  .ds-header {
+    width: 100%;
+  }
+
+  .ds-header__bar {
+    justify-content: space-between;
+    border-radius: 0;
+  }
+
+  .ds-header__nav,
+  .ds-header__badge {
+    display: none;
+  }
+
+  .ds-header__actions .ds-nav-burger {
+    display: grid;
+  }
+}
+
+@media (max-width: 781px) {
+  .ds-header__logo-image,
+  .ds-header__logo-placeholder {
+    height: var(--size-24);
+  }
+
+  .ds-header__logo-placeholder {
+    width: var(--size-160);
+  }
+
+  .ds-header__actions::before {
+    display: none;
+  }
+}

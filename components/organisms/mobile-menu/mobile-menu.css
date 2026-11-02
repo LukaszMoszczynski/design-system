@@ -1,0 +1,119 @@
+/* Mobile menu (.dcc-mobile-menu, blocks/naglowek/style.css): rows of 20 px heading-font links with hairline dividers,
+   the Oferta row folding its sub-list on the soft surface (accent minus while open), and the contact buttons at the
+   bottom at full width without their icon circle. Inside the header it is a drawer: fixed under the bar, the rest of the
+   screen tall, scrolling on its own (mobile-menu.js slides it in with GSAP). */
+.ds-mobile-menu {
+  box-sizing: border-box;
+  background: var(--color-surface-page);
+}
+
+.ds-mobile-menu[hidden] {
+  display: none;
+}
+
+.ds-header .ds-mobile-menu {
+  position: fixed;
+  inset: var(--size-header-height) 0 0;
+  z-index: 10;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+:where(.ds-mobile-menu) ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-mobile-menu__list {
+  display: grid;
+}
+
+.ds-mobile-menu__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--mobile-menu-row-padding) var(--space-20);
+  border-bottom: 1px solid var(--color-border-default);
+  color: var(--color-text-default);
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-xl);
+  line-height: var(--font-line-height-xl);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+/* The plus / minus: 24 px glyphs in the accent colour, in a box one text line tall (the row stays 55 px, Figma). */
+.ds-mobile-menu__row .ds-accordion-summary__icon {
+  width: var(--size-24);
+  height: var(--font-line-height-xl);
+  color: var(--color-brand-accent);
+}
+
+.ds-mobile-menu__row .ds-icon {
+  width: var(--size-24);
+  height: var(--size-24);
+}
+
+.ds-mobile-menu__link[aria-current='page'] {
+  color: var(--color-brand-primary);
+}
+
+.ds-mobile-menu__sublist {
+  display: grid;
+  padding: var(--space-4) var(--space-20) var(--space-12) calc(var(--space-20) + var(--space-16));
+  background: var(--color-surface-soft);
+}
+
+.ds-mobile-menu__sublink,
+.ds-mobile-menu__all {
+  display: block;
+  padding: calc(var(--space-12) - 1px) 0;
+  color: var(--color-text-default);
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  text-decoration: none;
+  border-radius: var(--radius-xs);
+  transition: color 0.15s ease;
+}
+
+.ds-mobile-menu__all {
+  color: var(--color-brand-accent);
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-mobile-menu :is(.ds-mobile-menu__row, .ds-mobile-menu__sublink):focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: calc(var(--focus-ring-width) * -1);
+  color: var(--color-brand-accent);
+}
+
+.ds-mobile-menu .ds-mobile-menu__all:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+@media (hover: hover) {
+  .ds-mobile-menu :is(.ds-mobile-menu__row, .ds-mobile-menu__sublink):hover {
+    color: var(--color-brand-accent);
+  }
+}
+
+.ds-mobile-menu__footer {
+  display: grid;
+  gap: var(--space-12);
+  padding: var(--space-20);
+}
+
+.ds-mobile-menu__footer .ds-button {
+  justify-content: flex-start;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.ds-mobile-menu__footer .ds-button__icon {
+  display: none;
+}
