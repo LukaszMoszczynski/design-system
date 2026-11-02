@@ -12,6 +12,13 @@ describe('call to action template', () => {
     expect(renderCallToAction({ variant: 'light' })).toContain('A Ty jakie masz wyzwania?');
   });
 
+  it('an empty title / subtitle / text (a cleared control) falls back to the variant copy', () => {
+    const markup = renderCallToAction({ variant: 'large', title: '', subtitle: '', text: '' });
+    expect(markup).toContain('Nie wiesz, od czego zacząć?');
+    expect(markup).toContain('ds-cta__subtitle');
+    expect(markup).toContain('ds-cta__text');
+  });
+
   it('falls back to large and escapes text', () => {
     const markup = renderCallToAction({ variant: 'nope', title: '<b>"T"</b>', text: 'A & B' });
     expect(markup).toContain('ds-cta--large');

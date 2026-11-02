@@ -2,7 +2,7 @@
 // DCC: blocks/wezwanie (render.php, style.css).
 // variant (Figma Variant): large (brand card, title on page-colour boxes, photo + Badge/Circular), band (accent card,
 // centred), gradient (deep → primary card, two columns), image (accent question, text links, wide photo), light (soft
-// centred box). Each variant has its own Polish copy (CTA_COPY); a given title / subtitle / text / buttons wins.
+// centred box). Each variant has its own Polish copy (CTA_COPY); a non-empty title / subtitle / text and the given buttons win.
 // buttons: [{ text, href }]; the variant picks the Button style (Light, Accent, Primary) or, for image, text links.
 // The content carries data-ds-reveal: base/reveal.js lifts it in with GSAP when it scrolls into view.
 // Composes Text, Button, Link and Badge/Circular.
@@ -75,9 +75,9 @@ export function renderCallToAction({
 } = {}) {
   const variantName = CTA_VARIANTS.includes(variant) ? variant : 'large';
   const copy = CTA_COPY[variantName];
-  const titleText = title ?? copy.title;
-  const subtitleText = variantName === 'large' || variantName === 'gradient' ? (subtitle ?? copy.subtitle) : '';
-  const bodyText = text ?? copy.text;
+  const titleText = title || copy.title;
+  const subtitleText = variantName === 'large' || variantName === 'gradient' ? (subtitle || copy.subtitle) : '';
+  const bodyText = text || copy.text;
   const tag = CTA_HEADING_TAGS.includes(headingTag) ? headingTag : 'h2';
 
   // Large: the title words sit on page-colour boxes, one per line (box-decoration-break, .ds-cta__title-box); the inline

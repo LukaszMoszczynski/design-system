@@ -45,7 +45,7 @@ export default {
     docs: {
       description: {
         component:
-          '`section.ds-carousel.ds-carousel--nav-{nav}[data-ds-carousel][data-ds-items][data-ds-nav][data-ds-pagination][aria-roledescription=karuzela][aria-label]` > `div.ds-carousel__head` (Heading group, + `div.ds-carousel__nav` beside heading) + `div.ds-carousel__clip > div.ds-carousel__viewport > ul.ds-carousel__track > li.ds-carousel__slide` (any card) + `div.ds-carousel__nav` (Carousel controls). carousel.js wires `window.Swiper`; without it the slides are a scrollable row. State applies to the next arrow and the dots.',
+          '`section.ds-carousel[data-ds-carousel][data-ds-items][data-ds-nav][data-ds-pagination][aria-roledescription=karuzela][aria-label]` > `div.ds-carousel__head` (Heading group, + `div.ds-carousel__nav` beside heading) + `div.ds-carousel__clip > div.ds-carousel__viewport > ul.ds-carousel__track > li.ds-carousel__slide` (any card) + `div.ds-carousel__nav` (Carousel controls). carousel.js wires `window.Swiper`; without it the slides are a scrollable row. State applies to the next arrow and the dots.',
       },
     },
   },

@@ -108,6 +108,17 @@ enqueues them.
   scrolls into view (the site's `data-reveal`: 60 px, 1 s, `power4.out`, 0.1 s stagger per row). It needs `gsap` and
   `ScrollTrigger`; content already on screen is left as it is. The Call to action content carries the attribute.
 
+## Organism contracts used by sections
+
+- **Carousel** (`organisms/carousel`, full table in its README): the script wires `.ds-carousel[data-ds-carousel]` only.
+  `data-ds-items` (2–4) sets the cards per view and the loop rule (loop from 2 × the most cards in view, else rewind),
+  `data-ds-nav` places the nav in CSS and must match where `div.ds-carousel__nav` sits in the markup,
+  `data-ds-pagination` (dots / counter) picks the control the script keeps in step. Slides are
+  `.ds-carousel__viewport > .ds-carousel__track > .ds-carousel__slide`, any card inside. Use `renderCarousel()` to get
+  all of it right.
+- **Header**: the Mega menu panel sits inside the Oferta `li`, right after its toggle (focus order); the Mobile menu
+  after the bar. Load `header.js` and `mobile-menu.js` (and `accordion.js` for the drawer's Oferta row).
+
 ## Documenting a component
 
 For each component give: the markup with every class and attribute, the CSS files to copy, the JS file and its `init`

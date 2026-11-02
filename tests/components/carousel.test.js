@@ -57,7 +57,7 @@ describe('carousel script', () => {
   });
 
   it('slidesPerView from data-ds-items on desktop, 1 on mobile', () => {
-    document.body.innerHTML = renderCarousel({ slides: slides(6), items: 4 });
+    document.body.innerHTML = renderCarousel({ slides: slides(8), items: 4 });
     loadScript(SCRIPT, window);
     const { params } = instances[0];
     expect(params.slidesPerView).toBe(1);
@@ -68,10 +68,60 @@ describe('carousel script', () => {
     expect(params.loop).toBe(true);
   });
 
-  it('loops only when there are more slides than items', () => {
-    document.body.innerHTML = renderCarousel({ slides: slides(3), items: 3 }) + renderCarousel({ slides: slides(4), items: 3 });
+  // Swiper needs ceil(slidesPerView) + 1 slides for a loop at every breakpoint, and the tablet peek (2.15) counts as 3;
+  // the rule is twice the most cards in view, else the arrows rewind.
+  it('loops only with at least twice the most cards in view, else rewinds', () => {
+    const cases = [
+      { count: 3, items: 2 }, // tablets show 2.15 → 3 in view: needs 6
+      { count: 5, items: 2 },
+      { count: 6, items: 2 },
+      { count: 5, items: 3 },
+      { count: 6, items: 3 },
+      { count: 7, items: 4 },
+      { count: 8, items: 4 },
+    ];
+    document.body.innerHTML = cases.map(({ count, items }) => renderCarousel({ slides: slides(count), items })).join('');
     loadScript(SCRIPT, window);
-    expect(instances.map((instance) => instance.params.loop)).toEqual([false, true]);
+    expect(instances.map((instance) => instance.params.loop)).toEqual([false, false, true, false, true, false, true]);
+    expect(instances.map((instance) => instance.params.rewind)).toEqual([true, true, false, true, false, true, false]);
+  });
+
+  it('reads data-ds-pagination: the counter only with counter, the dots only with dots', () => {
+    document.body.innerHTML = renderCarousel({ slides: slides(6) });
+    // A counter element in a dots carousel (a section's own markup) is left alone.
+    document.querySelector('[data-ds-carousel-dots]').insertAdjacentHTML('afterend', '<span class="ds-carousel-controls__counter">x</span>');
+    loadScript(SCRIPT, window);
+    instances[0].slideToLoop(2);
+    expect(document.querySelector('.ds-carousel-controls__counter').textContent).toBe('x');
+    expect(document.querySelectorAll('[data-ds-dot]')[2].getAttribute('aria-current')).toBe('true');
+  });
+
+  it('only links of slides fully on screen stay in the tab order', () => {
+    document.body.innerHTML = renderCarousel({ slides: slides(6), items: 3 });
+    const slideElements = [...document.querySelectorAll('.ds-carousel__slide')];
+    slideElements[1].querySelector('a').setAttribute('tabindex', '0'); // its own tabindex comes back as it was
+    const box = (left, width) => () => ({ left, right: left + width, top: 0, bottom: 100, width, height: 100 });
+    document.querySelector('.ds-carousel__viewport').getBoundingClientRect = box(0, 1000);
+    // Three whole cards on screen, the fourth half out, the rest off screen.
+    const place = (offset) => slideElements.forEach((slide, index) => { slide.getBoundingClientRect = box(index * 340 - offset, 320); });
+    place(0);
+    loadScript(SCRIPT, window);
+    const links = () => slideElements.map((slide) => slide.querySelector('a').getAttribute('tabindex'));
+    const hidden = () => slideElements.map((slide) => slide.getAttribute('aria-hidden'));
+    expect(links()).toEqual([null, '0', null, '-1', '-1', '-1']);
+    expect(hidden()).toEqual([null, null, null, 'true', 'true', 'true']);
+    expect(slideElements.map((slide) => slide.getAttribute('aria-label'))).toEqual(['1 z 6', '2 z 6', '3 z 6', '4 z 6', '5 z 6', '6 z 6']);
+    // One slide on: the first leaves, the fourth comes in.
+    place(340);
+    instances[0].params.on.transitionEnd(instances[0]);
+    expect(links()).toEqual(['-1', '0', null, null, '-1', '-1']);
+    expect(hidden()).toEqual(['true', null, null, null, 'true', 'true']);
+    expect(slideElements[0].querySelector('a').dataset.dsUntab).toBe('');
+    // Back: the first slide's link gets its tab stop back, with no tabindex left behind.
+    place(0);
+    instances[0].params.on.transitionEnd(instances[0]);
+    expect(links()).toEqual([null, '0', null, '-1', '-1', '-1']);
+    expect('dsUntab' in slideElements[0].querySelector('a').dataset).toBe(false);
   });
 
   it('init twice creates one Swiper', () => {

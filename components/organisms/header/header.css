@@ -10,7 +10,12 @@
   margin-inline: auto;
 }
 
+/* The bar is the Mega menu's containing block: the panel sits in the Oferta item (focus order) and hangs under the bar.
+   z-index 10 keeps the open panel above the page content that follows (the bar's backdrop filter makes it a
+   stacking context of its own). */
 .ds-header__bar {
+  position: relative;
+  z-index: 10;
   display: flex;
   align-items: center;
   gap: var(--space-header-gap);

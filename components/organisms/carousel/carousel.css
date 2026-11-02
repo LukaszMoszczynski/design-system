@@ -32,29 +32,29 @@
   justify-content: center;
 }
 
-.ds-carousel--nav-below > .ds-carousel__nav {
+.ds-carousel[data-ds-nav='below'] > .ds-carousel__nav {
   padding-top: var(--carousel-nav-offset);
 }
 
 /* Beside heading: the nav at the right, level with the bottom of the heading group. */
-.ds-carousel--nav-beside-heading .ds-carousel__head {
+.ds-carousel[data-ds-nav='beside-heading'] .ds-carousel__head {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   gap: var(--space-24);
 }
 
-.ds-carousel--nav-beside-heading .ds-carousel__head > .ds-heading-group {
+.ds-carousel[data-ds-nav='beside-heading'] .ds-carousel__head > .ds-heading-group {
   flex: 1 1 auto;
 }
 
-.ds-carousel--nav-beside-heading .ds-carousel__head > .ds-carousel__nav {
+.ds-carousel[data-ds-nav='beside-heading'] .ds-carousel__head > .ds-carousel__nav {
   flex: none;
   margin-left: auto;
 }
 
 /* Above right: under the (split) heading, right-aligned, 32 px above the slides. */
-.ds-carousel--nav-above-right > .ds-carousel__nav {
+.ds-carousel[data-ds-nav='above-right'] > .ds-carousel__nav {
   justify-content: flex-end;
   padding-bottom: var(--carousel-above-nav-bottom);
 }
@@ -116,11 +116,12 @@
 /* Phones: one card wide (Figma 331 px) with the next one peeking; the clip runs on to the screen edge. Every nav
    placement moves under the slides. */
 @media (max-width: 781px) {
-  .ds-carousel .ds-carousel__head {
+  /* [data-ds-nav] matches the placement rules above, so these win on every placement. */
+  .ds-carousel[data-ds-nav] .ds-carousel__head {
     display: contents;
   }
 
-  .ds-carousel .ds-carousel__head > .ds-heading-group {
+  .ds-carousel[data-ds-nav] .ds-carousel__head > .ds-heading-group {
     flex: none;
     padding-bottom: var(--space-heading-bottom);
   }
@@ -139,8 +140,8 @@
     width: min(var(--size-card-width), 100%);
   }
 
-  .ds-carousel .ds-carousel__nav,
-  .ds-carousel .ds-carousel__head > .ds-carousel__nav {
+  .ds-carousel[data-ds-nav] .ds-carousel__nav,
+  .ds-carousel[data-ds-nav] .ds-carousel__head > .ds-carousel__nav {
     order: 2;
     justify-content: center;
     margin-left: 0;

@@ -42,5 +42,5 @@ export function renderCarousel({
   const trackId = id ? ` id="${escapeHtml(id)}"` : '';
   const track = `<div class="ds-carousel__clip"><div class="ds-carousel__viewport"><ul class="ds-carousel__track" role="list"${trackId}>${list}</ul></div></div>`;
   const attributes = `data-ds-carousel data-ds-items="${itemCount}" data-ds-nav="${navName}" data-ds-pagination="${paginationName}" aria-roledescription="karuzela" aria-label="${escapeHtml(name)}"`;
-  return `<section class="ds-carousel ds-carousel--nav-${navName}" ${attributes}>${head}${navName === 'above-right' ? controls : ''}${track}${navName === 'below' ? controls : ''}</section>`;
+  return `<section class="ds-carousel" ${attributes}>${head}${navName === 'above-right' ? controls : ''}${track}${navName === 'below' ? controls : ''}</section>`;
 }

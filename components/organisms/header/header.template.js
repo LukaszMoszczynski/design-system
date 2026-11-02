@@ -1,7 +1,8 @@
 // Header: the site bar with logo, badge, main navigation, the „Dzwonię” pill and (phones) the burger, plus the Mega menu
 // and the Mobile menu it opens. Figma: Organisms → Header (28:1049: Default, Scrolled, Link states, Open, Mobile).
 // DCC: blocks/naglowek (render.php, view.js, style.css).
-// An item with `mega: true` gets the caret toggle of the Mega menu next to its link. header.js: is-scrolled after the page
+// An item with `mega: true` gets the caret toggle of the Mega menu next to its link, and the panel right after the toggle
+// inside the same <li>, so Tab goes from the toggle into the open panel (WCAG 2.4.3); CSS hangs it under the bar. header.js: is-scrolled after the page
 // scrolls, the Mega menu toggle (click, hover on desktop, Escape, click outside); mobile-menu.js: the burger and drawer.
 // `id` prefixes the panels' ids (`{id}-mega`, `{id}-menu`), so two headers on one page (Storybook) stay apart.
 // `open` / `scrolled`: rendered in that state (stories); the default is at rest.
@@ -55,13 +56,15 @@ export function renderHeader({
   const tagName = HEADER_TAGS.includes(tag) ? tag : 'header';
   const megaId = `${id}-mega`;
   const menuId = `${id}-menu`;
-  const hasMega = items.some((item) => item.mega);
+  // One panel: after the first mega item's toggle.
+  const megaIndex = items.findIndex((item) => item.mega);
   const menu = items
-    .map((item) => {
-      const toggle = item.mega
+    .map((item, index) => {
+      const toggle = index === megaIndex
         ? `<button type="button" class="ds-header__toggle" aria-expanded="${open ? 'true' : 'false'}" aria-controls="${escapeHtml(megaId)}" aria-label="${escapeHtml(megaToggleAriaLabel)}" data-ds-mega-toggle>${renderIcon({ name: 'chevron-right' })}</button>`
         : '';
-      return `<li class="ds-header__item">${renderNavLink({ text: item.text, href: item.href, current: item.current })}${toggle}</li>`;
+      const panel = index === megaIndex ? renderMegaMenu({ ...mega, id: megaId, open }) : '';
+      return `<li class="ds-header__item">${renderNavLink({ text: item.text, href: item.href, current: item.current })}${toggle}${panel}</li>`;
     })
     .join('');
   const bar = [
@@ -69,7 +72,7 @@ export function renderHeader({
     `<nav class="ds-header__nav" aria-label="${escapeHtml(navAriaLabel)}"><ul class="ds-header__menu" role="list">${menu}</ul></nav>`,
     `<div class="ds-header__actions">${renderNavCta({ text: ctaText, href: ctaHref })}${renderNavBurger({ ariaLabel: burgerAriaLabel, controls: menuId })}</div>`,
   ].join('');
-  const panels = `${hasMega ? renderMegaMenu({ ...mega, id: megaId, open }) : ''}${renderMobileMenu({ ...mobileMenu, id: menuId })}`;
+  const panels = renderMobileMenu({ ...mobileMenu, id: menuId });
   const classes = scrolled ? 'ds-header is-scrolled' : 'ds-header';
   return `<${tagName} class="${classes}" data-ds-header><div class="ds-header__bar">${bar}</div>${panels}</${tagName}>`;
 }

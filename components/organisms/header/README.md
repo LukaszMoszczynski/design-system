@@ -9,7 +9,9 @@ JS: `organisms/header/header.js` (scrolled, Mega menu), `organisms/mobile-menu/m
 
 - `renderHeader({ items, ctaText, ctaHref, logo, logoAlt, homeHref, homeAriaLabel, badge, badgeAlt, navAriaLabel,
   megaToggleAriaLabel, burgerAriaLabel, mega, mobileMenu, id, tag, open, scrolled })`:
-  - `items`: `[{ text, href, current?, mega? }]`. `mega: true` adds the caret toggle of the Mega menu after the link.
+  - `items`: `[{ text, href, current?, mega? }]`. `mega: true` adds the caret toggle of the Mega menu after the link,
+    and the panel right after the toggle in the same `li`, so Tab goes from the toggle into the open panel and Shift+Tab
+    back (WCAG 2.4.3). The bar is the panel's containing block, so it still hangs 12 px under the bar, centred.
   - `logo` / `badge`: image URLs; empty gives the Figma placeholder blocks. The badge hides up to 1024 px.
   - `mega`, `mobileMenu`: the args of `renderMegaMenu` / `renderMobileMenu` (the header sets their ids).
   - `id` (default `ds-header`): the panels get `{id}-mega` and `{id}-menu`. `tag`: `header` (the banner, default) or
@@ -21,13 +23,13 @@ JS: `organisms/header/header.js` (scrolled, Mega menu), `organisms/mobile-menu/m
       <div class="ds-header__brand"><a class="ds-header__logo" href="/" rel="home" aria-label="…">…</a><img class="ds-header__badge" …></div>
       <nav class="ds-header__nav" aria-label="Menu główne">
         <ul class="ds-header__menu" role="list">
-          <li class="ds-header__item"><a class="ds-nav-link" href="…">Oferta</a><button type="button" class="ds-header__toggle" aria-expanded="false" aria-controls="ds-header-mega" aria-label="Pokaż menu oferty" data-ds-mega-toggle>…</button></li>
+          <li class="ds-header__item"><a class="ds-nav-link" href="…">Oferta</a><button type="button" class="ds-header__toggle" aria-expanded="false" aria-controls="ds-header-mega" aria-label="Pokaż menu oferty" data-ds-mega-toggle>…</button>
+            <div class="ds-mega-menu" id="ds-header-mega" data-ds-mega hidden>…</div></li>
           <li class="ds-header__item"><a class="ds-nav-link" href="…" aria-current="page">Szkolenia</a></li>
         </ul>
       </nav>
       <div class="ds-header__actions"><a class="ds-nav-cta" href="tel:…">Dzwonię</a><button type="button" class="ds-nav-burger" aria-expanded="false" aria-label="Menu" aria-controls="ds-header-menu">…</button></div>
     </div>
-    <div class="ds-mega-menu" id="ds-header-mega" data-ds-mega hidden>…</div>
     <div class="ds-mobile-menu" id="ds-header-menu" data-ds-mobile-menu hidden>…</div>
   </header>
   ```

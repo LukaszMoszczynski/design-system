@@ -60,7 +60,7 @@ export default {
     docs: {
       description: {
         component:
-          '`header.ds-header[data-ds-header]` (`.is-scrolled`) > `div.ds-header__bar` > `div.ds-header__brand` (`a.ds-header__logo`, `.ds-header__badge`) + `nav.ds-header__nav > ul.ds-header__menu > li.ds-header__item` (Nav link + `button.ds-header__toggle[data-ds-mega-toggle][aria-controls]`) + `div.ds-header__actions` (Nav CTA, Nav burger); then the Mega menu (`[data-ds-mega]`) and the Mobile menu (`[data-ds-mobile-menu]`). Up to 1024 px the burger replaces the navigation (Mobile story). State applies to the Oferta link and caret.',
+          '`header.ds-header[data-ds-header]` (`.is-scrolled`) > `div.ds-header__bar` > `div.ds-header__brand` (`a.ds-header__logo`, `.ds-header__badge`) + `nav.ds-header__nav > ul.ds-header__menu > li.ds-header__item` (Nav link + `button.ds-header__toggle[data-ds-mega-toggle][aria-controls]` + the Mega menu `[data-ds-mega]`, so focus goes from the toggle into the panel) + `div.ds-header__actions` (Nav CTA, Nav burger); then the Mobile menu (`[data-ds-mobile-menu]`). Up to 1024 px the burger replaces the navigation (Mobile story). State applies to the Oferta link and caret.',
       },
     },
   },

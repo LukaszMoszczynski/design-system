@@ -1,7 +1,10 @@
 // Carousel: wires window.Swiper to every .ds-carousel[data-ds-carousel] (carousel.template.js).
 // - data-ds-items (2–4): whole cards per view from 1200 px; 2 whole cards at 1025–1199 px (desktop: never a peek);
 //   tablets show 2 and a peek, phones 1 card with the next one peeking (the viewport is one card wide, see carousel.css).
-// - loop only when there are more slides than data-ds-items; with fewer, Swiper locks and the controls hide (is-static).
+// - loop only with at least twice as many slides as the most cards ever in view (Swiper rounds a peek up: 2.15 is 3),
+//   so Swiper never warns that the loop lacks slides; otherwise the arrows rewind at the ends. With no more slides than
+//   fit, Swiper locks and the controls hide (is-static).
+// - data-ds-pagination: dots (aria-current follows the slide) or counter („3 / 16”).
 // - The dots and the counter are the template's own markup (Carousel controls atom): the script moves aria-current and
 //   the counter text, and a dot click slides there.
 // - Only links in slides fully on screen are in the tab order (otherwise Tab slides the loop on for ever, WCAG 2.1.2);
@@ -60,8 +63,18 @@
     const items = Math.min(4, Math.max(2, Number(element.dataset.dsItems) || 3));
     const prev = element.querySelector('[data-ds-carousel-prev]');
     const next = element.querySelector('[data-ds-carousel-next]');
-    const dots = element.querySelector('[data-ds-carousel-dots]');
-    const counter = element.querySelector('.ds-carousel-controls__counter');
+    const usesCounter = element.dataset.dsPagination === 'counter';
+    const dots = usesCounter ? null : element.querySelector('[data-ds-carousel-dots]');
+    const counter = usesCounter ? element.querySelector('.ds-carousel-controls__counter') : null;
+    const breakpoints = {
+      // 782 = the phone/tablet switch of the tokens (max-width: 781px): tablets show a peek.
+      782: { slidesPerView: Math.min(2, items) + 0.15 },
+      // Desktop: whole cards only.
+      1025: { slidesPerView: Math.min(2, items) },
+      1200: { slidesPerView: items },
+    };
+    const mostInView = Math.max(1, ...Object.values(breakpoints).map((breakpoint) => Math.ceil(breakpoint.slidesPerView)));
+    const loop = count >= mostInView * 2;
 
     const trackId = ensureId(track);
     [prev, next].forEach((button) => button?.setAttribute('aria-controls', trackId));
@@ -101,19 +114,14 @@
     const swiper = new window.Swiper(viewport, {
       wrapperClass: 'ds-carousel__track',
       slideClass: 'ds-carousel__slide',
-      loop: count > items,
+      loop,
+      rewind: !loop,
       speed: reducedMotion() ? 0 : SPEED,
       slidesPerView: 1,
       spaceBetween: slideGap(element),
       watchOverflow: true,
       watchSlidesProgress: true,
-      breakpoints: {
-        // 782 = the phone/tablet switch of the tokens (max-width: 781px): tablets show a peek.
-        782: { slidesPerView: Math.min(2, items) + 0.15 },
-        // Desktop: whole cards only.
-        1025: { slidesPerView: Math.min(2, items) },
-        1200: { slidesPerView: items },
-      },
+      breakpoints,
       navigation: { prevEl: prev, nextEl: next, disabledClass: 'is-disabled', lockClass: 'is-locked', hiddenClass: 'is-hidden' },
       a11y: {
         prevSlideMessage: prev?.getAttribute('aria-label') || 'Poprzednie',

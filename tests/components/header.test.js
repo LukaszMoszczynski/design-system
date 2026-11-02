@@ -64,6 +64,16 @@ describe('header script', () => {
     expect(mega().hidden).toBe(true);
   });
 
+  it('the next focusable element after the open toggle is inside the panel (focus order)', () => {
+    loadScript(SCRIPT, window);
+    toggle().click();
+    const focusable = [...document.querySelectorAll('a[href], button, input, select, textarea')].filter((element) => !element.closest('[hidden]'));
+    const next = focusable[focusable.indexOf(toggle()) + 1];
+    expect(mega().contains(next)).toBe(true);
+    // And Shift+Tab from the panel's first link lands on the toggle.
+    expect(focusable[focusable.indexOf(mega().querySelector('a')) - 1]).toBe(toggle());
+  });
+
   it('Escape closes and returns focus', () => {
     loadScript(SCRIPT, window);
     toggle().click();

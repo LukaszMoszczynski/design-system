@@ -18,7 +18,7 @@ JS: `organisms/carousel/carousel.js` (needs `window.Swiper`, Swiper 11).
     the arrows); the script makes one when it is empty.
 
   ```html
-  <section class="ds-carousel ds-carousel--nav-below" data-ds-carousel data-ds-items="3" data-ds-nav="below"
+  <section class="ds-carousel" data-ds-carousel data-ds-items="3" data-ds-nav="below"
        data-ds-pagination="dots" aria-roledescription="karuzela" aria-label="Programy…">
     <div class="ds-carousel__head"><header class="ds-heading-group ds-heading-group--stacked">…</header></div>
     <div class="ds-carousel__clip">
@@ -34,8 +34,18 @@ JS: `organisms/carousel/carousel.js` (needs `window.Swiper`, Swiper 11).
   ```
 
   The named `<section>` is the region landmark; the Heading group's `<header>` inside it is not a banner.
-  `beside-heading` puts `div.ds-carousel__nav` inside `div.ds-carousel__head`, after the heading group; `above-right`
-  puts it between the head and the clip.
+
+  **Markup contract.** A section that writes the markup itself (a `render.php`) must keep every hook below; the template
+  writes them all.
+
+  | Hook | Read by | Meaning |
+  | --- | --- | --- |
+  | `.ds-carousel[data-ds-carousel]` | carousel.js | the element the script wires; without `data-ds-carousel` nothing happens |
+  | `data-ds-items="2\|3\|4"` | carousel.js, carousel.css | cards per view from 1200 px: the breakpoints, the loop rule and the row without Swiper |
+  | `data-ds-nav="below\|beside-heading\|above-right"` | carousel.css | the nav placement. It must match where `div.ds-carousel__nav` sits: after the clip (below), last in `div.ds-carousel__head` after the heading group (beside-heading), or between the head and the clip (above-right) |
+  | `data-ds-pagination="dots\|counter"` | carousel.js | which control the script keeps in step: the dots' `aria-current` or the counter text. Render the matching Carousel controls (`counter: true` for counter) |
+  | `.ds-carousel__viewport > .ds-carousel__track > .ds-carousel__slide` | carousel.js | the Swiper element, its wrapperClass and slideClass; any card inside a slide |
+  | `[data-ds-carousel-prev]`, `[data-ds-carousel-next]`, `[data-ds-carousel-dots]` with `[data-ds-dot]`, `.ds-carousel-controls__counter` | carousel.js | the Carousel controls atom's hooks |
 - Layout:
   - Desktop shows whole cards only: `items` per view from 1200 px, 2 at 1025–1199 px.
   - Tablets (782–1024 px) show 2 cards and a peek.
@@ -43,7 +53,10 @@ JS: `organisms/carousel/carousel.js` (needs `window.Swiper`, Swiper 11).
     and the controls always sit below.
 - `carousel.js` (`window.DS.carousel.init(root)`):
   - creates one Swiper per `.ds-carousel[data-ds-carousel]`, on `.ds-carousel__viewport`;
-  - `loop` only when there are more slides than `items`. With fewer, Swiper locks and the controls hide (`is-static`);
+  - `loop` only with at least twice as many slides as the most cards ever in view (`items`, or 3 for the tablet peek of
+    two cards): 6 slides for 2 or 3 items, 8 for 4. Swiper then never warns about missing loop slides. With fewer the
+    arrows `rewind` at the ends; with no more slides than fit, Swiper locks and the controls hide (`is-static`);
+  - `data-ds-pagination` picks the control it keeps in step (dots or counter);
   - the gap is the `--carousel-slide-gap` token (per brand and breakpoint), read again on resize;
   - the arrows get `aria-controls` (the track id); a dot click slides there, the current dot gets `aria-current`, the
     counter text follows the slide;
