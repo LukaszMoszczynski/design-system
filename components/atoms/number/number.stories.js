@@ -1,7 +1,7 @@
+import { OVERVIEW_STATE, forceState, overviewCell, overviewGrid } from '../../../.storybook/state.js';
 import { LETTER_VARIANTS, renderLetterCircle, renderPageNumber } from './number.template.js';
 
 const frame = (markup) => `<div style="display: flex; gap: var(--space-16); align-items: center; padding: var(--space-24)">${markup}</div>`;
-const MOBILE = { viewport: { value: 'mobile', isRotated: false } };
 
 export default {
   title: 'Atoms/Number',
@@ -16,23 +16,25 @@ export default {
     docs: {
       description: {
         component:
-          'Letter circle `.ds-letter-circle ds-letter-circle--{step|word|industry}` (+ `is-active`) and page number `.ds-page-number` (current = `aria-current="page"`).',
+          'Letter circle `.ds-letter-circle ds-letter-circle--{step|word|industry}` (+ `is-active`) and page number `.ds-page-number` (current = `aria-current="page"`, hover on the others).',
       },
     },
   },
 };
 
-export const LetterStep = {};
-export const LetterStepActive = { args: { active: true } };
-export const LetterWord = { args: { variant: 'word' } };
-export const LetterWordActive = { args: { variant: 'word', active: true } };
-export const LetterIndustry = { args: { variant: 'industry', text: '1' } };
-export const LetterIndustryActive = { args: { variant: 'industry', text: '1', active: true } };
+export const Playground = {};
 
-const pages = () => [1, 2, 3].map((number) => renderPageNumber({ text: String(number), current: number === 2 })).join('');
-export const PageNumbers = { render: () => frame(pages()) };
-export const PageNumberHover = {
-  render: () => frame(renderPageNumber({ text: '1' })),
-  globals: { pseudo: { hover: ['.ds-page-number'] } },
+// Every letter circle, at rest and active, and the page numbers (current and hovered).
+export const Overview = {
+  ...OVERVIEW_STATE,
+  render: (args) =>
+    overviewGrid([
+      ...LETTER_VARIANTS.flatMap((variant) =>
+        [false, true].map((active) =>
+          overviewCell(`${variant} · ${active ? 'active' : 'default'}`, frame(renderLetterCircle({ ...args, variant, active, text: variant === 'industry' ? '1' : args.text }))),
+        ),
+      ),
+      overviewCell('page numbers · current 2', frame([1, 2, 3].map((number) => renderPageNumber({ text: String(number), current: number === 2 })).join(''))),
+      overviewCell('page number · hover', frame(forceState(renderPageNumber({ text: '1' }), 'hover', ['.ds-page-number']))),
+    ]),
 };
-export const PageNumbersMobile = { render: () => frame(pages()), globals: MOBILE };

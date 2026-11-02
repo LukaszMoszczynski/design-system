@@ -1,6 +1,9 @@
+import { OVERVIEW_STATE, STATE_ARG_TYPES, forceState, overviewCell, overviewGrid } from '../../../.storybook/state.js';
 import { renderCarouselArrow, renderCarouselControls, renderCarouselDot } from './carousel-controls.template.js';
 
 const frame = (markup) => `<div style="padding: var(--space-24)">${markup}</div>`;
+const ARROW = ['.ds-carousel-arrow'];
+const DOT = ['.ds-carousel-dot'];
 
 export default {
   title: 'Atoms/Carousel Controls',
@@ -11,9 +14,11 @@ export default {
     counter: { control: 'boolean', description: 'Show „3 / 16” instead of the dots (when they do not fit).' },
     prevDisabled: { control: 'boolean' },
     nextDisabled: { control: 'boolean' },
+    ...STATE_ARG_TYPES,
   },
-  args: { count: 4, active: 0, counter: false, prevDisabled: false, nextDisabled: false },
+  args: { count: 4, active: 0, counter: false, prevDisabled: false, nextDisabled: false, state: 'default' },
   parameters: {
+    stateTargets: [...ARROW, ...DOT],
     docs: {
       description: {
         component:
@@ -23,16 +28,22 @@ export default {
   },
 };
 
-export const Default = {};
-export const Counter = { args: { count: 16, active: 2, counter: true } };
+export const Playground = {};
 
-// Figma Carousel/Arrow: Default, Hover, Focus, Disabled.
-export const Arrow = { render: () => frame(renderCarouselArrow({ direction: 'next' })) };
-export const ArrowHover = { ...Arrow, globals: { pseudo: { hover: ['.ds-carousel-arrow'] } } };
-export const ArrowFocus = { ...Arrow, globals: { pseudo: { focusVisible: ['.ds-carousel-arrow'] } } };
-export const ArrowDisabled = { render: () => frame(renderCarouselArrow({ direction: 'prev', disabled: true })) };
-
-// Figma Pagination/Dot: Default, Hover, Active.
-export const Dot = { render: () => frame(renderCarouselDot({ index: 1 })) };
-export const DotHover = { ...Dot, globals: { pseudo: { hover: ['.ds-carousel-dot'] } } };
-export const DotActive = { render: () => frame(renderCarouselDot({ index: 0, active: true })) };
+// Figma Carousel/Arrow (Default, Hover, Focus, Disabled), Pagination/Dot (Default, Hover, Active) and the counter.
+export const Overview = {
+  ...OVERVIEW_STATE,
+  render: () =>
+    overviewGrid(
+      [
+        ...['default', 'hover', 'focus'].map((state) =>
+          overviewCell(`arrow · ${state}`, frame(forceState(renderCarouselArrow({ direction: 'next' }), state, ARROW))),
+        ),
+        overviewCell('arrow · disabled', frame(renderCarouselArrow({ direction: 'prev', disabled: true }))),
+        ...['default', 'hover'].map((state) => overviewCell(`dot · ${state}`, frame(forceState(renderCarouselDot({ index: 1 }), state, DOT)))),
+        overviewCell('dot · active', frame(renderCarouselDot({ index: 0, active: true }))),
+        overviewCell('counter', frame(renderCarouselControls({ count: 16, active: 2, counter: true })), true),
+      ],
+      '160px',
+    ),
+};

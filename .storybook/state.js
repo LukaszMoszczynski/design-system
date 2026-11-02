@@ -12,7 +12,8 @@
 //   parameters: { stateTargets: ['.ds-card-program'] }   // the elements that take the state (default: the first ds- element)
 export const STATES = ['default', 'hover', 'focus'];
 
-const PSEUDO_CLASSES = { hover: 'pseudo-hover', focus: 'pseudo-focus-visible' };
+// Focus sets both: most components style `:focus-visible`, a text field also `:focus` (its label floats).
+const PSEUDO_CLASSES = { hover: ['pseudo-hover'], focus: ['pseudo-focus-visible', 'pseudo-focus'] };
 
 export const STATE_ARG_TYPES = {
   state: {
@@ -25,27 +26,27 @@ export const STATE_ARG_TYPES = {
 
 export const withForcedState = (storyFn, context) => {
   const result = storyFn();
-  const pseudoClass = PSEUDO_CLASSES[context.args?.state];
-  if (!pseudoClass || context.parameters.forcedState === false || !(result instanceof Element)) return result;
+  const pseudoClasses = PSEUDO_CLASSES[context.args?.state];
+  if (!pseudoClasses || context.parameters.forcedState === false || !(result instanceof Element)) return result;
   const targets = context.parameters.stateTargets ?? ['[class*="ds-"]'];
   const elements = context.parameters.stateTargets
     ? targets.flatMap((selector) => [...result.querySelectorAll(selector)])
     : [result.querySelector(targets[0])].filter(Boolean);
-  elements.forEach((element) => element.classList.add(pseudoClass));
+  elements.forEach((element) => element.classList.add(...pseudoClasses));
   return result;
 };
 
 // Overview grids show the states side by side: forceState(markup, 'hover', ['.ds-card-program']) returns the markup with
 // the pseudo class on the matching elements (the first ds- element when no selector is given).
 export function forceState(markup, state, selectors) {
-  const pseudoClass = PSEUDO_CLASSES[state];
-  if (!pseudoClass) return markup;
+  const pseudoClasses = PSEUDO_CLASSES[state];
+  if (!pseudoClasses) return markup;
   const template = document.createElement('template');
   template.innerHTML = markup;
   const elements = selectors
     ? selectors.flatMap((selector) => [...template.content.querySelectorAll(selector)])
     : [template.content.querySelector('[class*="ds-"]')].filter(Boolean);
-  elements.forEach((element) => element.classList.add(pseudoClass));
+  elements.forEach((element) => element.classList.add(...pseudoClasses));
   return template.innerHTML;
 }
 

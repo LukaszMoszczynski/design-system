@@ -17,7 +17,7 @@ CSS: `atoms/button/button.css` plus `atoms/icon/icon.css`. No JS.
 - Without `href` the element is `<button type="button">`. `disabled` (proposal): `<button disabled>`, or for a link
   `<a role="link" aria-disabled="true">` with no `href`.
 - States: hover and `:focus-visible` share the primary → primary-deep gradient and the accent circle, the arrow nudges
-  2 px up-right; focus adds the 2 px ring 3 px outside. `:active` (pressed) and disabled are proposals: the site has neither.
+  2 px up-right; focus adds the 2 px ring 3 px outside. Disabled is a proposal: the site has none. There is no pressed state.
 - Shape of every button: `--button-radius` (Component tokens).
 
 ## Button/Outline — `renderButtonOutline({ text, href })`

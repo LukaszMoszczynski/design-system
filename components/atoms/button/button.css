@@ -1,7 +1,7 @@
 /* Button (.dcc-btn): label + 44 px icon circle (shape arrow) or a centred pill (ds-button--pill).
    Rest: primary and accent get a page-colour circle with a primary arrow; light gets a primary circle with a white arrow.
    Hover and focus: every style gets the primary to primary-deep gradient, an accent circle and a white arrow that
-   nudges up-right. Focus adds the ring. Pressed and disabled are proposals (the site has neither). */
+   nudges up-right. Focus adds the ring. Disabled is a proposal (the site has none). */
 .ds-button {
   display: inline-flex;
   align-items: center;
@@ -104,18 +104,7 @@
   }
 }
 
-/* Pressed (proposal): solid primary-deep, accent circle. */
-.ds-button:active {
-  background: var(--color-brand-primary-deep);
-  color: var(--color-text-on-brand);
-}
-
-.ds-button:active .ds-button__icon {
-  background: var(--color-brand-accent);
-  color: var(--color-text-on-brand);
-}
-
-/* Disabled (proposal): grey pill, page-colour circle with a grey arrow; no hover, press or nudge. */
+/* Disabled (proposal): grey pill, page-colour circle with a grey arrow; no hover or nudge. */
 .ds-button:is(:disabled, [aria-disabled='true']) {
   background: var(--color-state-disabled);
   color: var(--color-text-on-brand);
