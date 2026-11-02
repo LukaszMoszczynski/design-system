@@ -1,0 +1,66 @@
+/* Card/Person (.dcc-osoby--siatka .dcc-osoba): 454 px tall (346 on phones), radius 32, the muted surface behind the
+   photo (cover). The name box: page colour, radius 16, 16/28 padding, 20 px from the edges, centred; the name in the
+   heading font Medium at the 2XL size, primary; roles body 16/24. Hover and keyboard focus zoom the photo 4 %. */
+.ds-card-person {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: var(--size-person-card-height);
+  overflow: hidden;
+  border-radius: var(--card-radius);
+  background: var(--color-surface-muted);
+  color: var(--color-text-default);
+  text-decoration: none;
+}
+
+.ds-card-person__photo {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.ds-card-person__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.ds-card-person__body {
+  display: grid;
+  gap: var(--person-role-gap);
+  margin: 0 var(--person-body-margin) var(--person-body-margin);
+  padding: var(--person-body-padding-y) var(--person-body-padding-x);
+  border-radius: var(--person-body-radius);
+  background: var(--color-surface-page);
+  text-align: center;
+}
+
+.ds-card-person__name {
+  color: var(--color-brand-primary);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-name);
+}
+
+.ds-card-person__roles {
+  margin: 0;
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+a.ds-card-person:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+a.ds-card-person:focus-visible .ds-card-person__photo img {
+  transform: scale(1.04);
+}
+
+@media (hover: hover) {
+  a.ds-card-person:hover .ds-card-person__photo img {
+    transform: scale(1.04);
+  }
+}

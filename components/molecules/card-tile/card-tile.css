@@ -1,0 +1,56 @@
+/* Card/Tile (.dcc-karty--akredytacja .dcc-karta): soft surface, radius 32, padding 40 28 44 16. The title box (8/16/12
+   padding, radius 20) is transparent at rest; the texts are indented 16 px to line up with the title. Subtitle 24 px
+   below, description 20 px. Hover and keyboard focus (as a link): brand surface, on-brand texts, the title box in the
+   page colour with a primary title. */
+.ds-card-tile {
+  display: flex;
+  flex-direction: column;
+  padding: var(--tile-padding-top) var(--tile-padding-right) var(--tile-padding-bottom) var(--space-16);
+  border-radius: var(--card-radius);
+  background: var(--color-surface-soft);
+  color: var(--color-text-default);
+  text-decoration: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.ds-card-tile__title-box {
+  padding: var(--tile-title-padding-top) var(--tile-title-padding-x) var(--tile-title-padding-bottom);
+  border-radius: var(--tile-title-radius);
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.ds-card-tile__texts {
+  padding-left: var(--tile-title-padding-x);
+}
+
+.ds-card-tile__subtitle {
+  margin-top: var(--tile-subtitle-gap);
+}
+
+.ds-card-tile__text {
+  margin-top: var(--tile-text-gap);
+}
+
+a.ds-card-tile:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+  background: var(--color-surface-brand);
+  color: var(--color-text-on-brand);
+}
+
+a.ds-card-tile:focus-visible .ds-card-tile__title-box {
+  background: var(--color-surface-page);
+  color: var(--color-brand-primary);
+}
+
+@media (hover: hover) {
+  a.ds-card-tile:hover {
+    background: var(--color-surface-brand);
+    color: var(--color-text-on-brand);
+  }
+
+  a.ds-card-tile:hover .ds-card-tile__title-box {
+    background: var(--color-surface-page);
+    color: var(--color-brand-primary);
+  }
+}

@@ -1,0 +1,154 @@
+/* Card/Program (.dcc-karty--program .dcc-karta): min 469 px tall, radius 32, soft surface. The title box (page colour,
+   primary 2XL) is stepped on desktop: a band one line + 32 px tall across the full width, the lower part 71 px narrower,
+   20 px radii and a 20 px fillet in the inner corner. The texts and footer are indented 14 / 2 px. Hover and keyboard
+   focus (when the card is a link): brand surface, on-brand texts and pill, accent arrow with the nudge.
+   Phones (≤ 781 px): hugging height, radius 16, a plain title box, 44 px arrow, 9/18 pill padding. */
+.ds-card-program {
+  --card-program-band: calc(var(--font-line-height-2xl) + var(--card-title-padding-top) + var(--space-12));
+  display: flex;
+  flex-direction: column;
+  min-height: var(--card-min-height);
+  padding: var(--card-padding-top) var(--card-box-inset-right) var(--card-padding-bottom) var(--card-box-inset-left);
+  border-radius: var(--card-radius);
+  background: var(--color-surface-soft);
+  color: var(--color-text-default);
+  text-decoration: none;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.ds-card-program__title-box {
+  position: relative;
+  isolation: isolate;
+  min-height: var(--card-title-box-height);
+  padding: var(--card-title-padding-top) var(--space-12) var(--card-title-padding-bottom) var(--space-16);
+  /* The fillet: page colour outside a quarter circle, in the corner between the band and the lower part. */
+  background: radial-gradient(circle at 100% 100%, transparent var(--card-title-radius), var(--color-surface-page) calc(var(--card-title-radius) + 1px))
+    calc(100% - var(--card-title-step-width) + var(--card-title-radius)) var(--card-program-band) / var(--card-title-radius) var(--card-title-radius) no-repeat;
+}
+
+/* The band (first line) and the lower part (minus the step). */
+.ds-card-program__title-box::before,
+.ds-card-program__title-box::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  background: var(--color-surface-page);
+}
+
+.ds-card-program__title-box::before {
+  inset: 0 0 auto;
+  height: var(--card-program-band);
+  border-radius: var(--card-title-radius) var(--card-title-radius) var(--card-title-radius) 0;
+}
+
+.ds-card-program__title-box::after {
+  inset: calc(var(--card-program-band) - var(--card-title-radius)) var(--card-title-step-width) 0 0;
+  border-radius: 0 0 var(--card-title-radius) var(--card-title-radius);
+}
+
+.ds-card-program__title {
+  color: var(--color-brand-primary);
+}
+
+/* Keeps the second line clear of the step; the first line may use the full width. */
+.ds-card-program__title::before {
+  content: '';
+  float: right;
+  width: var(--card-title-step-width);
+  height: calc(2 * var(--font-line-height-2xl));
+  shape-outside: inset(calc(var(--font-line-height-2xl) + var(--space-12)) 0 0 0);
+}
+
+.ds-card-program__texts,
+.ds-card-program__footer {
+  padding: 0 var(--card-text-indent-right) 0 var(--card-text-indent-left);
+}
+
+.ds-card-program__subtitle {
+  margin-top: var(--card-subtitle-gap);
+}
+
+.ds-card-program__text {
+  margin-top: var(--card-text-gap);
+}
+
+.ds-card-program__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-16);
+  margin-top: auto;
+  padding-top: var(--space-20);
+}
+
+.ds-card-program .ds-button-arrow {
+  width: var(--card-arrow-size);
+  height: var(--card-arrow-size);
+}
+
+a.ds-card-program:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+a.ds-card-program:focus-visible {
+  background: var(--color-surface-brand);
+  color: var(--color-text-on-brand);
+}
+
+a.ds-card-program:focus-visible .ds-button-arrow {
+  background: var(--color-brand-accent);
+  color: var(--color-text-on-brand);
+}
+
+a.ds-card-program:focus-visible .ds-button-arrow .ds-icon {
+  transform: translate(2px, -2px);
+}
+
+@media (hover: hover) {
+  a.ds-card-program:hover {
+    background: var(--color-surface-brand);
+    color: var(--color-text-on-brand);
+  }
+
+  a.ds-card-program:hover .ds-button-arrow {
+    background: var(--color-brand-accent);
+    color: var(--color-text-on-brand);
+  }
+
+  a.ds-card-program:hover .ds-button-arrow .ds-icon {
+    transform: translate(2px, -2px);
+  }
+}
+
+@media (max-width: 781px) {
+  .ds-card-program {
+    min-height: 0;
+    border-radius: var(--card-radius-mobile);
+  }
+
+  .ds-card-program__title-box {
+    min-height: 0;
+    border-radius: var(--card-title-radius);
+    background: var(--color-surface-page);
+  }
+
+  .ds-card-program__title-box::before,
+  .ds-card-program__title-box::after,
+  .ds-card-program__title::before {
+    content: none;
+  }
+
+  .ds-card-program__subtitle {
+    margin-top: var(--card-subtitle-gap-mobile);
+  }
+
+  .ds-card-program .ds-button-outline {
+    padding: calc(var(--space-18) / 2) var(--space-18);
+  }
+
+  .ds-card-program .ds-button-arrow {
+    width: var(--card-arrow-size-mobile);
+    height: var(--card-arrow-size-mobile);
+  }
+}

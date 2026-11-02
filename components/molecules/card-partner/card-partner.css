@@ -1,0 +1,50 @@
+/* Card/Partner (.dcc-karty--narzedzie .dcc-karta): card surface, 1 px primary border, radius 32, 32 px padding; a 64 px
+   tall logo, the subtitle (heading font Medium 16, accent) 24 px below, the title (Medium, primary) 12 px below that and
+   the text 20 px below. Grid: left-aligned, 2XL title. Carousel: 2 px border, 16/24/32 padding, centred, XL title. */
+.ds-card-partner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: var(--partner-padding);
+  border: var(--partner-border) solid var(--color-brand-primary);
+  border-radius: var(--card-radius);
+  background: var(--color-surface-card);
+  color: var(--color-text-default);
+}
+
+.ds-card-partner--carousel {
+  align-items: center;
+  padding: var(--space-16) var(--space-24) var(--partner-padding);
+  border-width: var(--partner-border-carousel);
+  text-align: center;
+}
+
+.ds-card-partner__logo {
+  width: auto;
+  max-width: 100%;
+  height: var(--partner-logo-height);
+  border-radius: var(--radius-8);
+  object-fit: contain;
+}
+
+.ds-card-partner__subtitle {
+  margin-top: var(--partner-logo-gap);
+  color: var(--color-brand-accent);
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-card-partner__title {
+  margin-top: var(--partner-subtitle-gap);
+  color: var(--color-brand-primary);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-card-partner--grid .ds-card-partner__title {
+  line-height: var(--line-height-name);
+}
+
+.ds-card-partner__text {
+  margin-top: var(--partner-text-gap);
+  text-align: left;
+}
