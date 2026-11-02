@@ -1,0 +1,54 @@
+/* Text styles (Figma Text section). Headings: heading font, Bold down to 2XL, Medium below. Body styles: body font.
+   The class wins over the tag defaults in base.css, so <h2 class="ds-text ds-text--lg"> looks like LG. */
+.ds-text {
+  margin: 0;
+  color: var(--color-text-default);
+}
+
+.ds-text--4xl,
+.ds-text--3xl,
+.ds-text--2xl,
+.ds-text--number {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-text--xl,
+.ds-text--lg,
+.ds-text--overline,
+.ds-text--button {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-text--body,
+.ds-text--question {
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-regular);
+}
+
+.ds-text--body-bold,
+.ds-text--small {
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-text--4xl { font-size: var(--font-size-4xl); line-height: var(--font-line-height-4xl); }
+.ds-text--3xl { font-size: var(--font-size-3xl); line-height: var(--font-line-height-3xl); }
+.ds-text--2xl { font-size: var(--font-size-2xl); line-height: var(--font-line-height-2xl); }
+.ds-text--xl { font-size: var(--font-size-xl); line-height: var(--font-line-height-xl); }
+.ds-text--lg { font-size: var(--font-size-lg); line-height: var(--font-line-height-lg); }
+.ds-text--body,
+.ds-text--body-bold { font-size: var(--font-size-body); line-height: var(--line-height-body); }
+.ds-text--small { font-size: var(--font-size-small); line-height: var(--line-height-small); }
+.ds-text--number { font-size: var(--font-size-number); line-height: var(--line-height-number); }
+.ds-text--button { font-size: var(--font-size-button); line-height: var(--line-height-button); }
+.ds-text--question { font-size: var(--font-size-lg); line-height: var(--line-height-question); }
+
+/* Overline: uppercase, tracked 6 % of its size (Figma: 1.2 px at 20, 0.72 px at 12; no letter-spacing token). */
+.ds-text--overline {
+  font-size: var(--font-size-overline);
+  line-height: var(--line-height-overline);
+  letter-spacing: calc(var(--font-size-overline) * 0.06);
+  text-transform: uppercase;
+}

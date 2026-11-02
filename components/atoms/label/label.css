@@ -1,0 +1,27 @@
+/* Label (.dcc-odznaka): 3/10 padding pill, body font bold 12, on-brand text.
+   Inverse takes the inverse surface and the inverse text, so it stays readable in Dark (light pill, dark text). */
+.ds-label {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--label-padding-y) var(--label-padding-x);
+  border-radius: var(--label-radius);
+  color: var(--color-text-on-brand);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+  white-space: nowrap;
+}
+
+.ds-label--accent {
+  background: var(--color-brand-accent);
+}
+
+.ds-label--primary {
+  background: var(--color-brand-primary);
+}
+
+.ds-label--inverse {
+  background: var(--color-surface-inverse);
+  color: var(--color-text-inverse);
+}

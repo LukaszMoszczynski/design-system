@@ -1,0 +1,86 @@
+/* Link: body text (Carlito 16 / 24), no underline. Kinds:
+   inline  — text colour, primary on hover/focus (in running text and card link lists);
+   arrow   — text colour + 14 px arrow, accent on hover/focus;
+   brand   — always primary, 12 px arrow;
+   footer  — white on the blue footer card, accent on hover/focus;
+   bold    — bold text colour + 14 px arrow, accent on hover/focus;
+   inverse — bold white + 14 px arrow, for blue surfaces.
+   Hover and focus nudge the arrow up-right. Focus: the 2 px ring on a 3 px radius. */
+.ds-link {
+  color: var(--color-text-default);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  text-decoration: none;
+  border-radius: var(--breadcrumb-focus-radius);
+  transition: color 0.2s ease;
+}
+
+.ds-link .ds-icon {
+  width: var(--space-14);
+  height: var(--space-14);
+  transition: transform 0.2s ease;
+}
+
+.ds-link--arrow,
+.ds-link--brand,
+.ds-link--bold,
+.ds-link--inverse {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.ds-link--footer {
+  color: var(--color-text-on-brand);
+}
+
+.ds-link--brand {
+  color: var(--color-brand-primary);
+}
+
+.ds-link--brand .ds-icon {
+  width: var(--size-12);
+  height: var(--size-12);
+}
+
+.ds-link--bold,
+.ds-link--inverse {
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-link--inverse {
+  color: var(--color-text-on-brand);
+}
+
+.ds-link:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.ds-link--inline:focus-visible {
+  color: var(--color-brand-primary);
+}
+
+.ds-link:is(.ds-link--arrow, .ds-link--footer, .ds-link--bold):focus-visible {
+  color: var(--color-brand-accent);
+}
+
+.ds-link:focus-visible .ds-icon {
+  transform: translate(2px, -2px);
+}
+
+@media (hover: hover) {
+  .ds-link--inline:hover {
+    color: var(--color-brand-primary);
+  }
+
+  .ds-link:is(.ds-link--arrow, .ds-link--footer, .ds-link--bold):hover {
+    color: var(--color-brand-accent);
+  }
+
+  .ds-link:hover .ds-icon {
+    transform: translate(2px, -2px);
+  }
+}
