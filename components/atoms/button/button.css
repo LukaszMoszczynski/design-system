@@ -1,0 +1,184 @@
+/* Button (.dcc-btn): label + 44 px icon circle (shape arrow) or a centred pill (ds-button--pill).
+   Rest: primary and accent get a page-colour circle with a primary arrow; light gets a primary circle with a white arrow.
+   Hover and focus: every style gets the primary to primary-deep gradient, an accent circle and a white arrow that
+   nudges up-right. Focus adds the ring. Pressed and disabled are proposals (the site has neither). */
+.ds-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--button-gap);
+  min-height: var(--button-min-height);
+  padding: var(--button-padding-y) var(--button-padding-end) var(--button-padding-y) var(--button-padding-left);
+  border: 0;
+  border-radius: var(--button-radius);
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-button);
+  line-height: var(--line-height-button);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.ds-button__icon {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: var(--button-icon-size);
+  height: var(--button-icon-size);
+  border-radius: var(--button-radius);
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.ds-button__icon .ds-icon {
+  width: var(--button-icon-glyph);
+  height: var(--button-icon-glyph);
+  transition: transform 0.2s ease;
+}
+
+.ds-button--primary {
+  background: var(--color-brand-primary);
+  color: var(--color-text-on-brand);
+}
+
+.ds-button--accent {
+  background: var(--color-brand-accent);
+  color: var(--color-text-on-brand);
+}
+
+.ds-button--primary .ds-button__icon,
+.ds-button--accent .ds-button__icon {
+  background: var(--color-surface-page);
+  color: var(--color-brand-primary);
+}
+
+.ds-button--light {
+  background: var(--color-surface-control);
+  color: var(--color-text-default);
+}
+
+.ds-button--light .ds-button__icon {
+  background: var(--color-brand-primary);
+  color: var(--color-text-on-brand);
+}
+
+/* Pill: no circle, the label centred. */
+.ds-button--pill {
+  justify-content: center;
+  min-height: 0;
+  padding: var(--button-pill-padding-y) var(--button-pill-padding-x);
+  text-align: center;
+}
+
+/* Keyboard focus: the hover look plus the ring. */
+.ds-button:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+  background: linear-gradient(90deg, var(--color-brand-primary), var(--color-brand-primary-deep));
+  color: var(--color-text-on-brand);
+}
+
+.ds-button:focus-visible .ds-button__icon {
+  background: var(--color-brand-accent);
+  color: var(--color-text-on-brand);
+}
+
+.ds-button:focus-visible .ds-button__icon .ds-icon {
+  transform: translate(2px, -2px);
+}
+
+@media (hover: hover) {
+  .ds-button:hover {
+    background: linear-gradient(90deg, var(--color-brand-primary), var(--color-brand-primary-deep));
+    color: var(--color-text-on-brand);
+  }
+
+  .ds-button:hover .ds-button__icon {
+    background: var(--color-brand-accent);
+    color: var(--color-text-on-brand);
+  }
+
+  .ds-button:hover .ds-button__icon .ds-icon {
+    transform: translate(2px, -2px);
+  }
+}
+
+/* Pressed (proposal): solid primary-deep, accent circle. */
+.ds-button:active {
+  background: var(--color-brand-primary-deep);
+  color: var(--color-text-on-brand);
+}
+
+.ds-button:active .ds-button__icon {
+  background: var(--color-brand-accent);
+  color: var(--color-text-on-brand);
+}
+
+/* Disabled (proposal): grey pill, page-colour circle with a grey arrow; no hover, press or nudge. */
+.ds-button:is(:disabled, [aria-disabled='true']) {
+  background: var(--color-state-disabled);
+  color: var(--color-text-on-brand);
+  cursor: default;
+}
+
+.ds-button:is(:disabled, [aria-disabled='true']) .ds-button__icon {
+  background: var(--color-surface-page);
+  color: var(--color-state-disabled);
+}
+
+.ds-button:is(:disabled, [aria-disabled='true']) .ds-button__icon .ds-icon {
+  transform: none;
+}
+
+/* Button/Outline (the program card's "Więcej"): a 1 px currentColor pill, so it turns white on a blue card. */
+.ds-button-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--button-outline-padding-y) var(--button-outline-padding-x);
+  border: var(--button-outline-stroke) solid currentColor;
+  border-radius: var(--button-radius);
+  color: inherit;
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* Button/Arrow (.dcc-arrow): a 42 px accent circle with an 18 px white arrow. */
+.ds-button-arrow {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: var(--arrow-size);
+  height: var(--arrow-size);
+  border-radius: var(--button-radius);
+  background: var(--color-brand-accent);
+  color: var(--color-text-on-brand);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.ds-button-arrow .ds-icon {
+  width: var(--arrow-glyph);
+  height: var(--arrow-glyph);
+  transition: transform 0.2s ease;
+}
+
+.ds-button-arrow--inverted {
+  background: var(--color-surface-page);
+  color: var(--color-brand-primary);
+}
+
+/* A standalone arrow link nudges its glyph like the buttons; inside a card the card's hover does it. */
+a.ds-button-arrow:focus-visible .ds-icon {
+  transform: translate(2px, -2px);
+}
+
+@media (hover: hover) {
+  a.ds-button-arrow:hover .ds-icon {
+    transform: translate(2px, -2px);
+  }
+}
