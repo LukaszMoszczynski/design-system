@@ -1,0 +1,55 @@
+/* Social button (.dcc-social > li > a): a 44 px circle, glyph in the text colour; hover and keyboard focus fill it
+   accent with an on-brand glyph. Raised (footer, contact): a page-colour circle at rest that lifts (scale + Shadow/Lift)
+   when active. */
+.ds-social-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--social-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-social-button {
+  display: grid;
+  place-items: center;
+  width: var(--social-size);
+  height: var(--social-size);
+  border-radius: var(--radius-full);
+  color: var(--color-text-default);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.ds-social-button__icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.ds-social-button--raised {
+  background: var(--color-surface-page);
+}
+
+.ds-social-button:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+  background: var(--color-brand-accent);
+  color: var(--color-text-on-brand);
+}
+
+.ds-social-button--raised:focus-visible {
+  transform: scale(1.08);
+  box-shadow: var(--shadow-lift);
+}
+
+@media (hover: hover) {
+  .ds-social-button:hover {
+    background: var(--color-brand-accent);
+    color: var(--color-text-on-brand);
+  }
+
+  .ds-social-button--raised:hover {
+    transform: scale(1.08);
+    box-shadow: var(--shadow-lift);
+  }
+}
