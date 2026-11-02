@@ -123,9 +123,10 @@ describe('writeTokens effect styles', () => {
     });
   });
 
-  it('keeps the effect alpha of a bound colour as ds.colorAlpha', () => {
+  it('writes a bound colour as a plain alias: its alpha lives in the variable', () => {
     const { tokens } = writeEffects([{ name: 'Shadow/Soft', description: '', effects: [shadow({ color: { r: 0, g: 0, b: 0, a: 0.08 } })] }]);
-    expect(tokens.shadow.soft.$extensions).toEqual({ 'ds.colorAlpha': 0.08 });
+    expect(tokens.shadow.soft.$value.color).toBe('{color.shadow}');
+    expect(tokens.shadow.soft.$extensions).toBeUndefined();
   });
 
   it('writes an unbound colour as hex, inner shadows as inset, and several effects as a list', () => {
@@ -144,5 +145,21 @@ describe('writeTokens effect styles', () => {
     const out = mkdtempSync(join(tmpdir(), 'tokens-'));
     writeTokens({ collections: [] }, out);
     expect(existsSync(join(out, 'effects.json'))).toBe(false);
+  });
+});
+
+describe('synced tokens', () => {
+  const tokensDir = new URL('../tokens/', import.meta.url);
+  const semantic = (mode) => JSON.parse(readFileSync(new URL(`semantic/${mode}.json`, tokensDir), 'utf8'));
+
+  it('semantic light has the card and lift shadow colours with alpha (8-digit hex)', () => {
+    expect(semantic('light').color['shadow-card'].$value).toMatch(/^#[0-9a-f]{8}$/);
+    expect(semantic('light').color['shadow-lift'].$value).toMatch(/^#[0-9a-f]{8}$/);
+  });
+
+  it('effects alias the shadow colours that carry the alpha', () => {
+    const effects = JSON.parse(readFileSync(new URL('effects.json', tokensDir), 'utf8'));
+    expect(effects.shadow.card.$value.color).toBe('{color.shadow-card}');
+    expect(effects.shadow.lift.$value.color).toBe('{color.shadow-lift}');
   });
 });

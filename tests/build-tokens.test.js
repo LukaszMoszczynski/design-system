@@ -91,8 +91,15 @@ describe('buildTokens', () => {
 
   it('shared.css builds the shadow tokens with the colour as a reference', () => {
     const css = read('tokens/shared.css');
-    expect(css).toContain('--shadow-card: 0px 12px 32px 0px var(--color-shadow);');
-    expect(css).toContain('--shadow-lift: 0px 4px 12px 0px var(--palette-neutral-1000);');
+    expect(css).toContain('--shadow-card: 0px 12px 32px 0px var(--color-shadow-card);');
+    expect(css).toContain('--shadow-lift: 0px 4px 12px 0px var(--color-shadow-lift);');
+  });
+
+  it('shadow colours with alpha are defined in light and dark as 8-digit hex', () => {
+    const css = read('tokens/shared.css');
+    const dark = css.slice(css.indexOf(':root[data-theme="dark"]'));
+    expect(css.slice(0, css.indexOf(':root[data-theme="dark"]'))).toMatch(/--color-shadow-card: #[0-9a-f]{8};/);
+    expect(dark).toMatch(/--color-shadow-card: #[0-9a-f]{8};/);
   });
 
   it('brand css carries no shadow tokens', () => {
@@ -133,7 +140,7 @@ describe('buildTokens guards', () => {
     await expect(buildWithComponentTokens({ one: named('dcc-thing') })).rejects.toThrow(/brand-specific names: --dcc-thing/);
   });
 
-  it('a bound shadow colour with its own alpha becomes color-mix, inset and lists are kept', async () => {
+  it('shadow lists and inset layers are kept', async () => {
     const dir = mkdtempSync(join(tmpdir(), 'shadow-tokens-'));
     const out = mkdtempSync(join(tmpdir(), 'shadow-out-'));
     try {
@@ -141,14 +148,12 @@ describe('buildTokens guards', () => {
       const layer = (extra) => ({ color: '{color.shadow}', offsetX: '0px', offsetY: '2px', blur: '4px', spread: '0px', ...extra });
       writeFileSync(join(dir, 'effects.json'), JSON.stringify({
         shadow: {
-          soft: { $type: 'shadow', $value: layer(), $extensions: { 'ds.colorAlpha': 0.08 } },
-          double: { $type: 'shadow', $value: [layer({ color: '#00000080' }), layer({ inset: true })], $extensions: { 'ds.colorAlpha': [null, 0.5] } },
+          double: { $type: 'shadow', $value: [layer({ color: '#00000080' }), layer({ inset: true })] },
         },
       }));
       await buildTokens({ tokensDir: dir, outDir: out });
       const css = readFileSync(join(out, 'tokens', 'shared.css'), 'utf8');
-      expect(css).toContain('--shadow-soft: 0px 2px 4px 0px color-mix(in srgb, var(--color-shadow) 8%, transparent);');
-      expect(css).toContain('--shadow-double: 0px 2px 4px 0px #00000080, inset 0px 2px 4px 0px color-mix(in srgb, var(--color-shadow) 50%, transparent);');
+      expect(css).toContain('--shadow-double: 0px 2px 4px 0px #00000080, inset 0px 2px 4px 0px var(--color-shadow);');
     } finally {
       rmSync(dir, { recursive: true, force: true });
       rmSync(out, { recursive: true, force: true });

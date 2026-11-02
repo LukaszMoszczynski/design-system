@@ -91,6 +91,8 @@
   --color-state-error: var(--palette-danger-700);
   --color-focus-ring: var(--palette-accent-500);
   --color-shadow: var(--palette-secondary-800);
+  --color-shadow-card: #37266214;
+  --color-shadow-lift: #3726622e;
   --button-radius: var(--radius-full);
   --button-min-height: var(--size-52);
   --button-padding-left: var(--space-20);
@@ -423,8 +425,8 @@
   --buy-box-width: 384px;
   --buy-box-field-height: 50px;
   --mobile-menu-row-padding: 16px;
-  --shadow-card: 0px 12px 32px 0px var(--color-shadow);
-  --shadow-lift: 0px 4px 12px 0px var(--palette-neutral-1000);
+  --shadow-card: 0px 12px 32px 0px var(--color-shadow-card);
+  --shadow-lift: 0px 4px 12px 0px var(--color-shadow-lift);
 }
 
 :root[data-theme="dark"] {
@@ -448,6 +450,8 @@
   --color-state-error: var(--palette-danger-400);
   --color-focus-ring: var(--palette-accent-400);
   --color-shadow: var(--palette-neutral-1000);
+  --color-shadow-card: #00000066;
+  --color-shadow-lift: #0000008c;
 }
 
 @media (max-width: 781px) {

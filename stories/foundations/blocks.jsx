@@ -143,15 +143,17 @@ export function RadiusScale({ tokens, title }) {
   );
 }
 
-// Shadow tokens (tokens/effects.json, from the Figma effect styles) next to the shadow colour.
-export function ShadowSamples({ shadows, color }) {
+// Shadow tokens (tokens/effects.json, from the Figma effect styles) next to their colours.
+export function ShadowSamples({ shadows, colors }) {
   return (
     <Panel title="shadow">
       <div className="ds-radius-grid">
-        <div className="ds-swatch">
-          <div className="ds-swatch__color" style={{ background: `var(${color.name})` }} />
-          <TokenLabel token={color} />
-        </div>
+        {colors.map((color) => (
+          <div className="ds-swatch" key={color.name}>
+            <div className="ds-swatch__color" style={{ background: `var(${color.name})` }} />
+            <TokenLabel token={color} />
+          </div>
+        ))}
         {shadows.map((token) => (
           <div className="ds-shadow" key={token.name}>
             <div className="ds-shadow__box" style={{ boxShadow: `var(${token.name})` }}>{token.path.split('.').at(-1)}</div>

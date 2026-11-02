@@ -24,19 +24,16 @@ function fontStack(token) {
   return `"${token.$value}", ${fallback}`;
 }
 
-// A DTCG shadow (one layer or a list) as a box-shadow value. The colour stays a reference; a bound colour
-// with an alpha of its own ($extensions["ds.colorAlpha"]) is mixed with transparent.
+// A DTCG shadow (one layer or a list) as a box-shadow value. The colour stays a reference, so the shadow
+// follows the brand and theme; its alpha comes from the colour token (8-digit hex).
 function shadowValue(token, namesByPath) {
   const layers = [token.original.$value].flat();
-  const alphas = [token.$extensions?.['ds.colorAlpha'] ?? null].flat();
-  return layers.map((layer, index) => {
-    let color = layer.color.replace(/^\{([^{}]+)\}$/, (_match, path) => {
+  return layers.map((layer) => {
+    const color = layer.color.replace(/^\{([^{}]+)\}$/, (_match, path) => {
       const name = namesByPath.get(path);
       if (!name) throw new Error(`${token.path.join('.')} aliases {${path}}, which is not in the build`);
       return `var(--${name})`;
     });
-    const alpha = alphas.length === 1 ? alphas[0] : alphas[index];
-    if (alpha !== null && alpha !== undefined) color = `color-mix(in srgb, ${color} ${trimNumber(alpha * 100)}%, transparent)`;
     return `${layer.inset ? 'inset ' : ''}${layer.offsetX} ${layer.offsetY} ${layer.blur} ${layer.spread} ${color}`;
   }).join(', ');
 }

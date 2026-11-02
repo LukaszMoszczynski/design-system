@@ -92,6 +92,16 @@
     "shadow": {
       "$type": "color",
       "$value": "{palette.neutral.1000}"
+    },
+    "shadow-card": {
+      "$type": "color",
+      "$value": "#00000066",
+      "$description": "Shadow/Card colour with its alpha. Light: #372662 at 8% (DCC site shadow). Dark: black at 40% (proposal)."
+    },
+    "shadow-lift": {
+      "$type": "color",
+      "$value": "#0000008c",
+      "$description": "Shadow/Lift colour with its alpha. Light: #372662 at 18%. Dark: black at 55% (proposal)."
     }
   }
 }

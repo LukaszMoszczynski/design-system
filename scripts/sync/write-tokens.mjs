@@ -87,8 +87,8 @@ function filePathFor(collection, mode) {
   return `${directory}/${toKebab(mode.name)}.json`;
 }
 
-// One Figma shadow effect -> DTCG shadow value. A colour bound to a variable becomes an alias; Figma
-// then reports the variable's colour, so an alpha below 1 is kept apart as ds.colorAlpha.
+// One Figma shadow effect -> DTCG shadow value. A colour bound to a variable becomes an alias: Figma
+// replaces the whole colour, alpha included, with the variable's, so the alpha lives in that variable.
 function shadowValue(effect) {
   const value = {
     color: effect.colorAlias ? aliasReference(effect.colorAlias) : toHex(effect.color),
@@ -108,9 +108,6 @@ function effectTokens(effectStyles) {
     const values = style.effects.map(shadowValue);
     const token = { $type: 'shadow', $value: values.length === 1 ? values[0] : values };
     if (style.description) token.$description = style.description;
-    // ds.colorAlpha: one number, or one entry per effect (null = no alpha of its own) for a list.
-    const alphas = style.effects.map((effect) => (effect.colorAlias && effect.color.a < 1 ? roundNumber(effect.color.a) : null));
-    if (alphas.some((alpha) => alpha !== null)) token.$extensions = { 'ds.colorAlpha': alphas.length === 1 ? alphas[0] : alphas };
     insertToken(tree, style.name.split('/').map(toKebab).join('/'), token);
   }
   return tree;

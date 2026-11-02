@@ -3,7 +3,7 @@
     "card": {
       "$type": "shadow",
       "$value": {
-        "color": "{color.shadow}",
+        "color": "{color.shadow-card}",
         "offsetX": "0px",
         "offsetY": "12px",
         "blur": "32px",
@@ -14,7 +14,7 @@
     "lift": {
       "$type": "shadow",
       "$value": {
-        "color": "{palette.neutral.1000}",
+        "color": "{color.shadow-lift}",
         "offsetX": "0px",
         "offsetY": "4px",
         "blur": "12px",

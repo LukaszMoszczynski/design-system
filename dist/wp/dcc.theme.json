@@ -105,6 +105,16 @@
           "slug": "shadow",
           "name": "Shadow",
           "color": "#372662"
+        },
+        {
+          "slug": "shadow-card",
+          "name": "Shadow card",
+          "color": "#37266214"
+        },
+        {
+          "slug": "shadow-lift",
+          "name": "Shadow lift",
+          "color": "#3726622e"
         }
       ]
     },

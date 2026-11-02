@@ -7,10 +7,11 @@ import { effectTokens, semanticTokens } from './token-list.js';
 # Shadows
 
 Shadow tokens come from the Figma effect styles Shadow/Card and Shadow/Lift (`tokens/effects.json`) and
-are built into `shared.css` as `--shadow-card` and `--shadow-lift`. A shadow bound to a colour variable
-keeps it as a reference, so `--shadow-card` follows `--color-shadow` in every brand and theme.
+are built into `shared.css` as `--shadow-card` and `--shadow-lift`. Their colours are the Semantic
+tokens `--color-shadow-card` and `--color-shadow-lift`, which carry the alpha (8-digit hex) and change
+with the theme. The Dark values are proposals.
 
 <ShadowSamples
   shadows={effectTokens}
-  color={semanticTokens.find((token) => token.path === 'color.shadow')}
+  colors={semanticTokens.filter((token) => token.path === 'color.shadow-card' || token.path === 'color.shadow-lift')}
 />
