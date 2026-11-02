@@ -1,0 +1,40 @@
+/* Model word (.dcc-model__word): word-variant Letter circles in a centred, wrapping row, each overlapping the one
+   before by 2 px. Hover (pointer) and is-active: accent, scaled 1.18 above its neighbours. */
+.ds-model-word {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0;
+}
+
+.ds-model-word .ds-letter-circle {
+  position: relative;
+  transition: background-color 0.25s ease, transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.ds-model-word .ds-letter-circle + .ds-letter-circle {
+  margin-left: var(--model-word-overlap);
+}
+
+.ds-model-word .ds-letter-circle.is-active {
+  z-index: 1;
+}
+
+@media (hover: hover) {
+  .ds-model-word .ds-letter-circle:hover {
+    z-index: 1;
+    background: var(--color-brand-accent);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ds-model-word .ds-letter-circle.is-active {
+    transform: scale(1.18);
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .ds-model-word .ds-letter-circle:hover {
+    transform: scale(1.18);
+  }
+}

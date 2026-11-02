@@ -1,0 +1,72 @@
+/* Model step (.dcc-model__step): the 49 px letter circle and the text (body 16 / 24, bold label) 34 px apart
+   (16 on phones), min 56 px with 8 px vertical padding and a 1 px strong-border divider (none on the last step).
+   Hover or is-active (the double hover set by the section): the letter turns accent and scales 1.18, the text 1.03. */
+.ds-model-steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-model-step {
+  display: flex;
+  align-items: center;
+  gap: var(--space-model-step-gap);
+  min-height: var(--model-step-min-height);
+  padding: var(--model-step-padding-y) 0;
+  border-bottom: var(--accordion-divider) solid var(--color-border-strong);
+  color: var(--color-text-default);
+}
+
+.ds-model-steps > .ds-model-step:last-child {
+  border-bottom: 0;
+}
+
+.ds-model-step__letter {
+  display: flex;
+  flex: none;
+}
+
+.ds-model-step__letter .ds-letter-circle {
+  transition: background-color 0.25s ease, transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.ds-model-step__text {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  transform-origin: left center;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.ds-model-step.is-active .ds-letter-circle {
+  background: var(--color-brand-accent);
+}
+
+@media (hover: hover) {
+  .ds-model-step:hover .ds-letter-circle {
+    background: var(--color-brand-accent);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ds-model-step.is-active .ds-letter-circle {
+    transform: scale(1.18);
+  }
+
+  .ds-model-step.is-active .ds-model-step__text {
+    transform: scale(1.03);
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .ds-model-step:hover .ds-letter-circle {
+    transform: scale(1.18);
+  }
+
+  .ds-model-step:hover .ds-model-step__text {
+    transform: scale(1.03);
+  }
+}

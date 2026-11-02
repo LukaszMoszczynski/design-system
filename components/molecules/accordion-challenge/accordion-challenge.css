@@ -1,0 +1,137 @@
+/* Accordion/Challenge (.dcc-lista-wyzwan__item). Desktop: a soft row, radius 16, 16 px padding, min 76 px; a 44 px
+   card-colour circle with the plus/minus Icon, 24 px before the question (heading font Medium, LG). Hover (closed)
+   turns the question primary. Open: the brand surface, on-brand texts, minus; the body is indented 84 px.
+   Phones (≤ 781 px): plain rows with a 1 px divider, 20 px vertical padding, body-size question and a 20 px accent
+   plus/minus on the right. */
+.ds-accordion-challenge-list {
+  display: grid;
+  gap: var(--challenge-list-gap);
+  width: 100%;
+  max-width: var(--size-accordion-width);
+}
+
+.ds-accordion-challenge {
+  border-radius: var(--challenge-radius);
+  background: var(--color-surface-soft);
+  color: var(--color-text-default);
+  transition: background-color 0.3s ease-out, color 0.3s ease-out;
+}
+
+.ds-accordion-challenge[open] {
+  background: var(--color-surface-brand);
+  color: var(--color-text-on-brand);
+}
+
+.ds-accordion-challenge__summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-challenge-gap);
+  min-height: var(--challenge-min-height);
+  padding: var(--challenge-padding);
+  border-radius: var(--challenge-radius);
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-lg);
+  line-height: var(--font-line-height-lg);
+  list-style: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.ds-accordion-challenge__summary::-webkit-details-marker {
+  display: none;
+}
+
+.ds-accordion-challenge__summary:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.ds-accordion-challenge__question {
+  flex: 1;
+  min-width: 0;
+}
+
+.ds-accordion-challenge__icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: var(--size-challenge-icon);
+  height: var(--size-challenge-icon);
+  border-radius: var(--radius-full);
+  background: var(--color-surface-card);
+  color: var(--color-text-default);
+}
+
+.ds-accordion-challenge__icon .ds-icon {
+  grid-area: 1 / 1;
+}
+
+.ds-accordion-challenge__minus,
+.ds-accordion-challenge[open] .ds-accordion-challenge__plus {
+  visibility: hidden;
+}
+
+.ds-accordion-challenge[open] .ds-accordion-challenge__minus {
+  visibility: visible;
+}
+
+.ds-accordion-challenge:not([open]) .ds-accordion-challenge__summary:focus-visible {
+  color: var(--color-brand-primary);
+}
+
+@media (hover: hover) {
+  .ds-accordion-challenge:not([open]) .ds-accordion-challenge__summary:hover {
+    color: var(--color-brand-primary);
+  }
+}
+
+.ds-accordion-challenge__body {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-10);
+  padding: 0 var(--challenge-body-padding-right) var(--challenge-body-padding-bottom) var(--challenge-body-padding-left);
+}
+
+/* The Link atom's inverse colour is white, for the open blue row; on phones the row stays on the page colour. */
+@media (max-width: 781px) {
+  .ds-accordion-challenge-list {
+    gap: 0;
+  }
+
+  .ds-accordion-challenge,
+  .ds-accordion-challenge[open] {
+    border-radius: 0;
+    border-bottom: var(--accordion-divider) solid var(--color-border-default);
+    background: none;
+    color: var(--color-text-default);
+  }
+
+  .ds-accordion-challenge__summary {
+    min-height: 0;
+    padding: var(--challenge-row-padding-mobile) 0;
+    font-family: var(--font-body);
+    font-weight: var(--font-weight-regular);
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+  }
+
+  .ds-accordion-challenge__icon {
+    order: 2;
+    background: none;
+    color: var(--color-brand-accent);
+  }
+
+  .ds-accordion-challenge__icon .ds-icon {
+    width: var(--size-challenge-icon);
+    height: var(--size-challenge-icon);
+  }
+
+  .ds-accordion-challenge__body {
+    padding: 0 0 var(--challenge-body-padding-bottom);
+  }
+
+  .ds-accordion-challenge .ds-link--inverse {
+    color: var(--color-text-default);
+  }
+}
