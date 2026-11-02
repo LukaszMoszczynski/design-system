@@ -104,6 +104,9 @@ enqueues them.
   instant or native behaviour (a `<details>` still opens). It stays idempotent.
 - Tests: every animated component has `works without gsap` and `uses gsap when present` (a stubbed `window.gsap`), see
   `tests/components/accordion.test.js`.
+- Scroll reveal: `components/base/reveal.js` (`window.DS.reveal`) lifts every `[data-ds-reveal]` below the fold in when it
+  scrolls into view (the site's `data-reveal`: 60 px, 1 s, `power4.out`, 0.1 s stagger per row). It needs `gsap` and
+  `ScrollTrigger`; content already on screen is left as it is. The Call to action content carries the attribute.
 
 ## Documenting a component
 

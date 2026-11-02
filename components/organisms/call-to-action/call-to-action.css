@@ -1,0 +1,336 @@
+/* Call to action (.dcc-wezwanie, blocks/wezwanie/style.css). Five looks on one structure:
+   section.ds-cta > .ds-cta__card > .ds-cta__content (title, subtitle, text, actions) + .ds-cta__media.
+   Text styles come from the Text atom, the buttons from Button / Link; this file lays them out and colours the cards. */
+.ds-cta__card {
+  position: relative;
+  box-sizing: border-box;
+}
+
+.ds-cta__content {
+  min-width: 0;
+}
+
+.ds-cta__title {
+  margin: 0;
+}
+
+/* Figma breaks the copy greedily (base.css balances headings and avoids short last lines). */
+.ds-cta :is(.ds-cta__title, .ds-cta__subtitle, .ds-cta__text) {
+  text-wrap: wrap;
+}
+
+.ds-cta--band .ds-cta__title,
+.ds-cta--image .ds-cta__title,
+.ds-cta--light .ds-cta__title {
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-cta__buttons,
+.ds-cta__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-cta-buttons-space);
+}
+
+.ds-cta__media {
+  position: relative;
+  margin: 0;
+  border-radius: var(--cta-media-radius);
+  background: var(--color-surface-muted);
+}
+
+.ds-cta__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+/* Large: brand card, text column + 356 × 460 photo, the Badge/Circular over the photo's left edge. */
+.ds-cta--large .ds-cta__card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, var(--cta-media-width));
+  gap: var(--cta-gap);
+  align-items: center;
+  padding: var(--cta-padding);
+  border-radius: var(--card-radius);
+  background: var(--color-surface-brand);
+  color: var(--color-text-on-brand);
+}
+
+/* The title on page-colour boxes, one per line, that touch into one stepped shape (Figma draws one shape that follows
+   the line widths; the site draws it with a script and keeps these boxes without JS). */
+.ds-cta--large .ds-cta__title {
+  max-width: var(--cta-subtitle-max-width);
+  padding-block: var(--space-16);
+}
+
+.ds-cta__title-box {
+  padding: var(--space-12) var(--cta-title-padding-x);
+  border-radius: var(--cta-title-radius);
+  background: var(--color-surface-page);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* Positioned inline text paints after every line's box (the boxes overlap: the 64 px glyphs are taller than the line). */
+.ds-cta__title-text {
+  position: relative;
+}
+
+.ds-cta--large .ds-cta__subtitle {
+  max-width: var(--cta-subtitle-max-width);
+  margin-top: var(--space-cta-subtitle-gap);
+  font-size: var(--font-size-2xl);
+  line-height: var(--line-height-name);
+}
+
+.ds-cta--large .ds-cta__text {
+  max-width: var(--cta-text-max-width);
+  margin-top: var(--cta-text-gap);
+}
+
+.ds-cta--large .ds-cta__buttons {
+  margin-top: var(--space-cta-buttons-gap);
+}
+
+/* On the blue card the Light buttons keep an accent circle at rest (hover and focus are the Button's own look). */
+.ds-cta--large .ds-button--light:not(:hover, :focus-visible) .ds-button__icon {
+  background: var(--color-brand-accent);
+}
+
+.ds-cta--large .ds-cta__media {
+  height: var(--cta-media-height);
+}
+
+.ds-cta__badge {
+  position: absolute;
+  top: 50%;
+  left: calc(var(--cta-badge) / -2 - var(--space-10));
+  transform: translateY(-50%);
+}
+
+/* Band: accent card, everything centred. */
+.ds-cta--band .ds-cta__card {
+  padding: var(--space-band-padding-y) var(--space-band-padding-x);
+  border-radius: var(--card-radius);
+  background: var(--color-brand-accent);
+  color: var(--color-text-on-brand);
+  text-align: center;
+}
+
+.ds-cta--band .ds-cta__text {
+  max-width: var(--band-text-max-width);
+  margin: var(--band-text-gap) auto 0;
+}
+
+.ds-cta--band .ds-cta__buttons,
+.ds-cta--light .ds-cta__buttons {
+  justify-content: center;
+  margin-top: var(--band-buttons-gap);
+}
+
+/* Gradient: deep → primary card, 24 px wider than the column on wide screens; title and buttons left, subtitle and
+   text in a 450 px right column. */
+.ds-cta--gradient .ds-cta__card {
+  padding: var(--cta-gradient-padding);
+  border-radius: var(--cta-gradient-radius);
+  /* Missing token: the gradient's deep end. The site uses its text colour; in Dark that is light, so the palette's deep
+     secondary is used meanwhile (see the Task 8 report). */
+  background: linear-gradient(90deg, var(--palette-secondary-800) 0%, var(--color-surface-brand) 55%);
+  color: var(--color-text-on-brand);
+}
+
+@media (min-width: 1300px) {
+  .ds-cta--gradient .ds-cta__card {
+    margin-inline: calc(var(--space-24) * -1);
+  }
+}
+
+.ds-cta--gradient .ds-cta__content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: var(--cta-gradient-column-gap);
+  align-items: start;
+}
+
+.ds-cta--gradient .ds-cta__title {
+  color: var(--color-brand-accent);
+}
+
+.ds-cta--gradient .ds-cta__buttons {
+  margin-top: var(--space-24);
+}
+
+.ds-cta--gradient .ds-cta__aside > * {
+  max-width: var(--cta-gradient-text-max);
+}
+
+.ds-cta--gradient .ds-cta__text {
+  margin-top: var(--space-16);
+}
+
+/* The Light button reads primary on the card at rest. */
+.ds-cta--gradient .ds-button--light:not(:hover, :focus-visible) {
+  color: var(--color-brand-primary);
+}
+
+/* Image: accent question left, 340 px text column with uppercase text links, a wide photo 40 px below. */
+.ds-cta--image .ds-cta__content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, var(--cta-image-text-column));
+  column-gap: var(--cta-image-column-gap);
+  align-items: start;
+}
+
+.ds-cta--image .ds-cta__title {
+  color: var(--color-brand-accent);
+  line-height: 1.15; /* Figma and the site: 3XL at 1.15, not the 3XL token's 1.1 */
+}
+
+.ds-cta--image .ds-cta__links {
+  gap: var(--space-12) var(--space-32);
+  margin-top: var(--space-16);
+}
+
+.ds-cta--image .ds-link {
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+}
+
+.ds-cta--image .ds-cta__media {
+  margin-top: var(--cta-image-media-gap);
+  aspect-ratio: 1240 / 536;
+}
+
+/* Light: soft centred box. */
+.ds-cta--light .ds-cta__card {
+  padding: var(--cta-light-padding-y) var(--cta-light-padding-x);
+  border-radius: var(--card-radius);
+  background: var(--color-surface-soft);
+  text-align: center;
+}
+
+.ds-cta--light .ds-cta__text {
+  max-width: var(--cta-light-text-max);
+  margin: var(--cta-text-gap) auto 0;
+}
+
+/* Phones. */
+@media (max-width: 781px) {
+  .ds-cta__buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  /* Large: a full-bleed soft band (the card reaches over the page gutter), dark text, no photo, the title plain. */
+  .ds-cta--large .ds-cta__card {
+    display: block;
+    margin-inline: calc(var(--space-gutter) * -1);
+    padding: var(--space-40) var(--space-gutter);
+    border-radius: 0;
+    background: var(--color-surface-soft);
+    color: var(--color-text-default);
+  }
+
+  .ds-cta--large .ds-cta__media {
+    display: none;
+  }
+
+  .ds-cta--large .ds-cta__title {
+    max-width: none;
+    padding: 0;
+  }
+
+  .ds-cta--large .ds-cta__title-box {
+    padding: 0;
+    background: none;
+  }
+
+  .ds-cta--large .ds-cta__title-text {
+    font-size: var(--font-size-3xl);
+    line-height: var(--font-line-height-3xl);
+  }
+
+  .ds-cta--large .ds-cta__subtitle {
+    font-size: var(--font-size-lg);
+    line-height: var(--font-line-height-lg);
+  }
+
+  /* Band: full-bleed, left-aligned (the site's phone band). */
+  .ds-cta--band .ds-cta__card {
+    margin-inline: calc(var(--space-gutter) * -1);
+    border-radius: 0;
+    text-align: left;
+  }
+
+  .ds-cta--band .ds-cta__text {
+    margin-inline: 0;
+  }
+
+  /* Gradient: one column, title, subtitle, text, buttons. */
+  .ds-cta--gradient .ds-cta__card {
+    padding: var(--space-32) var(--space-24);
+    border-radius: var(--radius-xl);
+  }
+
+  .ds-cta--gradient .ds-cta__content {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ds-cta--gradient :is(.ds-cta__main, .ds-cta__aside) {
+    display: contents;
+  }
+
+  .ds-cta--gradient .ds-cta__title {
+    font-size: var(--font-size-3xl);
+    line-height: var(--font-line-height-3xl);
+  }
+
+  .ds-cta--gradient .ds-cta__subtitle {
+    order: 1;
+    margin-top: var(--space-16);
+  }
+
+  .ds-cta--gradient .ds-cta__text {
+    order: 2;
+  }
+
+  .ds-cta--gradient .ds-cta__buttons {
+    order: 3;
+  }
+
+  /* Image: one column, smaller question, 4:3 photo. */
+  .ds-cta--image .ds-cta__content {
+    display: block;
+  }
+
+  .ds-cta--image .ds-cta__title,
+  .ds-cta--light .ds-cta__title {
+    font-size: var(--font-size-xl);
+    line-height: var(--font-line-height-xl);
+  }
+
+  .ds-cta--image .ds-cta__text {
+    margin-top: var(--cta-text-gap);
+  }
+
+  .ds-cta--image .ds-cta__links {
+    margin-top: var(--cta-text-gap);
+  }
+
+  .ds-cta--image .ds-cta__media {
+    margin-top: var(--space-24);
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-xl);
+  }
+
+  /* Light: tighter box, stacked buttons. */
+  .ds-cta--light .ds-cta__card {
+    padding: var(--space-32) var(--space-20);
+    border-radius: var(--radius-xl);
+  }
+}
