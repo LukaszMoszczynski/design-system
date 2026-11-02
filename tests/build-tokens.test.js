@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import { readFileSync, mkdtempSync, rmSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdtempSync, rmSync, cpSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { buildTokens } from '../scripts/build-tokens.mjs';
@@ -80,6 +80,15 @@ describe('buildTokens', () => {
     expect(settings.layout).toEqual({ contentSize: '1240px', wideSize: '1440px' });
   });
 
+  it('shared.css has no brand-prefixed names', () => {
+    expect(read('tokens/shared.css')).not.toMatch(/--(dcc|omelanski)-/);
+  });
+
+  it('theme.json fluid range is 375 to 1200', () => {
+    const { fluid } = readJson('wp/omelanski.theme.json').settings.typography;
+    expect(fluid).toEqual({ minViewportSize: '375px', maxViewportSize: '1200px' });
+  });
+
   it('theme.json disables core defaults', () => {
     const theme = readJson('wp/omelanski.theme.json');
     expect(theme.version).toBe(3);
@@ -87,5 +96,30 @@ describe('buildTokens', () => {
     expect(theme.settings.typography.defaultFontSizes).toBe(false);
     expect(theme.settings.spacing.defaultSpacingSizes).toBe(false);
     expect(theme.settings.color.custom).toBe(false);
+  });
+});
+
+describe('buildTokens guards', () => {
+  const buildWithComponentTokens = async (extra) => {
+    const dir = mkdtempSync(join(tmpdir(), 'guard-tokens-'));
+    const out = mkdtempSync(join(tmpdir(), 'guard-out-'));
+    try {
+      cpSync(tokensDir, dir, { recursive: true });
+      const file = join(dir, 'component.json');
+      writeFileSync(file, JSON.stringify({ ...JSON.parse(readFileSync(file, 'utf8')), ...extra }));
+      await buildTokens({ tokensDir: dir, outDir: out });
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+      rmSync(out, { recursive: true, force: true });
+    }
+  };
+  const named = (cssName) => ({ $type: 'dimension', $value: '1px', $extensions: { 'ds.cssName': cssName } });
+
+  it('throws on a duplicate CSS name in one output', async () => {
+    await expect(buildWithComponentTokens({ one: named('same-name'), two: named('same-name') })).rejects.toThrow(/Duplicate CSS custom property --same-name/);
+  });
+
+  it('throws on a brand-prefixed name in shared.css', async () => {
+    await expect(buildWithComponentTokens({ one: named('dcc-thing') })).rejects.toThrow(/brand-specific names: --dcc-thing/);
   });
 });

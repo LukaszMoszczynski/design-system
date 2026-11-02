@@ -70,6 +70,17 @@ describe('writeTokens', () => {
       expect(tokens.hero["min-height"].$extensions).toBeUndefined();
     });
 
+    it("ignores a code syntax that starts with a brand name and falls back to the path", () => {
+      const tokens = writeOne([
+        variable("field/radius", "FLOAT", "var(--dcc-radius-md)", 12),
+        variable("social/size", "FLOAT", "var(--other-social-size)", 44),
+        variable("radius/lg", "FLOAT", "var(--radius-big)", 16),
+      ]);
+      expect(tokens.field.radius.$extensions).toBeUndefined();
+      expect(tokens.social.size.$extensions).toBeUndefined();
+      expect(tokens.radius.lg.$extensions).toEqual({ "ds.cssName": "radius-big" });
+    });
+
     it("maps STRING font weights to fontWeight numbers", () => {
       const tokens = writeOne([
         variable("font/weight/regular", "STRING", "", "Regular"),

@@ -111,6 +111,10 @@
     "typography": {
       "defaultFontSizes": false,
       "customFontSize": false,
+      "fluid": {
+        "minViewportSize": "375px",
+        "maxViewportSize": "1200px"
+      },
       "fontFamilies": [
         {
           "slug": "heading",

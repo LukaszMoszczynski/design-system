@@ -315,7 +315,7 @@
   --blog-pagination-top: var(--space-64);
   --herotiles-gap: var(--space-40);
   --herotiles-max-width: 1104px;
-  --dcc-social-size: 44px;
+  --social-size: 44px;
   --social-gap: 4px;
   --hero-large-min-height: 800px;
   --hero-large-padding-top: 182px;
@@ -344,7 +344,7 @@
   --hero-mobile-tile-gap: 16px;
   --field-height: 56px;
   --field-padding-x: 16px;
-  --dcc-radius-md: var(--radius-md);
+  --field-radius: var(--radius-md);
   --field-border: 1px;
   --field-textarea-height: 120px;
   --checkbox-size: 20px;
@@ -412,7 +412,7 @@
   --error-404-photo-width: 486px;
   --product-card-padding: 24px;
   --product-card-gap: 12px;
-  --dcc-radius-md: 12px;
+  --product-card-media-radius: 12px;
   --product-card-thumb: 168px;
   --product-card-row-photo: 280px;
   --shop-banner-padding: 56px;

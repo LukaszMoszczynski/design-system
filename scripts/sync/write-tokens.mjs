@@ -45,14 +45,17 @@ function plainValue(variable, value) {
   return value;
 }
 
-function cssNameExtension(variable) {
+function cssNameExtension(variable, brandNames) {
   const match = CSS_VAR.exec(variable.codeSyntax || '');
   const defaultName = variable.name.split('/').join('-');
   // Code syntax that is not a plain var(--name) (e.g. "min-height: 800px") is ignored.
-  return match && match[1] !== defaultName ? { 'ds.cssName': match[1] } : null;
+  // So is one that starts with a brand name: shared CSS must not carry brand-specific names.
+  if (!match || match[1] === defaultName) return null;
+  if (brandNames.some((brand) => match[1].startsWith(`${brand}-`))) return null;
+  return { 'ds.cssName': match[1] };
 }
 
-function buildToken(variable, modeId) {
+function buildToken(variable, modeId, brandNames) {
   const value = variable.valuesByMode[modeId];
   if (value === undefined) return null;
   const token = {
@@ -60,7 +63,7 @@ function buildToken(variable, modeId) {
     $value: typeof value === 'object' && 'alias' in value ? aliasReference(value.alias) : plainValue(variable, value),
   };
   if (variable.description) token.$description = variable.description;
-  const cssName = cssNameExtension(variable);
+  const cssName = cssNameExtension(variable, brandNames);
   if (cssName) token.$extensions = cssName;
   return token;
 }
@@ -86,11 +89,13 @@ function filePathFor(collection, mode) {
 
 export function writeTokens(raw, outDir) {
   const written = [];
+  const brandCollection = raw.collections.find((collection) => toKebab(collection.name) === 'brand');
+  const brandNames = brandCollection ? brandCollection.modes.map((mode) => toKebab(mode.name)) : [];
   for (const collection of raw.collections) {
     for (const mode of collection.modes) {
       const tree = {};
       for (const variable of collection.variables) {
-        const token = buildToken(variable, mode.modeId);
+        const token = buildToken(variable, mode.modeId, brandNames);
         if (token) insertToken(tree, variable.name, token);
       }
       const file = join(outDir, filePathFor(collection, mode));

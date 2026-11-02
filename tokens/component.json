@@ -962,10 +962,7 @@
   "social": {
     "size": {
       "$type": "dimension",
-      "$value": "44px",
-      "$extensions": {
-        "ds.cssName": "dcc-social-size"
-      }
+      "$value": "44px"
     },
     "gap": {
       "$type": "dimension",
@@ -1085,10 +1082,7 @@
     },
     "radius": {
       "$type": "dimension",
-      "$value": "{radius.md}",
-      "$extensions": {
-        "ds.cssName": "dcc-radius-md"
-      }
+      "$value": "{radius.md}"
     },
     "border": {
       "$type": "dimension",
@@ -1388,10 +1382,7 @@
     },
     "media-radius": {
       "$type": "dimension",
-      "$value": "12px",
-      "$extensions": {
-        "ds.cssName": "dcc-radius-md"
-      }
+      "$value": "12px"
     },
     "thumb": {
       "$type": "dimension",

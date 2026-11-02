@@ -41,7 +41,16 @@ function namesByPathOf(dictionary) {
   return new Map(dictionary.unfilteredAllTokens.map((token) => [token.path.join('.'), cssName(token)]));
 }
 
+function assertUniqueNames(declarations, where) {
+  const seen = new Set();
+  for (const [name] of declarations) {
+    if (seen.has(name)) throw new Error(`Duplicate CSS custom property --${name} in ${where}`);
+    seen.add(name);
+  }
+}
+
 function block(selector, declarations, indent = '') {
+  assertUniqueNames(declarations, selector);
   const lines = declarations.map(([name, value]) => `${indent}  --${name}: ${value};`);
   return `${indent}${selector} {\n${lines.join('\n')}\n${indent}}`;
 }
@@ -122,7 +131,7 @@ StyleDictionary.registerFormat({
       version: 3,
       settings: {
         color: { defaultPalette: false, custom: false, palette },
-        typography: { defaultFontSizes: false, customFontSize: false, fontFamilies, fontSizes },
+        typography: { defaultFontSizes: false, customFontSize: false, fluid: { minViewportSize: `${FLUID_FROM}px`, maxViewportSize: `${FLUID_TO}px` }, fontFamilies, fontSizes },
         spacing: { defaultSpacingSizes: false, customSpacingSize: false, spacingSizes },
         layout: { contentSize: brandToken('layout.container').$value, wideSize: WIDE_SIZE },
       },
@@ -214,7 +223,10 @@ export async function buildTokens({ tokensDir, outDir }) {
   const root = await render([referenceFile, file('semantic', 'light.json'), file('breakpoint', 'desktop.json'), file('component.json')], 'ds/css-shared', { section: 'root', fluid }, sharedFilter);
   const dark = await render([referenceFile, file('semantic', 'dark.json')], 'ds/css-shared', { section: 'dark', fluid }, sharedFilter);
   const mobile = await render([referenceFile, file('breakpoint', 'mobile.json')], 'ds/css-shared', { section: 'mobile', fluid, desktopValues }, sharedFilter);
-  writeFileSync(join(out, 'tokens', 'shared.css'), `${root}\n\n${dark}\n\n${mobile}\n`);
+  const sharedNames = [...`${root}${dark}${mobile}`.matchAll(/^\s*--([\w-]+):/gm)].map((match) => match[1]);
+  const brandPrefixed = sharedNames.find((name) => brands.some((brand) => name.startsWith(`${brand}-`)));
+  if (brandPrefixed) throw new Error(`shared.css must not carry brand-specific names: --${brandPrefixed}`);
+  writeFileSync(join(out, 'tokens', 'shared.css'),`${root}\n\n${dark}\n\n${mobile}\n`);
 
   for (const brand of brands) {
     const brandFile = file('brands', `${brand}.json`);
