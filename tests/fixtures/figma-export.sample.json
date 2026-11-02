@@ -1,0 +1,42 @@
+{
+  "collections": [
+    {
+      "name": "Brand",
+      "modes": [{ "modeId": "1:0", "name": "DCC" }, { "modeId": "1:1", "name": "Omelanski" }],
+      "variables": [
+        {
+          "name": "palette/primary/600", "type": "COLOR", "codeSyntax": "var(--palette-primary-600)", "description": "",
+          "valuesByMode": {
+            "1:0": { "r": 0.0706, "g": 0.4118, "b": 0.6902, "a": 1 },
+            "1:1": { "r": 1, "g": 0, "b": 0, "a": 0.5 }
+          }
+        },
+        {
+          "name": "radius/lg", "type": "FLOAT", "codeSyntax": "var(--radius-lg)", "description": "",
+          "valuesByMode": { "1:0": 16, "1:1": 8 }
+        },
+        {
+          "name": "font/family/heading", "type": "STRING", "codeSyntax": "var(--font-family-heading)", "description": "placeholder",
+          "valuesByMode": { "1:0": "Carlito", "1:1": "Georgia" }
+        },
+        {
+          "name": "font/weight/bold", "type": "FLOAT", "codeSyntax": "var(--font-weight-bold)", "description": "",
+          "valuesByMode": { "1:0": 700, "1:1": 700 }
+        }
+      ]
+    },
+    {
+      "name": "Semantic",
+      "modes": [{ "modeId": "2:0", "name": "Light" }, { "modeId": "2:1", "name": "Dark" }],
+      "variables": [
+        {
+          "name": "color/brand/primary", "type": "COLOR", "codeSyntax": "var(--color-brand-primary)", "description": "",
+          "valuesByMode": {
+            "2:0": { "alias": "Brand/palette/primary/600" },
+            "2:1": { "alias": "Brand/palette/primary/600" }
+          }
+        }
+      ]
+    }
+  ]
+}

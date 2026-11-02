@@ -1,0 +1,329 @@
+{
+  "font": {
+    "size": {
+      "4xl": {
+        "$type": "dimension",
+        "$value": "56px"
+      },
+      "3xl": {
+        "$type": "dimension",
+        "$value": "44px"
+      },
+      "2xl": {
+        "$type": "dimension",
+        "$value": "32px"
+      },
+      "xl": {
+        "$type": "dimension",
+        "$value": "28px"
+      },
+      "lg": {
+        "$type": "dimension",
+        "$value": "20px"
+      },
+      "body": {
+        "$type": "dimension",
+        "$value": "16px"
+      },
+      "button": {
+        "$type": "dimension",
+        "$value": "20px"
+      },
+      "overline": {
+        "$type": "dimension",
+        "$value": "20px"
+      },
+      "small": {
+        "$type": "dimension",
+        "$value": "12px"
+      },
+      "number": {
+        "$type": "dimension",
+        "$value": "64px"
+      },
+      "tile-title": {
+        "$type": "dimension",
+        "$value": "24px"
+      },
+      "lead-large": {
+        "$type": "dimension",
+        "$value": "24px"
+      }
+    },
+    "line-height": {
+      "4xl": {
+        "$type": "dimension",
+        "$value": "61.6px"
+      },
+      "3xl": {
+        "$type": "dimension",
+        "$value": "48.4px"
+      },
+      "2xl": {
+        "$type": "dimension",
+        "$value": "35.2px"
+      },
+      "xl": {
+        "$type": "dimension",
+        "$value": "30.8px"
+      },
+      "lg": {
+        "$type": "dimension",
+        "$value": "22px"
+      },
+      "body": {
+        "$type": "dimension",
+        "$value": "24px",
+        "$extensions": {
+          "dcc.cssName": "line-height-body"
+        }
+      },
+      "button": {
+        "$type": "dimension",
+        "$value": "22px",
+        "$extensions": {
+          "dcc.cssName": "line-height-button"
+        }
+      },
+      "overline": {
+        "$type": "dimension",
+        "$value": "24px",
+        "$extensions": {
+          "dcc.cssName": "line-height-overline"
+        }
+      },
+      "small": {
+        "$type": "dimension",
+        "$value": "16.8px",
+        "$extensions": {
+          "dcc.cssName": "line-height-small"
+        }
+      },
+      "number": {
+        "$type": "dimension",
+        "$value": "64px",
+        "$extensions": {
+          "dcc.cssName": "line-height-number"
+        }
+      },
+      "question": {
+        "$type": "dimension",
+        "$value": "28px",
+        "$extensions": {
+          "dcc.cssName": "line-height-question"
+        }
+      },
+      "tile-title": {
+        "$type": "dimension",
+        "$value": "30px",
+        "$extensions": {
+          "dcc.cssName": "line-height-tile-title"
+        }
+      },
+      "lead-large": {
+        "$type": "dimension",
+        "$value": "32.4px",
+        "$extensions": {
+          "dcc.cssName": "line-height-lead-large"
+        }
+      },
+      "name": {
+        "$type": "dimension",
+        "$value": "35.2px",
+        "$extensions": {
+          "dcc.cssName": "line-height-name"
+        }
+      }
+    }
+  },
+  "space": {
+    "gutter": {
+      "$type": "dimension",
+      "$value": "{layout.gutter-desktop}"
+    },
+    "section-y": {
+      "$type": "dimension",
+      "$value": "96px"
+    },
+    "heading-bottom": {
+      "$type": "dimension",
+      "$value": "48px"
+    },
+    "page-number-gap": {
+      "$type": "dimension",
+      "$value": "8px"
+    },
+    "header-cta-x": {
+      "$type": "dimension",
+      "$value": "17px"
+    },
+    "header-cta-y": {
+      "$type": "dimension",
+      "$value": "15px"
+    },
+    "challenge-gap": {
+      "$type": "dimension",
+      "$value": "24px"
+    },
+    "post-padding": {
+      "$type": "dimension",
+      "$value": "24px"
+    },
+    "model-step-gap": {
+      "$type": "dimension",
+      "$value": "34px"
+    },
+    "cta-subtitle-gap": {
+      "$type": "dimension",
+      "$value": "40px"
+    },
+    "cta-buttons-gap": {
+      "$type": "dimension",
+      "$value": "40px"
+    },
+    "cta-buttons-space": {
+      "$type": "dimension",
+      "$value": "24px"
+    },
+    "band-padding-y": {
+      "$type": "dimension",
+      "$value": "44px"
+    },
+    "band-padding-x": {
+      "$type": "dimension",
+      "$value": "40px"
+    },
+    "header-padding-y": {
+      "$type": "dimension",
+      "$value": "8px"
+    },
+    "header-padding-left": {
+      "$type": "dimension",
+      "$value": "32px"
+    },
+    "header-padding-right": {
+      "$type": "dimension",
+      "$value": "24px"
+    },
+    "header-gap": {
+      "$type": "dimension",
+      "$value": "24px"
+    },
+    "footer-padding": {
+      "$type": "dimension",
+      "$value": "24px"
+    },
+    "footer-padding-bottom": {
+      "$type": "dimension",
+      "$value": "40px"
+    },
+    "newsletter-padding-y": {
+      "$type": "dimension",
+      "$value": "36px"
+    },
+    "newsletter-padding-x": {
+      "$type": "dimension",
+      "$value": "32px"
+    },
+    "newsletter-input-x": {
+      "$type": "dimension",
+      "$value": "32px"
+    },
+    "footer-grid-x": {
+      "$type": "dimension",
+      "$value": "40px"
+    },
+    "footer-legal-x": {
+      "$type": "dimension",
+      "$value": "36px"
+    },
+    "model-card-padding": {
+      "$type": "dimension",
+      "$value": "32px"
+    },
+    "model-text-left": {
+      "$type": "dimension",
+      "$value": "48px"
+    },
+    "model-text-right": {
+      "$type": "dimension",
+      "$value": "24px"
+    }
+  },
+  "size": {
+    "viewport": {
+      "$type": "dimension",
+      "$value": "1440px"
+    },
+    "container": {
+      "$type": "dimension",
+      "$value": "{layout.container}"
+    },
+    "card-width": {
+      "$type": "dimension",
+      "$value": "384px"
+    },
+    "accordion-width": {
+      "$type": "dimension",
+      "$value": "588px"
+    },
+    "page-number": {
+      "$type": "dimension",
+      "$value": "32px"
+    },
+    "header-height": {
+      "$type": "dimension",
+      "$value": "86px"
+    },
+    "header-cta-min-height": {
+      "$type": "dimension",
+      "$value": "52px"
+    },
+    "person-card-height": {
+      "$type": "dimension",
+      "$value": "454px"
+    },
+    "challenge-icon": {
+      "$type": "dimension",
+      "$value": "44px"
+    },
+    "post-card-width": {
+      "$type": "dimension",
+      "$value": "608px"
+    },
+    "post-arrow": {
+      "$type": "dimension",
+      "$value": "60px"
+    },
+    "newsletter-input": {
+      "$type": "dimension",
+      "$value": "70px"
+    },
+    "fan-height": {
+      "$type": "dimension",
+      "$value": "390px"
+    }
+  },
+  "radius": {
+    "post": {
+      "$type": "dimension",
+      "$value": "32px"
+    },
+    "header": {
+      "$type": "dimension",
+      "$value": "40px"
+    },
+    "footer": {
+      "$type": "dimension",
+      "$value": "40px"
+    },
+    "newsletter": {
+      "$type": "dimension",
+      "$value": "32px"
+    },
+    "fan": {
+      "$type": "dimension",
+      "$value": "32px"
+    }
+  }
+}

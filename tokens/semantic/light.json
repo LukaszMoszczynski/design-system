@@ -1,0 +1,97 @@
+{
+  "color": {
+    "brand": {
+      "primary": {
+        "$type": "color",
+        "$value": "{palette.primary.600}"
+      },
+      "primary-deep": {
+        "$type": "color",
+        "$value": "{palette.secondary.800}"
+      },
+      "accent": {
+        "$type": "color",
+        "$value": "{palette.accent.500}"
+      }
+    },
+    "text": {
+      "default": {
+        "$type": "color",
+        "$value": "{palette.secondary.800}"
+      },
+      "muted": {
+        "$type": "color",
+        "$value": "{palette.neutral.600}"
+      },
+      "on-brand": {
+        "$type": "color",
+        "$value": "{palette.neutral.0}"
+      },
+      "inverse": {
+        "$type": "color",
+        "$value": "{palette.neutral.0}"
+      }
+    },
+    "surface": {
+      "page": {
+        "$type": "color",
+        "$value": "{palette.neutral.50}"
+      },
+      "card": {
+        "$type": "color",
+        "$value": "{palette.neutral.0}"
+      },
+      "soft": {
+        "$type": "color",
+        "$value": "{palette.primary.50}"
+      },
+      "muted": {
+        "$type": "color",
+        "$value": "{palette.secondary.50}"
+      },
+      "brand": {
+        "$type": "color",
+        "$value": "{palette.primary.600}"
+      },
+      "inverse": {
+        "$type": "color",
+        "$value": "{palette.secondary.800}"
+      },
+      "control": {
+        "$type": "color",
+        "$value": "{palette.neutral.50}",
+        "$description": "Background of light controls on the page (the Light button at rest). Light: the page colour (--dcc-tlo); Dark: a raised violet so the control stays visible on the dark page."
+      }
+    },
+    "border": {
+      "default": {
+        "$type": "color",
+        "$value": "{palette.neutral.100}"
+      },
+      "strong": {
+        "$type": "color",
+        "$value": "{palette.neutral.400}"
+      }
+    },
+    "state": {
+      "disabled": {
+        "$type": "color",
+        "$value": "{palette.neutral.400}"
+      },
+      "error": {
+        "$type": "color",
+        "$value": "{palette.danger.700}"
+      }
+    },
+    "focus": {
+      "ring": {
+        "$type": "color",
+        "$value": "{palette.accent.500}"
+      }
+    },
+    "shadow": {
+      "$type": "color",
+      "$value": "{palette.secondary.800}"
+    }
+  }
+}
