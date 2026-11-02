@@ -6,6 +6,7 @@
   "scripts": {
     "sync:write": "node scripts/sync/write-tokens.mjs tmp/figma-export.json",
     "tokens:check": "node scripts/check-tokens.mjs",
+    "tokens": "npm run tokens:check && node scripts/build-tokens.mjs",
     "test": "vitest run"
   },
   "devDependencies": {
