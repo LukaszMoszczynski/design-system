@@ -1,0 +1,88 @@
+/* Card/Testimonial (.dcc-opinia): soft card, radius 32, padding 36 28 52; the accent quote mark (135 × 82) right-aligned
+   in the top row, 36 px above the quote (body 16/24); the caption 40 px below: a 48 px round photo, 12 px gap, the author
+   (heading font Medium, XL) and the role (body 16). is-active: primary card, on-brand text (the mark stays accent).
+   Phones (≤ 781 px): padding 24 20, radius 16, a 68 × 41 mark, 24 px gaps, author 16, role 12. */
+.ds-card-testimonial {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: var(--testimonial-padding-top) var(--testimonial-padding-x) var(--testimonial-padding-bottom);
+  border-radius: var(--card-radius);
+  background: var(--color-surface-soft);
+  color: var(--color-text-default);
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.ds-card-testimonial.is-active {
+  background: var(--color-surface-brand);
+  color: var(--color-text-on-brand);
+}
+
+.ds-card-testimonial__top {
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: var(--testimonial-top-gap);
+  color: var(--color-brand-accent);
+}
+
+/* 82 px tall, the width from the drawing (no size token for the mark: see the task report). */
+.ds-card-testimonial__mark {
+  width: auto;
+  height: calc(var(--space-40) * 2 + var(--space-2));
+}
+
+.ds-card-testimonial__quote {
+  flex: 1;
+  margin: 0;
+}
+
+.ds-card-testimonial__caption {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  padding-top: var(--testimonial-caption-gap);
+}
+
+.ds-card-testimonial__photo {
+  flex: none;
+  width: var(--testimonial-photo);
+  height: var(--testimonial-photo);
+  border-radius: var(--radius-full);
+  background: var(--color-surface-page);
+  object-fit: cover;
+}
+
+.ds-card-testimonial__name {
+  display: grid;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+@media (max-width: 781px) {
+  .ds-card-testimonial {
+    padding: var(--space-24) var(--space-20);
+    border-radius: var(--radius-lg);
+  }
+
+  .ds-card-testimonial__top {
+    padding-bottom: var(--space-24);
+  }
+
+  .ds-card-testimonial__mark {
+    height: calc(var(--space-40) + 1px);
+  }
+
+  .ds-card-testimonial__caption {
+    padding-top: var(--space-24);
+  }
+
+  .ds-card-testimonial__author {
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+  }
+
+  .ds-card-testimonial__role {
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-small);
+  }
+}

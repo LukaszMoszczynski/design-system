@@ -1,0 +1,208 @@
+/* Card/Training (blocks/programy). Shared: the label (heading font Medium, LG, accent), the name (heading font Medium at
+   the 2XL size), body text, the time (body bold, primary).
+   Carousel: card surface, radius 32, padding 44 34 48; name primary 8 px under the label, text 20 px, time 28 px below.
+   Column: soft, radius 28, padding 56 60 32; name in the text colour, 28 px gaps, the button 36 px below.
+   Featured: soft, radius 32, padding 24 24 28; the stepped title tab (a band, a narrower upper part and a 16 px fillet,
+   drawn with CSS backgrounds), the check list 20 px apart, the benefits pill and outline pills, the time.
+   Row: the folded phone list, a <details> with a divider, the name (heading font Medium 16) and an accent plus/minus. */
+.ds-card-training {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: var(--color-text-default);
+}
+
+.ds-card-training__label {
+  color: var(--color-brand-accent);
+}
+
+.ds-card-training__name {
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-name);
+}
+
+.ds-card-training__time {
+  margin-top: var(--program-text-gap);
+  color: var(--color-brand-primary);
+}
+
+/* Carousel */
+.ds-card-training--carousel {
+  padding: var(--program-carousel-padding-top) var(--program-carousel-padding-x) var(--program-carousel-padding-bottom);
+  border-radius: var(--card-radius);
+  background: var(--color-surface-card);
+}
+
+.ds-card-training--carousel .ds-card-training__name {
+  margin-top: var(--space-8);
+  color: var(--color-brand-primary);
+}
+
+.ds-card-training--carousel .ds-card-training__text {
+  margin-top: var(--space-20);
+}
+
+/* Column */
+.ds-card-training--column {
+  padding: var(--program-columns-padding-top) var(--program-columns-padding-x) var(--space-32);
+  border-radius: var(--radius-28);
+  background: var(--color-surface-soft);
+}
+
+.ds-card-training--column .ds-card-training__name,
+.ds-card-training--column .ds-card-training__text {
+  margin-top: var(--program-text-gap);
+}
+
+.ds-card-training__actions {
+  margin-top: var(--program-button-gap);
+}
+
+/* Featured */
+.ds-card-training--featured {
+  padding: var(--program-card-padding) var(--program-card-padding) var(--recommend-padding-bottom);
+  border-radius: var(--card-radius);
+  background: var(--color-surface-soft);
+}
+
+.ds-card-training__tab {
+  --training-tab-step-top: calc(var(--space-12) + var(--font-line-height-xl));
+  --training-tab-step-width: calc(var(--space-48) * 2 + var(--space-6));
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  max-width: var(--recommend-tab-width);
+  min-height: var(--recommend-tab-height);
+  padding: var(--space-12) var(--space-16) var(--space-14) var(--space-28);
+  /* The fillet in the corner between the upper part and the band. */
+  background: radial-gradient(circle at 100% 0, transparent var(--radius-lg), var(--color-surface-page) calc(var(--radius-lg) + 1px))
+    calc(100% - var(--training-tab-step-width) + var(--radius-lg)) calc(var(--training-tab-step-top) - var(--radius-lg)) / var(--radius-lg) var(--radius-lg) no-repeat;
+}
+
+/* The band (below the first line, full width) and the upper part (the first line, narrower). */
+.ds-card-training__tab::before,
+.ds-card-training__tab::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  background: var(--color-surface-page);
+}
+
+.ds-card-training__tab::before {
+  inset: var(--training-tab-step-top) 0 0;
+  border-radius: 0 var(--radius-lg) var(--radius-lg);
+}
+
+.ds-card-training__tab::after {
+  inset: 0 var(--training-tab-step-width) calc(100% - var(--training-tab-step-top) - var(--radius-lg)) 0;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.ds-card-training__title {
+  color: var(--color-brand-primary);
+}
+
+.ds-card-training__reasons {
+  align-self: stretch;
+  margin-top: var(--space-24);
+  padding-left: var(--space-4);
+}
+
+.ds-card-training__reasons .ds-check-list {
+  gap: var(--space-20);
+}
+
+.ds-card-training__benefits-title {
+  margin: var(--space-32) 0 0;
+  padding: var(--space-4) var(--space-12);
+  border-radius: var(--radius-full);
+  background: var(--color-brand-primary);
+  color: var(--color-text-on-brand);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+.ds-card-training__benefits {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--recommend-pill-gap);
+  margin: var(--recommend-pill-gap) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-card-training__benefits .ds-tag {
+  white-space: normal;
+  text-align: left;
+}
+
+/* Row (the folded phone list) */
+.ds-card-training--row {
+  display: block;
+  padding: var(--program-mobile-row-padding) 0;
+  border-bottom: 1px solid var(--color-border-default);
+}
+
+.ds-card-training__summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-16);
+  border-radius: var(--radius-xs);
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  list-style: none;
+  cursor: pointer;
+}
+
+.ds-card-training__summary::-webkit-details-marker {
+  display: none;
+}
+
+.ds-card-training__summary:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.ds-card-training__row-name {
+  flex: 1;
+  min-width: 0;
+}
+
+.ds-card-training__icon {
+  display: grid;
+  flex: none;
+  color: var(--color-brand-accent);
+}
+
+.ds-card-training__icon .ds-icon {
+  grid-area: 1 / 1;
+}
+
+.ds-card-training__minus,
+.ds-card-training--row[open]:not(.is-closing) .ds-card-training__plus {
+  visibility: hidden;
+}
+
+.ds-card-training--row[open]:not(.is-closing) .ds-card-training__minus {
+  visibility: visible;
+}
+
+.ds-card-training__body {
+  display: grid;
+  gap: var(--space-16);
+  padding-top: var(--space-16);
+}
+
+.ds-card-training--row .ds-card-training__time,
+.ds-card-training--row .ds-card-training__actions {
+  margin-top: 0;
+}
+
+.ds-card-training--row .ds-button {
+  width: 100%;
+}

@@ -11,16 +11,18 @@ export const BUTTON_ARROW_VARIANTS = ['default', 'inverted'];
 
 // Disabled: a <button> gets the disabled attribute; a link has no disabled state, so it loses its href and
 // gets aria-disabled="true" (role="link" keeps it announced as a link).
-function openTag({ href, disabled, classes }) {
+// tag span: the look without a control, for the visual button inside a card that is itself the link.
+function openTag({ href, disabled, classes, tag }) {
+  if (tag === 'span') return { open: `<span class="${classes}">`, close: '</span>' };
   if (href && disabled) return { open: `<a class="${classes}" role="link" aria-disabled="true">`, close: '</a>' };
   if (href) return { open: `<a class="${classes}" href="${escapeHtml(href)}">`, close: '</a>' };
   return { open: `<button type="button" class="${classes}"${disabled ? ' disabled' : ''}>`, close: '</button>' };
 }
 
-export function renderButton({ text = 'Poznaj ofertę', href = '', variant = 'primary', shape = 'arrow', disabled = false } = {}) {
+export function renderButton({ text = 'Poznaj ofertę', href = '', variant = 'primary', shape = 'arrow', disabled = false, tag = '' } = {}) {
   const variantName = BUTTON_VARIANTS.includes(variant) ? variant : 'primary';
   const classes = ['ds-button', `ds-button--${variantName}`, shape === 'pill' ? 'ds-button--pill' : ''].filter(Boolean).join(' ');
-  const { open, close } = openTag({ href, disabled, classes });
+  const { open, close } = openTag({ href, disabled, classes, tag });
   const icon = shape === 'pill' ? '' : `<span class="ds-button__icon">${renderIcon({ name: 'arrow-diagonal' })}</span>`;
   return `${open}<span class="ds-button__label">${escapeHtml(text)}</span>${icon}${close}`;
 }

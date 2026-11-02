@@ -1,0 +1,199 @@
+/* Card/Product (.dcc-sklep-karta): page-colour card, 1 px border, radius 32, padding 24. Standard: the photo on top
+   (56:27, radius 12), then the Badge pill, the title (heading font Bold at the tile-title size, primary), the text, the
+   accent meta (heading font Medium 16), and a foot with the price (heading font Medium at the tile-title size; the old
+   price struck, muted 16) and the Zobacz pill button. Compact: a 168 px framed square thumbnail beside the body, an LG
+   title, the price with an accent Zobacz text link. Rows: a 280 × 176 photo | the body | a 180 px column with the
+   price above the button. Hover and keyboard focus (as a link): the photo zooms 5 %, the button takes its hover
+   gradient, the text link its accent nudge. Phones (≤ 781 px): every variant stacks like Standard. */
+.ds-card-product {
+  display: flex;
+  flex-direction: column;
+  gap: var(--product-card-gap);
+  padding: var(--product-card-padding);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--card-radius);
+  background: var(--color-surface-page);
+  color: var(--color-text-default);
+  text-decoration: none;
+}
+
+.ds-card-product__media {
+  overflow: hidden;
+  border-radius: var(--product-card-media-radius);
+  background: var(--color-surface-soft);
+  aspect-ratio: 56 / 27;
+}
+
+.ds-card-product__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.ds-card-product__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--product-card-gap);
+  min-width: 0;
+}
+
+.ds-card-product__title {
+  color: var(--color-brand-primary);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-tile-title);
+  line-height: var(--line-height-tile-title);
+}
+
+.ds-card-product__meta {
+  color: var(--color-brand-accent);
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-card-product__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12) var(--space-16);
+  align-self: stretch;
+}
+
+.ds-card-product__price {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-8);
+  margin: 0;
+  white-space: nowrap;
+}
+
+.ds-card-product__current-price {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-tile-title);
+  line-height: var(--line-height-tile-title);
+}
+
+.ds-card-product__old-price {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+/* Compact: a framed square thumbnail beside the body; the foot sits under the meta. */
+.ds-card-product--compact {
+  flex-direction: row;
+  align-items: flex-start;
+  gap: var(--space-24);
+}
+
+.ds-card-product--compact .ds-card-product__media {
+  flex: none;
+  width: var(--product-card-thumb);
+  border: 1px solid var(--color-border-default);
+  background-color: var(--color-surface-card);
+  aspect-ratio: 1;
+}
+
+.ds-card-product--compact .ds-card-product__body {
+  flex: 1;
+  gap: var(--space-8);
+}
+
+.ds-card-product--compact .ds-card-product__title {
+  font-size: var(--font-size-lg);
+  line-height: var(--font-line-height-lg);
+}
+
+.ds-card-product--compact .ds-card-product__foot {
+  justify-content: flex-start;
+}
+
+/* The accent Zobacz link (the Link atom brand look in the accent colour, heading font Medium). */
+.ds-card-product--compact .ds-link {
+  color: var(--color-brand-accent);
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Rows: photo | body | foot column. */
+.ds-card-product--rows {
+  flex-direction: row;
+  align-items: flex-start;
+  gap: var(--space-32);
+}
+
+.ds-card-product--rows .ds-card-product__media {
+  flex: none;
+  width: var(--product-card-row-photo);
+  aspect-ratio: 280 / 176;
+}
+
+.ds-card-product--rows .ds-card-product__body {
+  flex: 1;
+  gap: var(--space-8);
+}
+
+.ds-card-product--rows .ds-card-product__foot {
+  flex: none;
+  flex-direction: column;
+  align-items: flex-end;
+  align-self: flex-start;
+  gap: var(--space-16);
+  width: calc(var(--size-160) + var(--space-20));
+}
+
+a.ds-card-product:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* The Button atom's hover look (its gradient), shown while the card is hovered or focused. */
+a.ds-card-product:focus-visible .ds-card-product__image {
+  transform: scale(1.05);
+}
+
+a.ds-card-product:focus-visible .ds-button {
+  background: linear-gradient(90deg, var(--color-brand-primary), var(--color-brand-primary-deep));
+}
+
+a.ds-card-product:focus-visible .ds-link .ds-icon {
+  transform: translate(2px, -2px);
+}
+
+@media (hover: hover) {
+  a.ds-card-product:hover .ds-card-product__image {
+    transform: scale(1.05);
+  }
+
+  a.ds-card-product:hover .ds-button {
+    background: linear-gradient(90deg, var(--color-brand-primary), var(--color-brand-primary-deep));
+  }
+
+  a.ds-card-product:hover .ds-link .ds-icon {
+    transform: translate(2px, -2px);
+  }
+}
+
+@media (max-width: 781px) {
+  .ds-card-product--compact,
+  .ds-card-product--rows {
+    flex-direction: column;
+    gap: var(--product-card-gap);
+  }
+
+  .ds-card-product--compact .ds-card-product__media,
+  .ds-card-product--rows .ds-card-product__media {
+    width: 100%;
+    aspect-ratio: 56 / 27;
+  }
+
+  .ds-card-product--rows .ds-card-product__foot {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+}

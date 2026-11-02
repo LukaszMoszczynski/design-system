@@ -1,0 +1,45 @@
+/* Card/Contact (blocks/kontakt): soft card, radius 32, 40 px padding, 12 px gaps; the label (heading font Medium 12,
+   accent, uppercase), the values (heading font Medium, XL, text colour; a value link inherits that look and turns primary
+   on hover/focus), or the raised Social row. Phones (≤ 781 px): 24 px padding, radius 20, values at 20 px. */
+.ds-card-contact {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-12);
+  padding: var(--contact-card-padding);
+  border-radius: var(--radius-3xl);
+  background: var(--color-surface-soft);
+  color: var(--color-text-default);
+}
+
+.ds-card-contact__label {
+  color: var(--color-brand-accent);
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+}
+
+.ds-card-contact__value {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-xl);
+  line-height: var(--font-line-height-xl);
+  overflow-wrap: anywhere;
+}
+
+.ds-card-contact__value .ds-link {
+  font: inherit;
+}
+
+@media (max-width: 781px) {
+  .ds-card-contact {
+    padding: var(--space-24);
+    border-radius: var(--radius-xl);
+  }
+
+  .ds-card-contact__value {
+    font-size: var(--font-size-20);
+    line-height: var(--font-line-height-20);
+  }
+}

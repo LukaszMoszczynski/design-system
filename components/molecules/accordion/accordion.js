@@ -1,4 +1,5 @@
-// Accordion motion and one-open lists, for Accordion (.ds-accordion__item) and Accordion/Challenge (.ds-accordion-challenge).
+// Accordion motion and one-open lists, for Accordion (.ds-accordion__item), Accordion/Challenge (.ds-accordion-challenge)
+// and the folded Card/Training row (.ds-card-training--row).
 // The items are native <details>: without this script, without window.gsap or with reduced motion they open and close
 // as the browser does (and a shared `name` keeps one open). The script adds:
 // - data-ds-single on an Accordion list: when an item opens, the other open items of that list close;
@@ -9,7 +10,7 @@
 (function () {
   window.DS = window.DS || {};
 
-  const ITEM = '.ds-accordion__item, .ds-accordion-challenge';
+  const ITEM = '.ds-accordion__item, .ds-accordion-challenge, .ds-card-training--row';
   const DURATION = 0.3;
   const EASE = 'power1.out';
 
