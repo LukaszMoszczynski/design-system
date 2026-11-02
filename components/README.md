@@ -17,13 +17,25 @@ follows the rules below. `_template/` is a working example of all of them (not s
 ## Story contract
 
 - The stories file imports `render<PascalName>` from the template. It never exports `render`: CSF would take it for a story.
-- `argTypes` for every Figma property, one story per Figma variant/state. Forced states (storybook-addon-pseudo-states) are set as
+- `argTypes` for every Figma property. Fixed forced states (storybook-addon-pseudo-states) are set as
   story **globals**, `globals: { pseudo: { hover: ['.ds-button'] } }`, not `parameters.pseudo`: the addon copies
   `parameters.pseudo` into its sticky `pseudo` global, so the next story (and every test-runner story after it, the runner
   reuses the page) rendered with the previous story's hover/focus, and a forced story's first render (the one axe checks)
   had the stale state. Story globals apply on the first render and end with the story. Target the component with a
   selector array; `true` forces the state on every element, the label and icon spans included.
 - Default state is the one at rest (closed, not hovered). Polish strings go in the default `args`.
+
+Stories per component (owner, from Task 7 on; the molecules follow it, the atoms are converted separately):
+
+- `Playground`: every arg is a control, plus a `state` control (`default` / `hover` / `focus`, `STATE_ARG_TYPES` from
+  `.storybook/state.js`) and a `disabled` boolean where it applies. `parameters.stateTargets` (selector array) names the
+  elements that take the state. The global `withForcedState` decorator puts the addon's `pseudo-hover` /
+  `pseudo-focus-visible` class on them, the same classes `globals.pseudo` sets, but on the story's own DOM, so nothing
+  sticks to the next story.
+- `Overview`: one grid with every variant, and the states side by side where they matter (`overviewGrid`, `overviewCell`,
+  `forceState(markup, state, selectors)` from `.storybook/state.js`).
+- At most one or two extra example stories, only where the content differs in a way that matters (a card with or without
+  an image, a behaviour to try). No Pressed state.
 
 ## Arg names (templates and stories)
 

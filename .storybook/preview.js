@@ -6,6 +6,7 @@ import '../brands/omelanski/fonts.css';
 import 'swiper/swiper-bundle.css';
 import Swiper from 'swiper/bundle';
 import { DEFAULT_GLOBALS, followToolbarOnDocsPages, withBrandTheme, withComponentScripts } from './decorators.js';
+import { withForcedState } from './state.js';
 
 // Every component stylesheet, base.css included. Components load Swiper the way a site does: from window.
 import.meta.glob('../components/**/*.css', { eager: true });
@@ -42,7 +43,8 @@ const preview = {
     },
   },
   initialGlobals: DEFAULT_GLOBALS,
-  decorators: [withComponentScripts, withBrandTheme],
+  // withComponentScripts returns the story's wrapper element, so withForcedState can mark its targets.
+  decorators: [withComponentScripts, withForcedState, withBrandTheme],
   parameters: {
     layout: 'fullscreen',
     controls: { matchers: { color: /(background|color)$/i } },

@@ -1,3 +1,4 @@
+import { overviewCell, overviewGrid } from '../../../.storybook/state.js';
 import { HEADING_GROUP_LAYOUTS, HEADING_TAGS, renderHeadingGroup } from './heading-group.template.js';
 
 const frame = (markup) => `<div style="padding: var(--space-24) var(--space-gutter); max-width: calc(var(--size-container) + 2 * var(--space-gutter))">${markup}</div>`;
@@ -25,7 +26,7 @@ export default {
     docs: {
       description: {
         component:
-          '`header.ds-heading-group ds-heading-group--{stacked|split|centered}` with three Text atoms: `ds-heading-group__overline` (overline, accent; `is-hashtag` for a # overline), `ds-heading-group__title` (3XL) and `ds-heading-group__lead` (body, muted; text colour in Split). Figma Viewport=Mobile is the Stacked story in the Mobile 390 viewport.',
+          '`header.ds-heading-group ds-heading-group--{stacked|split|centered}` with three Text atoms: `ds-heading-group__overline` (overline, accent; `is-hashtag` for a # overline), `ds-heading-group__title` (3XL) and `ds-heading-group__lead` (body, muted; text colour in Split). Figma Viewport=Mobile: the same markup in the Mobile 390 viewport.',
       },
     },
     // The overline is accent text on the page (3.23:1, the DCC palette gap; see Atoms/Button).
@@ -33,10 +34,18 @@ export default {
   },
 };
 
-export const Stacked = {};
-export const Split = { args: { layout: 'split' } };
-export const Centered = { args: { layout: 'centered' } };
-export const StackedMobile = { name: 'Stacked Mobile', globals: { viewport: { value: 'mobile', isRotated: false } } };
-export const Hashtag = { args: { overline: '#PozytywnieRozwojowi' } };
-// No overline, so no accent text: checked at error level.
-export const TitleOnly = { args: { overline: '', lead: '', leadStrong: '' }, parameters: { a11y: { test: 'error' } } };
+export const Playground = {};
+
+// Figma Layout Stacked, Split, Centered, plus the hashtag overline.
+export const Overview = {
+  render: (args) =>
+    overviewGrid(
+      [
+        overviewCell('Stacked', renderHeadingGroup(args)),
+        overviewCell('Split', renderHeadingGroup({ ...args, layout: 'split' })),
+        overviewCell('Centered', renderHeadingGroup({ ...args, layout: 'centered' })),
+        overviewCell('Stacked, # overline, no lead', renderHeadingGroup({ ...args, overline: '#PozytywnieRozwojowi', lead: '', leadStrong: '' })),
+      ],
+      '100%',
+    ),
+};

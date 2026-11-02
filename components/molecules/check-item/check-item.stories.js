@@ -1,16 +1,21 @@
+import { overviewCell, overviewGrid } from '../../../.storybook/state.js';
 import { CHECK_TONES, renderCheckList } from './check-item.template.js';
 
-const frame = (args, markup) =>
-  `<div style="max-width: 408px; padding: var(--space-24); ${args.tone === 'on-brand' ? 'background: var(--color-surface-brand)' : ''}">${markup}</div>`;
+const surface = (tone, markup) =>
+  `<div style="max-width: 408px; padding: var(--space-24); ${tone === 'on-brand' ? 'background: var(--color-surface-brand)' : ''}">${markup}</div>`;
+const toItems = (text) => String(text).split('\n').filter(Boolean);
 
 export default {
   title: 'Molecules/Check Item',
-  render: (args) => frame(args, renderCheckList({ ...args, items: args.items.split('\n').filter(Boolean) })),
+  render: (args) => surface(args.tone, renderCheckList({ ...args, items: toItems(args.items) })),
   argTypes: {
     items: { control: 'text', description: 'One item per line.' },
     tone: { control: 'inline-radio', options: CHECK_TONES, description: 'Figma Tone: Default, On brand (white text on a blue card).' },
   },
-  args: { items: 'szef czuje się przeciążony i zagubiony w operacyjnym chaosie', tone: 'default' },
+  args: {
+    items: 'szef czuje się przeciążony i zagubiony w operacyjnym chaosie\nzespół nie wie, jakie ma priorytety',
+    tone: 'default',
+  },
   parameters: {
     docs: {
       description: {
@@ -21,8 +26,13 @@ export default {
   },
 };
 
-export const Default = {};
-export const OnBrand = { name: 'On brand', args: { tone: 'on-brand' } };
-export const List = {
-  args: { items: 'szef czuje się przeciążony i zagubiony w operacyjnym chaosie\nzespół nie wie, jakie ma priorytety\nspotkania trwają za długo i nic z nich nie wynika' },
+export const Playground = {};
+
+// Figma Tone: Default, On brand.
+export const Overview = {
+  render: (args) =>
+    overviewGrid(
+      CHECK_TONES.map((tone) => overviewCell(tone, surface(tone, renderCheckList({ items: toItems(args.items), tone })))),
+      '360px',
+    ),
 };

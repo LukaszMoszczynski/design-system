@@ -1,18 +1,22 @@
+import { STATE_ARG_TYPES, forceState, overviewCell, overviewGrid } from '../../../.storybook/state.js';
 import { DEFAULT_MODEL_STEPS, renderModelStep, renderModelSteps } from './model-step.template.js';
 
 const frame = (markup) => `<div style="max-width: 676px; padding: var(--space-24) var(--space-gutter)">${markup}</div>`;
+const single = (args) => `<ol class="ds-model-steps" role="list">${renderModelStep(args)}</ol>`;
 
 export default {
   title: 'Molecules/Model Step',
-  render: (args) => frame(`<ol class="ds-model-steps" role="list">${renderModelStep(args)}</ol>`),
+  render: (args) => frame(single(args)),
   argTypes: {
     letter: { control: 'text' },
     label: { control: 'text', description: 'Bold label at the start of the text.' },
     text: { control: 'text' },
     active: { control: 'boolean', description: 'is-active: the double-hover look, set by the model section.' },
+    ...STATE_ARG_TYPES,
   },
-  args: { ...DEFAULT_MODEL_STEPS[0], active: false },
+  args: { ...DEFAULT_MODEL_STEPS[0], active: false, state: 'default' },
   parameters: {
+    stateTargets: ['.ds-model-step'],
     docs: {
       description: {
         component:
@@ -22,7 +26,17 @@ export default {
   },
 };
 
-// Figma Model step: Default, Hover.
-export const Default = {};
-export const Hover = { globals: { pseudo: { hover: ['.ds-model-step'] } } };
-export const Steps = { render: () => frame(renderModelSteps()) };
+export const Playground = {};
+
+// Figma Model step: Default, Hover; then a list of steps.
+export const Overview = {
+  render: () =>
+    overviewGrid(
+      [
+        overviewCell('Default', single({})),
+        overviewCell('Hover', forceState(single({}), 'hover', ['.ds-model-step'])),
+        overviewCell('Steps', renderModelSteps()),
+      ],
+      '560px',
+    ),
+};
