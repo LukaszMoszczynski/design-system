@@ -16,4 +16,4 @@ export default {
 
 export const Default = {};
 export const Inverted = { args: { inverted: true } };
-export const LinkHover = { args: { href: '#' }, parameters: { pseudo: { hover: ['.ds-button-arrow'] } } };
+export const LinkHover = { args: { href: '#' }, globals: { pseudo: { hover: ['.ds-button-arrow'] } } };

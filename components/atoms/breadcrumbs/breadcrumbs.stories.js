@@ -32,5 +32,5 @@ export const Levels4 = { args: { items: [HOME, TRAINING, PROGRAMS, CURRENT] } };
 export const Levels2Mobile = { globals: MOBILE };
 export const Levels3Mobile = { args: { items: [HOME, TRAINING, CURRENT] }, globals: MOBILE };
 export const Levels4Mobile = { args: { items: [HOME, TRAINING, PROGRAMS, CURRENT] }, globals: MOBILE };
-export const ItemHover = { args: { items: [HOME, TRAINING, CURRENT] }, parameters: { pseudo: { hover: [FIRST_LINK] } } };
-export const ItemFocus = { args: { items: [HOME, TRAINING, CURRENT] }, parameters: { pseudo: { focusVisible: [FIRST_LINK] } } };
+export const ItemHover = { args: { items: [HOME, TRAINING, CURRENT] }, globals: { pseudo: { hover: [FIRST_LINK] } } };
+export const ItemFocus = { args: { items: [HOME, TRAINING, CURRENT] }, globals: { pseudo: { focusVisible: [FIRST_LINK] } } };

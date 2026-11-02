@@ -28,11 +28,11 @@ export const Counter = { args: { count: 16, active: 2, counter: true } };
 
 // Figma Carousel/Arrow: Default, Hover, Focus, Disabled.
 export const Arrow = { render: () => frame(renderCarouselArrow({ direction: 'next' })) };
-export const ArrowHover = { ...Arrow, parameters: { pseudo: { hover: ['.ds-carousel-arrow'] } } };
-export const ArrowFocus = { ...Arrow, parameters: { pseudo: { focusVisible: ['.ds-carousel-arrow'] } } };
+export const ArrowHover = { ...Arrow, globals: { pseudo: { hover: ['.ds-carousel-arrow'] } } };
+export const ArrowFocus = { ...Arrow, globals: { pseudo: { focusVisible: ['.ds-carousel-arrow'] } } };
 export const ArrowDisabled = { render: () => frame(renderCarouselArrow({ direction: 'prev', disabled: true })) };
 
 // Figma Pagination/Dot: Default, Hover, Active.
 export const Dot = { render: () => frame(renderCarouselDot({ index: 1 })) };
-export const DotHover = { ...Dot, parameters: { pseudo: { hover: ['.ds-carousel-dot'] } } };
+export const DotHover = { ...Dot, globals: { pseudo: { hover: ['.ds-carousel-dot'] } } };
 export const DotActive = { render: () => frame(renderCarouselDot({ index: 0, active: true })) };

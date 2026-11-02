@@ -19,7 +19,7 @@ function field(kind, state) {
   const { value, ...rest } = SAMPLE[kind];
   const args = { ...rest, id: `story-${kind}-${state}`, name: kind, value: state === 'default' ? '' : value };
   if (state === 'error') args.error = ERROR;
-  return { args, parameters: state === 'focus' ? FOCUS : {} };
+  return state === 'focus' ? { args, globals: FOCUS } : { args };
 }
 
 export default {
@@ -59,12 +59,12 @@ export const TextareaFilled = field('textarea', 'filled');
 export const TextareaFocus = field('textarea', 'focus');
 export const TextareaError = field('textarea', 'error');
 export const Search = { args: { type: 'search', label: 'Szukaj na blogu', name: 's', id: 'story-search' } };
-export const SearchFocus = { ...Search, parameters: FOCUS };
+export const SearchFocus = { ...Search, globals: FOCUS };
 
 // Figma Checkbox: Checked Off/On × Default/Focus.
 const checkbox = (checked, focus) => ({
   render: () => frame(renderCheckbox({ checked, id: `story-checkbox-${checked}-${focus}` }), 'none'),
-  parameters: focus ? { pseudo: { focusVisible: ['.ds-checkbox__input'] } } : {},
+  ...(focus ? { globals: { pseudo: { focusVisible: ['.ds-checkbox__input'] } } } : {}),
 });
 export const Checkbox = checkbox(false, false);
 export const CheckboxFocus = checkbox(false, true);

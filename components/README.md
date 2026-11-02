@@ -17,7 +17,12 @@ follows the rules below. `_template/` is a working example of all of them (not s
 ## Story contract
 
 - The stories file imports `render<PascalName>` from the template. It never exports `render`: CSF would take it for a story.
-- `argTypes` for every Figma property, one story per Figma variant/state. States use `parameters.pseudo` (for example `{ hover: true }`).
+- `argTypes` for every Figma property, one story per Figma variant/state. Forced states (storybook-addon-pseudo-states) are set as
+  story **globals**, `globals: { pseudo: { hover: ['.ds-button'] } }`, not `parameters.pseudo`: the addon copies
+  `parameters.pseudo` into its sticky `pseudo` global, so the next story (and every test-runner story after it, the runner
+  reuses the page) rendered with the previous story's hover/focus, and a forced story's first render (the one axe checks)
+  had the stale state. Story globals apply on the first render and end with the story. Target the component with a
+  selector array; `true` forces the state on every element, the label and icon spans included.
 - Default state is the one at rest (closed, not hovered). Polish strings go in the default `args`.
 
 ## Guards (run by `npm test`)

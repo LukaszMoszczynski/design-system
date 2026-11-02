@@ -25,11 +25,11 @@ export default {
 };
 
 export const Plain = {};
-export const PlainHover = { parameters: { pseudo: { hover: ['.ds-social-button'] } } };
-export const PlainFocus = { parameters: { pseudo: { focusVisible: ['.ds-social-button'] } } };
+export const PlainHover = { globals: { pseudo: { hover: ['.ds-social-button'] } } };
+export const PlainFocus = { globals: { pseudo: { focusVisible: ['.ds-social-button'] } } };
 export const Raised = { args: { style: 'raised' } };
-export const RaisedHover = { args: { style: 'raised' }, parameters: { pseudo: { hover: ['.ds-social-button'] } } };
-export const RaisedFocus = { args: { style: 'raised' }, parameters: { pseudo: { focusVisible: ['.ds-social-button'] } } };
+export const RaisedHover = { args: { style: 'raised' }, globals: { pseudo: { hover: ['.ds-social-button'] } } };
+export const RaisedFocus = { args: { style: 'raised' }, globals: { pseudo: { focusVisible: ['.ds-social-button'] } } };
 
 // Figma Icon/Social: the five network glyphs.
 export const Networks = { render: (args) => frame(args, renderSocialList({ style: args.style })) };

@@ -33,6 +33,6 @@ const pages = () => [1, 2, 3].map((number) => renderPageNumber({ number, current
 export const PageNumbers = { render: () => frame(pages()) };
 export const PageNumberHover = {
   render: () => frame(renderPageNumber({ number: 1 })),
-  parameters: { pseudo: { hover: ['.ds-page-number'] } },
+  globals: { pseudo: { hover: ['.ds-page-number'] } },
 };
 export const PageNumbersMobile = { render: () => frame(pages()), globals: MOBILE };
