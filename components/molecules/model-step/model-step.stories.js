@@ -1,4 +1,4 @@
-import { STATE_ARG_TYPES, forceState, overviewCell, overviewGrid } from '../../../.storybook/state.js';
+import { OVERVIEW_STATE, STATE_ARG_TYPES, forceState, overviewCell, overviewGrid } from '../../../.storybook/state.js';
 import { DEFAULT_MODEL_STEPS, renderModelStep, renderModelSteps } from './model-step.template.js';
 
 const frame = (markup) => `<div style="max-width: 676px; padding: var(--space-24) var(--space-gutter)">${markup}</div>`;
@@ -9,7 +9,7 @@ export default {
   render: (args) => frame(single(args)),
   argTypes: {
     letter: { control: 'text' },
-    label: { control: 'text', description: 'Bold label at the start of the text.' },
+    term: { control: 'text', description: 'The bold term at the start of the text.' },
     text: { control: 'text' },
     active: { control: 'boolean', description: 'is-active: the double-hover look, set by the model section.' },
     ...STATE_ARG_TYPES,
@@ -20,7 +20,7 @@ export default {
     docs: {
       description: {
         component:
-          '`li.ds-model-step(.is-active?) > span.ds-model-step__letter (Letter circle, step) + p.ds-model-step__text (<strong> label + text)`, in `ol.ds-model-steps`. Hover: accent letter scaled 1.18, text 1.03.',
+          '`li.ds-model-step(.is-active?) > span.ds-model-step__letter (Letter circle, step) + p.ds-model-step__text (<strong> term + text)`, in `ol.ds-model-steps`. Hover: accent letter scaled 1.18, text 1.03.',
       },
     },
   },
@@ -30,6 +30,7 @@ export const Playground = {};
 
 // Figma Model step: Default, Hover; then a list of steps.
 export const Overview = {
+  ...OVERVIEW_STATE,
   render: () =>
     overviewGrid(
       [

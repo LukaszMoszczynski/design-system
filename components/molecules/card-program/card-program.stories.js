@@ -1,5 +1,6 @@
-import { STATE_ARG_TYPES, forceState, overviewCell, overviewGrid } from '../../../.storybook/state.js';
-import { CARD_HEADING_TAGS, renderCardProgram } from './card-program.template.js';
+import { OVERVIEW_STATE, STATE_ARG_TYPES, forceState, overviewCell, overviewGrid, stateControlPlay } from '../../../.storybook/state.js';
+import { CARD_HEADING_TAGS } from '../../_shared/heading-tags.js';
+import { renderCardProgram } from './card-program.template.js';
 
 const card = (markup) => `<div style="width: var(--size-card-width); max-width: 100%">${markup}</div>`;
 const frame = (markup) => `<div style="padding: var(--space-24) var(--space-gutter)">${card(markup)}</div>`;
@@ -37,10 +38,12 @@ export default {
   },
 };
 
-export const Playground = {};
+// The play proves the state control works (a computed style changes with state: hover).
+export const Playground = { play: stateControlPlay({ selector: '.ds-card-program' }) };
 
 // Figma Card/Program: State Default, Hover, Focus (Mobile: the Mobile 390 viewport).
 export const Overview = {
+  ...OVERVIEW_STATE,
   render: (args) =>
     overviewGrid(
       ['default', 'hover', 'focus'].map((state) => overviewCell(state, card(forceState(renderCardProgram(args), state, CARD)))),

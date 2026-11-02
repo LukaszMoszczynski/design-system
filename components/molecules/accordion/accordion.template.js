@@ -1,13 +1,12 @@
 // Accordion: FAQ rows on native <details>/<summary>, so they open and close without JS.
-// Figma: Molecules → Accordion/Item (10:54) and Accordion (10:121, Layout Two columns / One column). DCC: blocks/faq.
-// The Icon atom draws the plus and the minus; CSS shows one or the other from [open]. Every item starts closed
-// (Figma's open first row is an example). accordion.js: data-ds-single keeps one item open per list; with GSAP it
-// animates the height.
+// Figma: Molecules → Accordion/Item (10:54) and Accordion (10:121, Layout Two columns / One column = variant). DCC: blocks/faq.
+// Every item starts closed (Figma's open first row is an example). accordion.js: data-ds-single keeps one item open per
+// list; with GSAP it animates the height.
 import { escapeHtml } from '../../_shared/escape.js';
 import { renderIcon } from '../../atoms/icon/icon.template.js';
 import { renderText } from '../../atoms/text/text.template.js';
 
-export const ACCORDION_LAYOUTS = ['one-column', 'two-columns'];
+export const ACCORDION_VARIANTS = ['one-column', 'two-columns'];
 
 export const DEFAULT_FAQ = [
   { question: 'Jak wygląda pierwsze spotkanie z trenerem?', answer: 'Zaczynamy od krótkiej rozmowy o celach i sytuacji zespołu. Na tej podstawie trener dobiera ćwiczenia i przykłady z Waszej branży.' },
@@ -18,20 +17,28 @@ export const DEFAULT_FAQ = [
   { question: 'Czy wystawiacie certyfikaty uczestnictwa?', answer: 'Tak, każdy uczestnik otrzymuje imienny certyfikat po zakończeniu programu.' },
 ];
 
+// The shared question row of every <details> molecule (Accordion, Accordion/Challenge, Card/Training row): the text and
+// the plus/minus Icons. accordion.css (.ds-accordion-summary) resets the marker, draws the focus ring and swaps the icons
+// on details[open]:not(.is-closing); `className` adds the placing molecule's own look.
+export function renderAccordionSummary({ text = DEFAULT_FAQ[0].question, className = '' } = {}) {
+  const classes = ['ds-accordion-summary', className].filter(Boolean).map((name) => escapeHtml(name)).join(' ');
+  const icons = `${renderIcon({ name: 'plus', className: 'ds-accordion-summary__plus' })}${renderIcon({ name: 'minus', className: 'ds-accordion-summary__minus' })}`;
+  return `<summary class="${classes}"><span class="ds-accordion-summary__text">${escapeHtml(text)}</span><span class="ds-accordion-summary__icon" aria-hidden="true">${icons}</span></summary>`;
+}
+
 export function renderAccordionItem({ question = DEFAULT_FAQ[0].question, answer = DEFAULT_FAQ[0].answer, open = false } = {}) {
-  const icons = `<span class="ds-accordion__icon" aria-hidden="true">${renderIcon({ name: 'plus', className: 'ds-accordion__plus' })}${renderIcon({ name: 'minus', className: 'ds-accordion__minus' })}</span>`;
-  return `<details class="ds-accordion__item"${open ? ' open' : ''}><summary class="ds-accordion__summary"><span class="ds-accordion__question">${escapeHtml(question)}</span>${icons}</summary><div class="ds-accordion__answer">${renderText({ text: answer, variant: 'body' })}</div></details>`;
+  return `<details class="ds-details ds-accordion__item"${open ? ' open' : ''}>${renderAccordionSummary({ text: question, className: 'ds-accordion__summary' })}<div class="ds-accordion__answer">${renderText({ text: answer, variant: 'body' })}</div></details>`;
 }
 
 // The list. Two columns (desktop FAQ grid): the first half of the items in the left column, the rest on the right;
 // below 782 px the columns stack into one list.
-export function renderAccordion({ items = DEFAULT_FAQ, layout = 'one-column', single = false } = {}) {
-  const layoutName = ACCORDION_LAYOUTS.includes(layout) ? layout : 'one-column';
+export function renderAccordion({ items = DEFAULT_FAQ, variant = 'one-column', single = false } = {}) {
+  const variantName = ACCORDION_VARIANTS.includes(variant) ? variant : 'one-column';
   const rendered = items.map((item) => renderAccordionItem(item));
   const columns =
-    layoutName === 'two-columns'
+    variantName === 'two-columns'
       ? [rendered.slice(0, Math.ceil(rendered.length / 2)), rendered.slice(Math.ceil(rendered.length / 2))]
       : [rendered];
   const body = columns.map((column) => `<div class="ds-accordion__column">${column.join('')}</div>`).join('');
-  return `<div class="ds-accordion ds-accordion--${layoutName}" data-ds-accordion${single ? ' data-ds-single' : ''}>${body}</div>`;
+  return `<div class="ds-accordion ds-accordion--${variantName}" data-ds-accordion${single ? ' data-ds-single' : ''}>${body}</div>`;
 }

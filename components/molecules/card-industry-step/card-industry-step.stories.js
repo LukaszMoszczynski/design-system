@@ -1,5 +1,5 @@
 import { overviewCell } from '../../../.storybook/state.js';
-import { CARD_HEADING_TAGS } from '../card-program/card-program.template.js';
+import { CARD_HEADING_TAGS } from '../../_shared/heading-tags.js';
 import { renderCardIndustryStep } from './card-industry-step.template.js';
 
 const card = (markup) => `<div style="width: var(--size-card-width); max-width: 100%">${markup}</div>`;
@@ -11,9 +11,9 @@ export default {
   argTypes: {
     number: { control: 'text' },
     title: { control: 'text' },
-    challengeLabel: { control: 'text' },
+    challengeTerm: { control: 'text' },
     challenge: { control: 'text' },
-    actionLabel: { control: 'text' },
+    actionTerm: { control: 'text' },
     action: { control: 'text' },
     active: { control: 'boolean', description: 'Figma State Active: the centred slide (set by the carousel).' },
     headingTag: { control: 'inline-radio', options: CARD_HEADING_TAGS },
@@ -21,9 +21,9 @@ export default {
   args: {
     number: '01',
     title: 'Logistyka / magazyny / dystrybucja',
-    challengeLabel: 'Wyzwanie:',
+    challengeTerm: 'Wyzwanie:',
     challenge: 'napięcia między obszarami, brak spójnej współpracy przy dużej presji wyniku.',
-    actionLabel: 'Działanie:',
+    actionTerm: 'Działanie:',
     action: 'porządkujemy komunikację, role i odpowiedzialność, żeby zespół działał jako całość.',
     active: false,
     headingTag: 'h3',

@@ -2,9 +2,9 @@
 // DCC: blocks/lista-wyzwan (.dcc-lista-wyzwan__item). Native <details>: works without JS (accordion/accordion.js adds the
 // GSAP height animation); items of one list share a
 // `name`, so the browser keeps one open at a time (exclusive accordion). Every item starts closed.
-// Composes the plus/minus Icons, the Text atom (answer) and the Link atom (inverse: white on the open blue row).
+// Composes the shared Accordion summary (plus/minus Icons), the Text atom (answer) and the Link atom (inverse).
 import { escapeHtml } from '../../_shared/escape.js';
-import { renderIcon } from '../../atoms/icon/icon.template.js';
+import { renderAccordionSummary } from '../accordion/accordion.template.js';
 import { renderLink } from '../../atoms/link/link.template.js';
 import { renderText } from '../../atoms/text/text.template.js';
 
@@ -22,11 +22,10 @@ export function renderAccordionChallenge({
   name = '',
   open = false,
 } = {}) {
-  const icons = `<span class="ds-accordion-challenge__icon" aria-hidden="true">${renderIcon({ name: 'plus', className: 'ds-accordion-challenge__plus' })}${renderIcon({ name: 'minus', className: 'ds-accordion-challenge__minus' })}</span>`;
   const link = href ? renderLink({ text: linkText, href, variant: 'inverse' }) : '';
   const answerText = answer ? renderText({ text: answer, variant: 'body', className: 'ds-accordion-challenge__text' }) : '';
   const nameAttribute = name ? ` name="${escapeHtml(name)}"` : '';
-  return `<details class="ds-accordion-challenge"${nameAttribute}${open ? ' open' : ''}><summary class="ds-accordion-challenge__summary">${icons}<span class="ds-accordion-challenge__question">${escapeHtml(question)}</span></summary><div class="ds-accordion-challenge__body">${answerText}${link}</div></details>`;
+  return `<details class="ds-details ds-accordion-challenge"${nameAttribute}${open ? ' open' : ''}>${renderAccordionSummary({ text: question, className: 'ds-accordion-challenge__summary' })}<div class="ds-accordion-challenge__body">${answerText}${link}</div></details>`;
 }
 
 // The list: rows 22 px apart (desktop), dividers only on phones. `name` groups the items (one open at a time).

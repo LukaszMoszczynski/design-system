@@ -1,5 +1,5 @@
-import { STATE_ARG_TYPES, forceState, overviewCell, overviewGrid } from '../../../.storybook/state.js';
-import { CARD_HEADING_TAGS } from '../card-program/card-program.template.js';
+import { OVERVIEW_STATE, STATE_ARG_TYPES, forceState, overviewCell, overviewGrid } from '../../../.storybook/state.js';
+import { CARD_HEADING_TAGS } from '../../_shared/heading-tags.js';
 import { renderCardPerson } from './card-person.template.js';
 
 const card = (markup) => `<div style="width: var(--size-card-width); max-width: 100%">${markup}</div>`;
@@ -42,6 +42,7 @@ export const Playground = {};
 
 // Figma Card/Person: State Default, Hover (and focus); and the card without a photo.
 export const Overview = {
+  ...OVERVIEW_STATE,
   render: (args) =>
     overviewGrid(
       [

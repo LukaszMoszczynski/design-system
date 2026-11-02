@@ -26,7 +26,7 @@ export const STATE_ARG_TYPES = {
 export const withForcedState = (storyFn, context) => {
   const result = storyFn();
   const pseudoClass = PSEUDO_CLASSES[context.args?.state];
-  if (!pseudoClass || !(result instanceof Element)) return result;
+  if (!pseudoClass || context.parameters.forcedState === false || !(result instanceof Element)) return result;
   const targets = context.parameters.stateTargets ?? ['[class*="ds-"]'];
   const elements = context.parameters.stateTargets
     ? targets.flatMap((selector) => [...result.querySelectorAll(selector)])
@@ -56,3 +56,31 @@ export const overviewCell = (label, markup, wide = false) =>
 
 export const overviewGrid = (cells, minimum = '240px') =>
   `<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(${minimum}, 100%), 1fr)); gap: var(--space-32) var(--space-24); align-items: start; padding: var(--space-24) var(--space-gutter)">${cells.join('')}</div>`;
+
+// Overview stories show the states side by side themselves: the `state` control is hidden there and the decorator
+// leaves them alone. Spread into the story: `export const Overview = { ...OVERVIEW_STATE, render: … }`.
+export const OVERVIEW_STATE = {
+  argTypes: { state: { table: { disable: true } } },
+  parameters: { forcedState: false },
+};
+
+// A play check that the `state` control really forces a state. It copies the rendered story, runs the copy through
+// withForcedState with state: hover (the decorator behind the control) and compares `property` of `selector` with the
+// story at rest. It fails when nothing changed, for example after an addon upgrade that renamed its pseudo classes or
+// stopped rewriting the stylesheets. The copy is removed again, so the story itself is not re-rendered (a re-render
+// would end the test-runner check before the comparison).
+export function stateControlPlay({ selector, property = 'background-color' }) {
+  return async ({ canvasElement, parameters, args }) => {
+    if (args?.state && args.state !== 'default') return; // the story itself is forced: nothing to compare
+    const style = (element) => {
+      if (!element) throw new Error(`state control check: ${selector} not found`);
+      return window.getComputedStyle(element).getPropertyValue(property);
+    };
+    const atRest = style(canvasElement.querySelector(selector));
+    const copy = withForcedState(() => canvasElement.firstElementChild.cloneNode(true), { args: { state: 'hover' }, parameters });
+    canvasElement.append(copy);
+    const hovered = style(copy.querySelector(selector));
+    copy.remove();
+    if (atRest === hovered) throw new Error(`state control check: ${property} of ${selector} is ${atRest} at rest and with state hover`);
+  };
+}

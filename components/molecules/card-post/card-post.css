@@ -109,3 +109,12 @@ a.ds-card-post--arrow-primary:focus-visible .ds-button-arrow {
     margin-bottom: var(--space-16);
   }
 }
+
+/* No photo zoom with reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  .ds-card-post__image,
+  a.ds-card-post:is(:hover, :focus-visible) .ds-card-post__image {
+    transform: none;
+    transition: none;
+  }
+}

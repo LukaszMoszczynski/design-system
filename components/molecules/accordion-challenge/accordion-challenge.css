@@ -22,9 +22,9 @@
   color: var(--color-text-on-brand);
 }
 
+/* The shared Accordion summary (accordion.css) with this row's look; the plus/minus sits first, in a 44 px circle. */
 .ds-accordion-challenge__summary {
-  display: flex;
-  align-items: center;
+  justify-content: flex-start;
   gap: var(--space-challenge-gap);
   min-height: var(--challenge-min-height);
   padding: var(--challenge-padding);
@@ -33,47 +33,16 @@
   font-weight: var(--font-weight-medium);
   font-size: var(--font-size-lg);
   line-height: var(--font-line-height-lg);
-  list-style: none;
-  cursor: pointer;
   transition: color 0.2s ease;
 }
 
-.ds-accordion-challenge__summary::-webkit-details-marker {
-  display: none;
-}
-
-.ds-accordion-challenge__summary:focus-visible {
-  outline: var(--focus-ring-width) solid var(--color-focus-ring);
-  outline-offset: var(--focus-ring-offset);
-}
-
-.ds-accordion-challenge__question {
-  flex: 1;
-  min-width: 0;
-}
-
-.ds-accordion-challenge__icon {
-  display: grid;
-  place-items: center;
-  flex: none;
+.ds-accordion-challenge__summary .ds-accordion-summary__icon {
+  order: -1;
   width: var(--size-challenge-icon);
   height: var(--size-challenge-icon);
   border-radius: var(--radius-full);
   background: var(--color-surface-card);
   color: var(--color-text-default);
-}
-
-.ds-accordion-challenge__icon .ds-icon {
-  grid-area: 1 / 1;
-}
-
-.ds-accordion-challenge__minus,
-.ds-accordion-challenge[open]:not(.is-closing) .ds-accordion-challenge__plus {
-  visibility: hidden;
-}
-
-.ds-accordion-challenge[open]:not(.is-closing) .ds-accordion-challenge__minus {
-  visibility: visible;
 }
 
 .ds-accordion-challenge:not([open]) .ds-accordion-challenge__summary:focus-visible,
@@ -118,13 +87,13 @@
     line-height: var(--line-height-body);
   }
 
-  .ds-accordion-challenge__icon {
+  .ds-accordion-challenge__summary .ds-accordion-summary__icon {
     order: 2;
     background: none;
     color: var(--color-brand-accent);
   }
 
-  .ds-accordion-challenge__icon .ds-icon {
+  .ds-accordion-challenge__summary .ds-icon {
     width: var(--size-challenge-icon);
     height: var(--size-challenge-icon);
   }

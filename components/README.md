@@ -33,7 +33,10 @@ Stories per component (owner, from Task 7 on; the molecules follow it, the atoms
   `pseudo-focus-visible` class on them, the same classes `globals.pseudo` sets, but on the story's own DOM, so nothing
   sticks to the next story.
 - `Overview`: one grid with every variant, and the states side by side where they matter (`overviewGrid`, `overviewCell`,
-  `forceState(markup, state, selectors)` from `.storybook/state.js`).
+  `forceState(markup, state, selectors)` from `.storybook/state.js`). Spread `OVERVIEW_STATE` into it: it hides the
+  `state` control there and the decorator leaves the grid alone.
+- `stateControlPlay({ selector, property })` (Card Program Playground) proves in the test runner that the `state` control
+  changes a computed style, so an addon upgrade cannot silently turn every forced state into a no-op.
 - At most one or two extra example stories, only where the content differs in a way that matters (a card with or without
   an image, a behaviour to try). No Pressed state.
 
@@ -45,15 +48,19 @@ One vocabulary for every `render<PascalName>(args)`, so a molecule passes the sa
 | --- | --- | --- |
 | `text` | the visible text | `renderButton({ text })`, `renderLink`, `renderTag`, `renderNavLink`, breadcrumb `items: [{ text, href }]`, select `options: [{ value, text }]` |
 | `ariaLabel` | the accessible name of an icon-only control or a landmark (never shown) | `renderButtonArrow`, `renderCarouselArrow`, `renderSocialButton`, `renderNavBurger`, `renderBreadcrumbs` (the nav) |
-| `variant` | the look (Figma Style / Kind / Variant / Context) | `primary`, `inverted`, `raised`, `inline`, `step` |
+| `variant` | the look: Figma Style, Kind, Type, Variant, Context, Layout, Arrow or a surface Tone | `primary`, `inverted`, `raised`, `step`; molecules: heading group `split`, pagination `pages`, accordion `two-columns`, card contact `social`, card post `primary`, card recommendation `blue`, card partner `carousel` |
 | `size` | the size, where an atom has sizes | (none of the atoms yet) |
 | `href` | the link target; given, the atom renders `<a href>` | `renderButton`, `renderTag`, `renderButtonOutline` |
+| `overline` | the small text above a title or a value | `renderHeadingGroup`, `renderCardContact`, `renderCardTraining` |
+| `headingTag` | the heading level of a molecule title (`CARD_HEADING_TAGS` in `components/_shared/heading-tags.js`; the look stays) | every card, `renderHeadingGroup` |
 
 Other axes keep their own names when they are independent of the look: `shape` (button arrow/pill), `tone` (text colour),
-`tag` (HTML element), `name` (which icon or which form field), `network`, `direction`, and the states `disabled`,
+`tag` (the root HTML element; a heading level is always `headingTag`), `name` (which icon or which form field), `network`, `direction`, and the states `disabled`,
 `current`, `active`, `open`, `checked`. `label` is used only by form controls, for the text of their visible
 `<label>` element (`renderFormField`, `renderCheckbox`); it never means an aria-label. Secondary accessible names are
-`<thing>AriaLabel` (`submitAriaLabel`).
+`<thing>AriaLabel` (`submitAriaLabel`). A bold lead-in term is `term` (`renderModelStep`, `challengeTerm` /
+`actionTerm` in Card/Industry step), the hashtag of Card/Hero tile is `hashtag`, a pill title above benefits is
+`benefitsTitle`. `tone` stays a text colour (Text atom, Check item list).
 
 ## Guards (run by `npm test`)
 

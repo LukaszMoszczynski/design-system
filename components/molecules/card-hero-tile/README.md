@@ -3,7 +3,7 @@
 Figma: Molecules → Card/Hero tile (`22:241`: State Default, Hover, Focus; Viewport Mobile). DCC: blocks/hero (`.dcc-hero__tile`).
 CSS: `atoms/text/text.css`, `atoms/tag/tag.css`, `atoms/link/link.css`, `atoms/button/button.css`, `atoms/icon/icon.css` + `molecules/card-hero-tile/card-hero-tile.css`. No JS.
 
-`renderCardHeroTile({ title, tag, text, linkText, href, headingTag })` →
+`renderCardHeroTile({ title, hashtag, text, linkText, href, headingTag })` →
 
 ```html
 <a class="ds-card-hero-tile" href="/oferta/">
@@ -16,7 +16,7 @@ CSS: `atoms/text/text.css`, `atoms/tag/tag.css`, `atoms/link/link.css`, `atoms/b
 ```
 
 - The whole tile is one link with one focus ring; the text link (Link atom without `href`, a span) and the corner arrow are
-  decorative. Without `href`: an `<article>`, no arrow, no states. Empty `tag` / `linkText` leave them out (Figma Show tag / Show link).
+  decorative. Without `href`: an `<article>`, no arrow, no states. Empty `hashtag` / `linkText` leave them out (Figma Show tag / Show link).
 - Desktop (≥ 1025 px) hover: brand surface, rises 20 px, the page-colour notch opens in the bottom-right corner (CSS
   gradients in `::before`) and the arrow moves into it. Focus: the hover colours and rise without the notch, ring 3 px outside.
 - Below 1025 px: 24/20 padding, radius 16, hugging height, no corner arrow.

@@ -1,3 +1,50 @@
+/* Shared by every <details> molecule (Accordion, Accordion/Challenge, Card/Training row): the details base class
+   .ds-details and the question row .ds-accordion-summary (renderAccordionSummary). The row has no marker, a pointer, the
+   focus ring, the text taking the free width and the plus/minus Icons stacked in one cell; the minus shows while the
+   item is open and not closing (accordion.js sets is-closing during the animated close). The molecules add their own
+   look through their summary class. */
+.ds-accordion-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: var(--radius-xs);
+  list-style: none;
+  cursor: pointer;
+}
+
+.ds-accordion-summary::-webkit-details-marker {
+  display: none;
+}
+
+.ds-accordion-summary:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.ds-accordion-summary__text {
+  flex: 1;
+  min-width: 0;
+}
+
+.ds-accordion-summary__icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+
+.ds-accordion-summary__icon .ds-icon {
+  grid-area: 1 / 1;
+}
+
+.ds-accordion-summary__minus,
+.ds-details[open]:not(.is-closing) > .ds-accordion-summary .ds-accordion-summary__plus {
+  visibility: hidden;
+}
+
+.ds-details[open]:not(.is-closing) > .ds-accordion-summary .ds-accordion-summary__minus {
+  visibility: visible;
+}
+
 /* Accordion (.dcc-faq__item): rows with a 1 px strong-border divider. The question row is 20 px padded with 24 px
    between the question (body font, LG size, question line height) and the 24 px plus/minus; it is at least 96 px tall so
    two-column rows stay level. Hover, keyboard focus and the open row turn question and icon primary. The answer
@@ -29,57 +76,21 @@
 }
 
 .ds-accordion__summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   gap: var(--accordion-gap);
   min-height: var(--accordion-row-min-height);
   padding: var(--accordion-row-padding-y) 0;
-  border-radius: var(--radius-xs);
   color: var(--color-text-default);
   font-family: var(--font-body);
   font-weight: var(--font-weight-regular);
   font-size: var(--font-size-lg);
   line-height: var(--line-height-question);
-  list-style: none;
-  cursor: pointer;
   transition: color 0.15s ease;
 }
 
-.ds-accordion__summary::-webkit-details-marker {
-  display: none;
-}
-
-.ds-accordion__question {
-  flex: 1;
-  min-width: 0;
-}
-
-.ds-accordion__icon {
-  display: grid;
-  flex: none;
+.ds-accordion__summary .ds-accordion-summary__icon,
+.ds-accordion__summary .ds-icon {
   width: var(--accordion-icon-size);
   height: var(--accordion-icon-size);
-}
-
-.ds-accordion__icon .ds-icon {
-  grid-area: 1 / 1;
-  width: 100%;
-  height: 100%;
-}
-
-.ds-accordion__minus,
-.ds-accordion__item[open]:not(.is-closing) .ds-accordion__plus {
-  visibility: hidden;
-}
-
-.ds-accordion__item[open]:not(.is-closing) .ds-accordion__minus {
-  visibility: visible;
-}
-
-.ds-accordion__summary:focus-visible {
-  outline: var(--focus-ring-width) solid var(--color-focus-ring);
-  outline-offset: var(--focus-ring-offset);
 }
 
 .ds-accordion__summary:focus-visible,

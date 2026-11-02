@@ -1,0 +1,51 @@
+/* Benefits (.dcc-program__benefits-title / __benefits): a primary pill (body bold, on-brand, 4/12 padding, an optional
+   24 px chevron 4 px after the text) over the benefits as outline Tag pills (1 px currentColor, 3/12 padding, wrapping a
+   long benefit), 6 px apart, stacked. On-brand (a blue card): an accent pill, white borders, the pills flowing in rows. */
+.ds-benefits {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--recommend-pill-gap);
+}
+
+.ds-benefits__title {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin: 0;
+  padding: var(--space-4) var(--space-12);
+  border-radius: var(--radius-full);
+  background: var(--color-brand-primary);
+  color: var(--color-text-on-brand);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+.ds-benefits__list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--recommend-pill-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* The Tag atom's outline pill in currentColor, 3/12 padding, wrapping a long benefit. */
+.ds-benefits__list .ds-tag {
+  padding: var(--space-3) var(--space-12);
+  border-color: currentColor;
+  color: inherit;
+  white-space: normal;
+  text-align: left;
+}
+
+.ds-benefits--on-brand .ds-benefits__title {
+  background: var(--color-brand-accent);
+}
+
+.ds-benefits--on-brand .ds-benefits__list {
+  flex-flow: row wrap;
+}

@@ -4,7 +4,7 @@
 // Composes the Text atom (name). `roles` are lines (the site separates the roles of one line with |).
 import { escapeHtml } from '../../_shared/escape.js';
 import { renderText } from '../../atoms/text/text.template.js';
-import { CARD_HEADING_TAGS } from '../card-program/card-program.template.js';
+import { CARD_HEADING_TAGS } from '../../_shared/heading-tags.js';
 
 export function renderCardPerson({
   name = 'Anna Grygorcewicz',

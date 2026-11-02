@@ -1,5 +1,5 @@
-import { STATE_ARG_TYPES, forceState, overviewCell, overviewGrid } from '../../../.storybook/state.js';
-import { CARD_HEADING_TAGS } from '../card-program/card-program.template.js';
+import { OVERVIEW_STATE, STATE_ARG_TYPES, forceState, overviewCell, overviewGrid } from '../../../.storybook/state.js';
+import { CARD_HEADING_TAGS } from '../../_shared/heading-tags.js';
 import { renderCardTile } from './card-tile.template.js';
 
 const card = (markup) => `<div style="width: var(--size-card-width); max-width: 100%">${markup}</div>`;
@@ -40,6 +40,7 @@ export const Playground = {};
 
 // Figma Card/Tile: State Default, Hover, Focus.
 export const Overview = {
+  ...OVERVIEW_STATE,
   render: (args) =>
     overviewGrid(
       ['default', 'hover', 'focus'].map((state) => overviewCell(state, card(forceState(renderCardTile(args), state, CARD)))),

@@ -3,7 +3,7 @@
 Figma: Molecules → Card/Industry step (`22:266`: State Default, Active). DCC: blocks/karty (`.dcc-karty--branza`).
 CSS: `atoms/text/text.css`, `atoms/number/number.css` + `molecules/card-industry-step/card-industry-step.css`. No JS.
 
-`renderCardIndustryStep({ number, title, challengeLabel, challenge, actionLabel, action, active, headingTag })` →
+`renderCardIndustryStep({ number, title, challengeTerm, challenge, actionTerm, action, active, headingTag })` →
 `<article class="ds-card-industry-step is-active?"><div class="ds-card-industry-step__card"><h3 class="ds-text ds-text--2xl ds-card-industry-step__title">…</h3><p class="ds-card-industry-step__challenge"><strong>Wyzwanie:</strong> …</p><p class="ds-card-industry-step__action"><strong>Działanie:</strong> …</p></div><div class="ds-card-industry-step__number"><span class="ds-letter-circle ds-letter-circle--industry">01</span></div></article>`.
 
 - 413 px tall so a carousel row never jumps; the timeline is `::before`, half the slide gap past each side, so the lines of

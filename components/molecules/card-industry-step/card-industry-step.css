@@ -1,6 +1,6 @@
 /* Card/Industry step (.dcc-karty--branza slide): 413 px tall so the row never jumps. A centred card (soft, radius 32,
    32 px padding, min 280 px; the title in the heading font Medium at the 2XL size; challenge and action with bold
-   labels) over the 47 px number circle (Letter circle, industry) 44 px below, on a 1 px grey timeline through the
+   terms) over the 47 px number circle (Letter circle, industry) 44 px below, on a 1 px grey timeline through the
    number's centre that runs half the slide gap past each side. is-active (the carousel's centred slide): the card is
    42 px taller and blue with on-brand text, the number accent with its ring, the timeline a 2 px primary line. */
 .ds-card-industry-step {

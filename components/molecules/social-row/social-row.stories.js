@@ -1,4 +1,4 @@
-import { STATE_ARG_TYPES, forceState, overviewCell, overviewGrid } from '../../../.storybook/state.js';
+import { OVERVIEW_STATE, STATE_ARG_TYPES, forceState, overviewCell, overviewGrid } from '../../../.storybook/state.js';
 import { SOCIAL_ROW_VARIANTS, renderSocialRow } from './social-row.template.js';
 
 // Raised sits on a card, as in the footer and the contact block.
@@ -29,6 +29,7 @@ export const Playground = {};
 
 // Figma Style Plain, Raised; the first button hovered beside each.
 export const Overview = {
+  ...OVERVIEW_STATE,
   render: () =>
     overviewGrid(
       SOCIAL_ROW_VARIANTS.flatMap((variant) => [

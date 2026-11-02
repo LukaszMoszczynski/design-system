@@ -3,10 +3,10 @@
 // round arrow are then decorative spans (Button outline and Button arrow atoms without href).
 // Composes Text (title 2XL, subtitle, description), Button outline and Button arrow (inverted at rest).
 import { escapeHtml } from '../../_shared/escape.js';
+import { CARD_HEADING_TAGS } from '../../_shared/heading-tags.js';
 import { renderButtonArrow, renderButtonOutline } from '../../atoms/button/button.template.js';
 import { renderText } from '../../atoms/text/text.template.js';
 
-export const CARD_HEADING_TAGS = ['h2', 'h3', 'h4'];
 
 export function renderCardProgram({
   title = 'Negocjacje handlowe',

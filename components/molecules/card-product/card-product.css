@@ -197,3 +197,12 @@ a.ds-card-product:focus-visible .ds-link .ds-icon {
     width: 100%;
   }
 }
+
+/* No photo zoom with reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  .ds-card-product__image,
+  a.ds-card-product:is(:hover, :focus-visible) .ds-card-product__image {
+    transform: none;
+    transition: none;
+  }
+}

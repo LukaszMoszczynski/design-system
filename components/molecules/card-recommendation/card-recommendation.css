@@ -1,10 +1,10 @@
 /* Card/Recommendation (.dcc-program--wyrozniony .dcc-program__card): soft card, radius 32, padding 24 24 28. The title
    (heading font Medium at the 2XL size, primary) on a page-colour tab (min 89 px, radius 24, room on the right for the
    badge); a 122 px Badge/Circular with the check in the top-right corner, 24 px above the card (primary disc, accent
-   dot, on-brand wording); the Check item reasons 24 px below the tab; a primary pill with the label and a chevron 32 px
-   below them; the benefits as outline Tag pills (1 px currentColor, 3/12 padding) 6 px apart, stacked.
-   Blue (.is-blue): brand surface, on-brand texts, accent badge disc with a primary dot, accent pill, white pill
-   borders, benefits flowing in rows. */
+   dot, on-brand wording); the Check item reasons 24 px below the tab; the Benefits molecule (a primary pill with a
+   chevron over outline pills) 32 px below them.
+   Blue (ds-card-recommendation--blue, the site's .is-blue): brand surface, on-brand texts, accent badge disc with a
+   primary dot, the Benefits on-brand variant. */
 .ds-card-recommendation {
   position: relative;
   display: flex;
@@ -66,45 +66,7 @@
   margin-top: var(--recommend-title-gap);
 }
 
-.ds-card-recommendation__benefits-title {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-4);
-  margin: var(--recommend-benefits-gap) 0 0;
-  padding: var(--space-4) var(--space-12);
-  border-radius: var(--radius-full);
-  background: var(--color-brand-primary);
-  color: var(--color-text-on-brand);
-  font-family: var(--font-body);
-  font-weight: var(--font-weight-bold);
-  font-size: var(--font-size-body);
-  line-height: var(--line-height-body);
-}
-
-.ds-card-recommendation--blue .ds-card-recommendation__benefits-title {
-  background: var(--color-brand-accent);
-  color: var(--color-text-on-brand);
-}
-
-.ds-card-recommendation__benefits {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--recommend-pill-gap);
-  margin: var(--recommend-pill-gap) 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.ds-card-recommendation--blue .ds-card-recommendation__benefits {
-  flex-flow: row wrap;
-}
-
-/* The Tag atom's outline pill, in currentColor (white on the blue card), 3/12 padding, wrapping a long benefit. */
-.ds-card-recommendation__benefits .ds-tag {
-  padding: var(--space-3) var(--space-12);
-  border-color: currentColor;
-  color: inherit;
-  white-space: normal;
-  text-align: left;
+/* The Benefits molecule, 32 px below the reasons. */
+.ds-card-recommendation .ds-benefits {
+  margin-top: var(--recommend-benefits-gap);
 }

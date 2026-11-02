@@ -10,7 +10,8 @@
 (function () {
   window.DS = window.DS || {};
 
-  const ITEM = '.ds-accordion__item, .ds-accordion-challenge, .ds-card-training--row';
+  // Every <details> molecule carries the shared base class (accordion.template.js).
+  const ITEM = '.ds-details';
   const DURATION = 0.3;
   const EASE = 'power1.out';
 

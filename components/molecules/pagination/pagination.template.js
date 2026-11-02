@@ -8,7 +8,7 @@ import { renderCarouselControls } from '../../atoms/carousel-controls/carousel-c
 import { renderIcon } from '../../atoms/icon/icon.template.js';
 import { renderPageNumber } from '../../atoms/number/number.template.js';
 
-export const PAGINATION_TYPES = ['dots', 'counter', 'pages'];
+export const PAGINATION_VARIANTS = ['dots', 'counter', 'pages'];
 
 // Pages: `count` pages, `current` (1-based) is the current one; `hrefPattern` builds each link ({page} is replaced). The next link
 // is left out on the last page and hidden on phones (as on the site).
@@ -26,7 +26,7 @@ function renderPages({ count, current, href, ariaLabel, nextAriaLabel }) {
 }
 
 export function renderPagination({
-  type = 'dots',
+  variant = 'dots',
   count = 5,
   active = 1,
   current = 1,
@@ -34,9 +34,9 @@ export function renderPagination({
   ariaLabel = 'Stronicowanie',
   nextAriaLabel = 'Następna strona',
 } = {}) {
-  if (type === 'pages') {
+  if (variant === 'pages') {
     const href = (page) => String(hrefPattern).replace('{page}', String(page));
     return renderPages({ count, current, href, ariaLabel, nextAriaLabel });
   }
-  return renderCarouselControls({ count, active, counter: type === 'counter' });
+  return renderCarouselControls({ count, active, counter: variant === 'counter' });
 }

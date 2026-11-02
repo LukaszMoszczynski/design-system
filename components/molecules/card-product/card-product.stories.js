@@ -1,6 +1,6 @@
-import { STATE_ARG_TYPES, forceState, overviewCell, overviewGrid } from '../../../.storybook/state.js';
+import { OVERVIEW_STATE, STATE_ARG_TYPES, forceState, overviewCell, overviewGrid } from '../../../.storybook/state.js';
 import { BADGE_VARIANTS } from '../../atoms/badge-pill/badge-pill.template.js';
-import { CARD_HEADING_TAGS } from '../card-program/card-program.template.js';
+import { CARD_HEADING_TAGS } from '../../_shared/heading-tags.js';
 import { CARD_PRODUCT_VARIANTS, renderCardProduct } from './card-product.template.js';
 
 const WIDTHS = { standard: 'var(--size-post-card-width)', compact: 'var(--size-post-card-width)', rows: 'var(--size-container)' };
@@ -56,6 +56,7 @@ export const Playground = {};
 
 // Figma Card/Product: Variant Standard, Compact, Rows; Standard hovered.
 export const Overview = {
+  ...OVERVIEW_STATE,
   render: (args) =>
     overviewGrid(
       [

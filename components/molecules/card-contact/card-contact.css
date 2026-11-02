@@ -1,4 +1,4 @@
-/* Card/Contact (blocks/kontakt): soft card, radius 32, 40 px padding, 12 px gaps; the label (heading font Medium 12,
+/* Card/Contact (blocks/kontakt): soft card, radius 32, 40 px padding, 12 px gaps; the overline (heading font Medium 12,
    accent, uppercase), the values (heading font Medium, XL, text colour; a value link inherits that look and turns primary
    on hover/focus), or the raised Social row. Phones (≤ 781 px): 24 px padding, radius 20, values at 20 px. */
 .ds-card-contact {
@@ -12,7 +12,7 @@
   color: var(--color-text-default);
 }
 
-.ds-card-contact__label {
+.ds-card-contact__overline {
   color: var(--color-brand-accent);
   font-family: var(--font-heading);
   font-weight: var(--font-weight-medium);

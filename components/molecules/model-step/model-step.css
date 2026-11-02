@@ -1,4 +1,4 @@
-/* Model step (.dcc-model__step): the 49 px letter circle and the text (body 16 / 24, bold label) 34 px apart
+/* Model step (.dcc-model__step): the 49 px letter circle and the text (body 16 / 24, bold term) 34 px apart
    (16 on phones), min 56 px with 8 px vertical padding and a 1 px strong-border divider (none on the last step).
    Hover or is-active (the double hover set by the section): the letter turns accent and scales 1.18, the text 1.03. */
 .ds-model-steps {

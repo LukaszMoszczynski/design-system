@@ -1,6 +1,6 @@
 import { overviewCell, overviewGrid } from '../../../.storybook/state.js';
-import { CARD_HEADING_TAGS } from '../card-program/card-program.template.js';
-import { CARD_PARTNER_LAYOUTS, renderCardPartner } from './card-partner.template.js';
+import { CARD_HEADING_TAGS } from '../../_shared/heading-tags.js';
+import { CARD_PARTNER_VARIANTS, renderCardPartner } from './card-partner.template.js';
 
 const card = (markup) => `<div style="width: var(--size-card-width); max-width: 100%">${markup}</div>`;
 const frame = (markup) => `<div style="padding: var(--space-24) var(--space-gutter)">${card(markup)}</div>`;
@@ -9,7 +9,7 @@ export default {
   title: 'Molecules/Card Partner',
   render: (args) => frame(renderCardPartner(args)),
   argTypes: {
-    layout: { control: 'inline-radio', options: CARD_PARTNER_LAYOUTS, description: 'Figma Layout: Grid (1 px border, left, 2XL), Carousel (2 px border, centred, XL).' },
+    variant: { control: 'inline-radio', options: CARD_PARTNER_VARIANTS, description: 'Figma Layout: Grid (1 px border, left, 2XL), Carousel (2 px border, centred, XL).' },
     title: { control: 'text' },
     subtitle: { control: 'text' },
     text: { control: 'text' },
@@ -18,7 +18,7 @@ export default {
     headingTag: { control: 'inline-radio', options: CARD_HEADING_TAGS },
   },
   args: {
-    layout: 'grid',
+    variant: 'grid',
     title: 'Północna Izba Gospodarcza (PIG)',
     subtitle: 'Aktywni przedsiębiorcy w regionie',
     text: 'Jesteśmy członkami największej izby gospodarczej w Polsce, której siedziba znajduje się w Szczecinie. Uczestniczymy w życiu lokalnego biznesu.',
@@ -42,5 +42,5 @@ export const Playground = {};
 
 // Figma Card/Partner: Layout Grid, Carousel.
 export const Overview = {
-  render: (args) => overviewGrid(CARD_PARTNER_LAYOUTS.map((layout) => overviewCell(layout, card(renderCardPartner({ ...args, layout })))), '384px'),
+  render: (args) => overviewGrid(CARD_PARTNER_VARIANTS.map((variant) => overviewCell(variant, card(renderCardPartner({ ...args, variant })))), '384px'),
 };

@@ -1,4 +1,4 @@
-import { STATE_ARG_TYPES, forceState, overviewCell, overviewGrid } from '../../../.storybook/state.js';
+import { OVERVIEW_STATE, STATE_ARG_TYPES, forceState, overviewCell, overviewGrid } from '../../../.storybook/state.js';
 import { DEFAULT_CHALLENGES, renderAccordionChallenge, renderAccordionChallengeList } from './accordion-challenge.template.js';
 // The accordion script animates the height with GSAP (and degrades without it).
 import '../accordion/accordion.js';
@@ -25,7 +25,7 @@ export default {
     docs: {
       description: {
         component:
-          '`details.ds-accordion-challenge[name] > summary.ds-accordion-challenge__summary (span.ds-accordion-challenge__icon with the plus/minus Icons + span.ds-accordion-challenge__question) + div.ds-accordion-challenge__body (Text + Link inverse)`; list `div.ds-accordion-challenge-list`. Works without JS: the shared `name` makes it an exclusive accordion; `accordion/accordion.js` animates the height with GSAP. Figma Viewport=Mobile: the Mobile 390 viewport.',
+          '`details.ds-details.ds-accordion-challenge[name] > summary.ds-accordion-summary.ds-accordion-challenge__summary (the shared Accordion summary) + div.ds-accordion-challenge__body (Text + Link inverse)`; list `div.ds-accordion-challenge-list`. Works without JS: the shared `name` makes it an exclusive accordion; `accordion/accordion.js` animates the height with GSAP. Figma Viewport=Mobile: the Mobile 390 viewport.',
       },
     },
   },
@@ -35,6 +35,7 @@ export const Playground = {};
 
 // Figma Accordion/Challenge: Collapsed, Hover, Focus, Expanded, and a list.
 export const Overview = {
+  ...OVERVIEW_STATE,
   render: () =>
     overviewGrid(
       [

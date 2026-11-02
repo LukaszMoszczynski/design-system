@@ -1,4 +1,4 @@
-import { STATE_ARG_TYPES, forceState, overviewCell, overviewGrid } from '../../../.storybook/state.js';
+import { OVERVIEW_STATE, STATE_ARG_TYPES, forceState, overviewCell, overviewGrid } from '../../../.storybook/state.js';
 import { renderModelWord } from './model-word.template.js';
 
 const frame = (markup) => `<div style="padding: var(--space-24) var(--space-gutter)">${markup}</div>`;
@@ -28,6 +28,7 @@ export const Playground = {};
 
 // At rest, Figma's first letter Active, and a hovered letter.
 export const Overview = {
+  ...OVERVIEW_STATE,
   render: () =>
     overviewGrid(
       [

@@ -1,5 +1,5 @@
-import { STATE_ARG_TYPES, overviewCell, overviewGrid } from '../../../.storybook/state.js';
-import { CARD_HEADING_TAGS } from '../card-program/card-program.template.js';
+import { OVERVIEW_STATE, STATE_ARG_TYPES, overviewCell, overviewGrid } from '../../../.storybook/state.js';
+import { CARD_HEADING_TAGS } from '../../_shared/heading-tags.js';
 import { CARD_TRAINING_VARIANTS, renderCardTraining } from './card-training.template.js';
 // The folded row animates its height with GSAP through the accordion script (and opens natively without it).
 import '../accordion/accordion.js';
@@ -14,13 +14,14 @@ export default {
   title: 'Molecules/Card Training',
   render: (args) => frame(args.variant, renderCardTraining(args)),
   argTypes: {
-    variant: { control: 'inline-radio', options: CARD_TRAINING_VARIANTS, description: 'Figma Variant: Carousel, Column, Featured, Row (collapsed / expanded = open).' },
-    label: { control: 'text', description: 'The accent label (Featured: the benefits pill).' },
+    variant: { control: 'inline-radio', options: CARD_TRAINING_VARIANTS, description: 'Figma Variant: Carousel, Column, Featured, Row (collapsed / expanded = open). State: Column and Row only.' },
+    overline: { control: 'text', description: 'Carousel and Column: the accent text above the name.' },
     name: { control: 'text' },
     text: { control: 'text' },
     time: { control: 'text' },
     title: { control: 'text', description: 'Featured: the tab title.' },
     reasons: { control: 'object', description: 'Featured: check item texts.' },
+    benefitsTitle: { control: 'text', description: 'Featured: the Benefits pill title.' },
     benefits: { control: 'object', description: 'Featured: benefit pills.' },
     buttonText: { control: 'text', description: 'Column and Row: the button.' },
     href: { control: 'text' },
@@ -30,7 +31,8 @@ export default {
   },
   args: {
     variant: 'carousel',
-    label: 'Komunikacja i feedback',
+    overline: 'Komunikacja i feedback',
+    benefitsTitle: 'Komunikacja i feedback',
     name: 'Trudne rozmowy w zespole',
     text: 'Jak mówić o błędach, oczekiwaniach i granicach tak, by relacja się nie posypała.',
     time: 'Rekomendowany czas: 1 dzień',
@@ -44,14 +46,15 @@ export default {
     state: 'default',
   },
   parameters: {
-    stateTargets: ['.ds-button', '.ds-card-training__summary'],
+    // Only Column (its button) and Row (its question row) are interactive; Carousel and Featured have no states.
+    stateTargets: ['.ds-card-training__actions .ds-button', '.ds-accordion-summary'],
     docs: {
       description: {
         component:
-          '`article.ds-card-training ds-card-training--{carousel|column|featured}` (label, `h3.__name`, `p.__text`, `p.__time`, Button in `div.__actions`; Featured: `div.__tab`, Check list, `p.__benefits-title`, outline Tags) or `details.ds-card-training--row` (`summary.__summary` with the plus/minus Icons, `div.__body`). State applies to the button or the row question.',
+          '`article.ds-card-training ds-card-training--{carousel|column|featured}` (`p.__overline`, `h3.__name`, `p.__text`, `p.__time`, Button in `div.__actions`; Featured: `div.__tab`, Check list, the Benefits molecule) or `details.ds-details.ds-card-training--row` (the shared Accordion summary, `div.__body`). State applies to the Column button or the Row question; Carousel and Featured are not interactive.',
       },
     },
-    // The label is accent text on the card (the DCC palette gap; see Atoms/Button).
+    // The overline is accent text on the card (the DCC palette gap; see Atoms/Button).
     a11y: { test: 'todo' },
   },
 };
@@ -60,6 +63,7 @@ export const Playground = {};
 
 // Figma Card/Training: Variant Carousel, Column, Featured, Row collapsed, Row expanded.
 export const Overview = {
+  ...OVERVIEW_STATE,
   render: (args) =>
     overviewGrid(
       [

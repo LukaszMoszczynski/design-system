@@ -1,10 +1,10 @@
-/* Card/Training (blocks/programy). Shared: the label (heading font Medium, LG, accent), the name (heading font Medium at
+/* Card/Training (blocks/programy). Shared: the overline (heading font Medium, LG, accent), the name (heading font Medium at
    the 2XL size), body text, the time (body bold, primary).
-   Carousel: card surface, radius 32, padding 44 34 48; name primary 8 px under the label, text 20 px, time 28 px below.
+   Carousel: card surface, radius 32, padding 44 34 48; name primary 8 px under the overline, text 20 px, time 28 px below.
    Column: soft, radius 28, padding 56 60 32; name in the text colour, 28 px gaps, the button 36 px below.
    Featured: soft, radius 32, padding 24 24 28; the stepped title tab (a band, a narrower upper part and a 16 px fillet,
-   drawn with CSS backgrounds), the check list 20 px apart, the benefits pill and outline pills, the time.
-   Row: the folded phone list, a <details> with a divider, the name (heading font Medium 16) and an accent plus/minus. */
+   drawn with CSS backgrounds), the check list 20 px apart, the Benefits molecule, the time.
+   Row: the folded phone list, a <details> with a divider and the shared Accordion summary (heading font Medium 16, accent plus/minus). */
 .ds-card-training {
   display: flex;
   flex-direction: column;
@@ -12,7 +12,7 @@
   color: var(--color-text-default);
 }
 
-.ds-card-training__label {
+.ds-card-training__overline {
   color: var(--color-brand-accent);
 }
 
@@ -112,30 +112,8 @@
   gap: var(--space-20);
 }
 
-.ds-card-training__benefits-title {
-  margin: var(--space-32) 0 0;
-  padding: var(--space-4) var(--space-12);
-  border-radius: var(--radius-full);
-  background: var(--color-brand-primary);
-  color: var(--color-text-on-brand);
-  font-weight: var(--font-weight-bold);
-  font-size: var(--font-size-body);
-  line-height: var(--line-height-body);
-}
-
-.ds-card-training__benefits {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--recommend-pill-gap);
-  margin: var(--recommend-pill-gap) 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.ds-card-training__benefits .ds-tag {
-  white-space: normal;
-  text-align: left;
+.ds-card-training .ds-benefits {
+  margin-top: var(--space-32);
 }
 
 /* Row (the folded phone list) */
@@ -145,51 +123,17 @@
   border-bottom: 1px solid var(--color-border-default);
 }
 
+/* The shared Accordion summary (accordion.css) with this row's type and an accent plus/minus. */
 .ds-card-training__summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   gap: var(--space-16);
-  border-radius: var(--radius-xs);
   font-family: var(--font-heading);
   font-weight: var(--font-weight-medium);
   font-size: var(--font-size-body);
   line-height: var(--line-height-body);
-  list-style: none;
-  cursor: pointer;
 }
 
-.ds-card-training__summary::-webkit-details-marker {
-  display: none;
-}
-
-.ds-card-training__summary:focus-visible {
-  outline: var(--focus-ring-width) solid var(--color-focus-ring);
-  outline-offset: var(--focus-ring-offset);
-}
-
-.ds-card-training__row-name {
-  flex: 1;
-  min-width: 0;
-}
-
-.ds-card-training__icon {
-  display: grid;
-  flex: none;
+.ds-card-training__summary .ds-accordion-summary__icon {
   color: var(--color-brand-accent);
-}
-
-.ds-card-training__icon .ds-icon {
-  grid-area: 1 / 1;
-}
-
-.ds-card-training__minus,
-.ds-card-training--row[open]:not(.is-closing) .ds-card-training__plus {
-  visibility: hidden;
-}
-
-.ds-card-training--row[open]:not(.is-closing) .ds-card-training__minus {
-  visibility: visible;
 }
 
 .ds-card-training__body {

@@ -4,11 +4,11 @@ Figma: Molecules → Pagination (`10:150`, Type Dots / Counter) and Pagination/P
 DCC: `.dcc-carousel__nav` (assets/js/carousel.js), `.dcc-blog-lista__pagination` (`paginate_links()`).
 CSS: `atoms/carousel-controls/carousel-controls.css` (dots, counter), `atoms/number/number.css` + `molecules/pagination/pagination.css` (pages). No JS.
 
-`renderPagination({ type, count, active, current, hrefPattern, ariaLabel, nextAriaLabel })`:
+`renderPagination({ variant, count, active, current, hrefPattern, ariaLabel, nextAriaLabel })`:
 
-- `type: 'dots' | 'counter'` prints the Carousel controls atom (prev, dots or the „3 / 16” counter, next). `active` is
+- `variant` (Figma Type) `'dots' | 'counter'` prints the Carousel controls atom (prev, dots or the „3 / 16” counter, next). `active` is
   the 0-based slide. The carousel organism wires Swiper to its `data-ds-carousel-*` hooks.
-- `type: 'pages'` →
+- `variant: 'pages'` →
 
   ```html
   <nav class="ds-pagination ds-pagination--pages" aria-label="Stronicowanie">
