@@ -25,7 +25,7 @@ follows the rules below. `_template/` is a working example of all of them (not s
   selector array; `true` forces the state on every element, the label and icon spans included.
 - Default state is the one at rest (closed, not hovered). Polish strings go in the default `args`.
 
-Stories per component (owner, from Task 7 on; the molecules follow it, the atoms are converted separately):
+Stories per component (owner, from Task 7 on; atoms, molecules and organisms follow it):
 
 - `Playground`: every arg is a control, plus a `state` control (`default` / `hover` / `focus`, `STATE_ARG_TYPES` from
   `.storybook/state.js`) and a `disabled` boolean where it applies. `parameters.stateTargets` (selector array) names the
