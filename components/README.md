@@ -91,4 +91,4 @@ call, and the WordPress note (which dynamic values `render.php` prints where).
 
 Markup (`renderExample`): `<button type="button" class="ds-example" data-ds-example aria-pressed="false">Przełącznik</button>`.
 CSS: `_template/_template.css`. JS: `_template/_template.js`, `window.DS.example.init()`.
-WordPress: `<?php echo esc_html( $attributes['label'] ); ?>` in place of the label; `aria-pressed` is `"true"` or `"false"`.
+WordPress: `<?php echo esc_html( $attributes['text'] ); ?>` in place of the text; `aria-pressed` is `"true"` or `"false"`.

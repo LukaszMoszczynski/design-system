@@ -10,10 +10,10 @@ export default {
   title: 'Atoms/Example',
   render: (args) => renderExample(args),
   argTypes: {
-    label: { control: 'text' },
+    text: { control: 'text' },
     pressed: { control: 'boolean' },
   },
-  args: { label: 'Przełącznik', pressed: false },
+  args: { text: 'Przełącznik', pressed: false },
 };
 
 export const Default = {};

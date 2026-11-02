@@ -15,7 +15,7 @@ describe('example component script', () => {
   beforeEach(() => {
     window = new Window();
     document = window.document;
-    document.body.innerHTML = renderExample({ label: 'Przełącznik' });
+    document.body.innerHTML = renderExample({ text: 'Przełącznik' });
     loadScript(SCRIPT, window);
   });
 
@@ -39,7 +39,7 @@ describe('example component script', () => {
   });
 
   it('init picks up markup added later', () => {
-    document.body.insertAdjacentHTML('beforeend', renderExample({ label: 'Drugi' }));
+    document.body.insertAdjacentHTML('beforeend', renderExample({ text: 'Drugi' }));
     window.DS.example.init();
     const added = document.querySelectorAll('[data-ds-example]')[1];
     added.click();
@@ -50,6 +50,6 @@ describe('example component script', () => {
 
 describe('example template', () => {
   it('escapes text args', () => {
-    expect(renderExample({ label: '<b>"x" & y</b>' })).toContain('&lt;b&gt;&quot;x&quot; &amp; y&lt;/b&gt;');
+    expect(renderExample({ text: '<b>"x" & y</b>' })).toContain('&lt;b&gt;&quot;x&quot; &amp; y&lt;/b&gt;');
   });
 });
