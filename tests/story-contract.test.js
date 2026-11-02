@@ -3,8 +3,15 @@ import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { globFiles } from '../scripts/glob-files.mjs';
 
+const STORIES = globFiles('components/**/*.stories.js');
+
 describe('story contract', () => {
-  for (const file of globFiles('components/**/*.stories.js')) {
+  it('scans real stories files', () => {
+    expect(STORIES).toContain('components/base/base.stories.js');
+    expect(STORIES).toContain('components/_template/_template.stories.js');
+  });
+
+  for (const file of STORIES) {
     it(`${file} does not export render`, () => {
       expect(readFileSync(file, 'utf8')).not.toMatch(/export\s+(?:const|function|let)\s+render\b|export\s*\{[^}]*\brender\b/);
     });

@@ -1,9 +1,17 @@
 // Minimal glob for the guards: supports `**` (any folders) and `*` (within one name). Returns forward-slash paths.
 // Written by hand because fs.globSync still prints an ExperimentalWarning on Node 22.
 import { existsSync, readdirSync } from 'node:fs';
+import { join } from 'node:path';
+
+function filesUnder(directory) {
+  return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+    const path = join(directory, entry.name);
+    return entry.isDirectory() ? filesUnder(path) : [path];
+  });
+}
 
 export function globFiles(pattern) {
-  const normalized = pattern.replaceAll('\\', '/');
+  const normalized = pattern.replaceAll('\\', '/').replace(/^\.\//, '');
   const parts = normalized.split('/');
   const wildcard = parts.findIndex((part) => part.includes('*'));
   if (wildcard === -1) return existsSync(normalized) ? [normalized] : [];
@@ -14,8 +22,7 @@ export function globFiles(pattern) {
     .map((piece) => piece.replace(/[.+?^${}()|[\]]/g, '\\$&').replaceAll('*', '[^/]*'))
     .join('(?:.*/)?');
   const matcher = new RegExp(`^${source}$`);
-  return readdirSync(root, { withFileTypes: true, recursive: true })
-    .filter((entry) => entry.isFile())
-    .map((entry) => `${entry.parentPath.replaceAll('\\', '/')}/${entry.name}`.replace(/^\.\//, ''))
+  return filesUnder(root)
+    .map((file) => file.replaceAll('\\', '/').replace(/^\.\//, ''))
     .filter((file) => matcher.test(file));
 }

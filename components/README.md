@@ -29,12 +29,21 @@ follows the rules below. `_template/` is a working example of all of them (not s
 - `tests/token-usage.test.js`: every `var(--name)` used in components exists in `dist/tokens/shared.css` or in each
   brand file (`dcc`, `omelanski`). A custom property a component defines itself is exempt.
 - `tests/story-contract.test.js`: no stories file exports `render`.
+- Selector rules, also in `check-css-values`: every class starts with `ds-` (`is-*`/`has-*` state classes are fine on a
+  compound that has a `ds-` class) and no selector mentions `data-brand` (brands switch through tokens only).
+- Each guard asserts it scanned real files, so a broken glob fails instead of passing empty.
+- Hairlines may be signed (`-1px`, `-2px`).
 
 ## JS convention
 
 Classic script: no `import`/`export`, wrapped in an IIFE. It registers `window.DS.<camelName> = { init(root = document) }`,
 runs `init()` on `DOMContentLoaded` (or at once if the DOM is ready) and is idempotent: it marks handled elements with
 `data-ds-ready` and skips them, so a second `init()` (Swup navigation, block editor preview, Storybook) attaches nothing twice.
+
+Storybook: the script auto-inits at import, before any story DOM exists, so the global decorator `withComponentScripts`
+(`.storybook/decorators.js`) renders each story into a wrapper and calls `init(wrapper)` of every registered `window.DS.<name>`.
+A stories file only has to `import './<name>.js'` (see `_template.stories.js`); nothing else per story. `init(root)` searches
+inside `root`, so pass a container, not the component element itself.
 
 Test it with `tests/components/_template.test.js` as the pattern: `loadScript(path, window)` from
 `tests/helpers/load-script.js` evaluates the script in a happy-dom window; the test calls `init` twice, triggers once and

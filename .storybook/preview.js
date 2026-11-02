@@ -5,7 +5,7 @@ import '../brands/dcc/fonts.css';
 import '../brands/omelanski/fonts.css';
 import 'swiper/swiper-bundle.css';
 import Swiper from 'swiper/bundle';
-import { DEFAULT_GLOBALS, followToolbarOnDocsPages, withBrandTheme } from './decorators.js';
+import { DEFAULT_GLOBALS, followToolbarOnDocsPages, withBrandTheme, withComponentScripts } from './decorators.js';
 
 // Every component stylesheet, base.css included. Components load Swiper the way a site does: from window.
 import.meta.glob('../components/**/*.css', { eager: true });
@@ -42,7 +42,7 @@ const preview = {
     },
   },
   initialGlobals: DEFAULT_GLOBALS,
-  decorators: [withBrandTheme],
+  decorators: [withComponentScripts, withBrandTheme],
   parameters: {
     layout: 'fullscreen',
     controls: { matchers: { color: /(background|color)$/i } },

@@ -27,3 +27,16 @@ export function followToolbarOnDocsPages() {
   channel.on(SET_GLOBALS, ({ globals }) => applyBrandTheme(globals));
   channel.on(GLOBALS_UPDATED, ({ globals }) => applyBrandTheme(globals));
 }
+
+// Component scripts auto-init once at import, before any story DOM exists. This decorator renders the story
+// into a wrapper and calls init(wrapper) of every registered window.DS.<name>, so handlers attach on each render.
+export const withComponentScripts = (storyFn) => {
+  const result = storyFn();
+  const wrapper = typeof result === 'string' ? document.createElement('div') : result;
+  if (typeof result === 'string') {
+    wrapper.style.display = 'contents';
+    wrapper.innerHTML = result;
+  }
+  Object.values(window.DS ?? {}).forEach((component) => component.init?.(wrapper));
+  return wrapper;
+};

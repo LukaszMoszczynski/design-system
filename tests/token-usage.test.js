@@ -19,6 +19,13 @@ function usedTokens() {
 }
 
 describe('token usage', () => {
+  it('scans real component CSS', () => {
+    const files = globFiles('components/**/*.css');
+    expect(files).toContain('components/base/base.css');
+    expect(files).toContain('components/_template/_template.css');
+    expect(usedTokens().size).toBeGreaterThan(0);
+  });
+
   it('finds the built token files', () => {
     expect(shared.size).toBeGreaterThan(0);
     for (const brand of BRANDS) expect(defined(`dist/tokens/${brand}.css`).size).toBeGreaterThan(0);

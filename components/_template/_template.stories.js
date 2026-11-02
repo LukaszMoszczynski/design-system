@@ -2,6 +2,8 @@
 // Story contract: import the template, never export `render` from a stories file (CSF would take it for a story).
 // Declare argTypes for every Figma property and one story per variant/state (states via parameters.pseudo).
 import { renderExample } from './_template.template.js';
+// Importing the script registers window.DS.example. The global decorator `withComponentScripts` (.storybook/decorators.js)
+// then calls window.DS.example.init(wrapper) after every render, so the handler works in the canvas.
 import './_template.js';
 
 export default {

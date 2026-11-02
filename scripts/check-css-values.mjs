@@ -1,7 +1,8 @@
 // Guard: component CSS may only use tokens, never raw colours or sizes, so every component follows the brand switch.
 // Allowed: var(--…), color-mix(), 0, 1px/2px hairlines, %, fr, unitless numbers, currentColor, transparent, inherit,
 // calc() of allowed operands, and keywords (none, auto, solid, …). Flagged: hex/rgb/hsl/… colours, named colours,
-// and length literals (px, rem, em, vw, vh, …) other than the hairlines.
+// and length literals (px, rem, em, vw, vh, …) other than the (signed) hairlines.
+// checkCssSelectors adds the selector rules (ds- prefix, no data-brand); checkCssValues runs both.
 // At-rule preludes (@media (min-width: …)) are not checked: media queries cannot use var().
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -22,7 +23,7 @@ slateblue slategray slategrey snow springgreen steelblue tan teal thistle tomato
 yellow yellowgreen canvas canvastext highlight highlighttext buttonface buttontext linktext graytext field fieldtext`.split(/\s+/);
 
 const LENGTH_UNITS = 'px|rem|em|vw|vh|vmin|vmax|svw|svh|lvw|lvh|dvw|dvh|cqw|cqh|cqi|cqb|cqmin|cqmax|ch|ex|lh|rlh|cap|ic|pt|pc|cm|mm|q|in';
-const HAIRLINE = /^[12]px$/;
+const HAIRLINE = /^[+-]?[12]px$/;
 
 const DECLARATION = /(--[\w-]+|[a-z-]+)\s*:\s*([^;{}]+)(?=[;}])/gi;
 const COLOR_FUNCTION = /(?<![\w-])(rgba?|hsla?|hwb|lab|lch|oklab|oklch|color|device-cmyk)\(/gi;
@@ -64,10 +65,45 @@ export function checkCssText(css, file = '') {
   return offences;
 }
 
+// Selectors: every class is ds- prefixed (state classes is-*/has-* are fine on a compound that has a ds- class),
+// and no selector mentions data-brand (brand switching happens in tokens only, never in a component).
+// Classes inside :not()/:is() arguments are not examined.
+const STATE_CLASS = /^(?:is|has)-/;
+
+export function checkCssSelectors(css, file = '') {
+  const source = blank(css);
+  const offences = [];
+  for (const rule of source.matchAll(/([^{};]+)\{/g)) {
+    if (rule[1].trim().startsWith('@')) continue;
+    const selector = rule[1]
+      .replace(/"(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'/g, (match) => ' '.repeat(match.length))
+      .replace(/\([^)]*\)/g, (match) => ' '.repeat(match.length));
+    const flag = (index, text) => {
+      offences.push({ file, line: source.slice(0, rule.index + index).split('\n').length, value: text });
+    };
+    for (const match of selector.matchAll(/data-brand/g)) flag(match.index, 'data-brand');
+    const bare = selector.replace(/\[[^\]]*\]/g, (match) => ' '.repeat(match.length));
+    for (const compound of bare.matchAll(/[^\s>+~,]+/g)) {
+      const classes = [...compound[0].matchAll(/\.([A-Za-z_-][\w-]*)/g)];
+      const hasPrefixed = classes.some((match) => match[1].startsWith('ds-'));
+      for (const match of classes) {
+        const name = match[1];
+        if (name.startsWith('ds-') || (hasPrefixed && STATE_CLASS.test(name))) continue;
+        flag(compound.index + match.index, `.${name}`);
+      }
+    }
+  }
+  return offences;
+}
+
 export function checkCssValues(globPattern) {
   return globFiles(globPattern)
     .sort()
-    .flatMap((file) => checkCssText(readFileSync(file, 'utf8'), file.replaceAll('\\', '/')));
+    .flatMap((file) => {
+      const css = readFileSync(file, 'utf8');
+      const name = file.replaceAll('\\', '/');
+      return [...checkCssText(css, name), ...checkCssSelectors(css, name)];
+    });
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
