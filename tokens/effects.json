@@ -1,0 +1,26 @@
+{
+  "shadow": {
+    "card": {
+      "$type": "shadow",
+      "$value": {
+        "color": "{color.shadow}",
+        "offsetX": "0px",
+        "offsetY": "12px",
+        "blur": "32px",
+        "spread": "0px"
+      },
+      "$description": "CSS --dcc-shadow: 0 12px 32px rgba(text 8%). Colour follows color/shadow (Light: violet, Dark: black)."
+    },
+    "lift": {
+      "$type": "shadow",
+      "$value": {
+        "color": "{palette.neutral.1000}",
+        "offsetX": "0px",
+        "offsetY": "4px",
+        "blur": "12px",
+        "spread": "0px"
+      },
+      "$description": "CSS --dcc-shadow-lift: 0 4px 12px rgba(0 0 0 / 18%)."
+    }
+  }
+}

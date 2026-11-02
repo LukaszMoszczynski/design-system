@@ -2,6 +2,7 @@
 // Names follow the token build: $extensions["ds.cssName"] if set, else the path joined with "-".
 import dcc from '../../tokens/brands/dcc.json';
 import desktop from '../../tokens/breakpoint/desktop.json';
+import effects from '../../tokens/effects.json';
 import light from '../../tokens/semantic/light.json';
 
 function flatten(tree, path = []) {
@@ -22,6 +23,7 @@ function flatten(tree, path = []) {
 export const brandTokens = flatten(dcc);
 export const semanticTokens = flatten(light);
 export const breakpointTokens = flatten(desktop);
+export const effectTokens = flatten(effects);
 
 export const byPrefix = (tokens, prefix) => tokens.filter((token) => token.path.startsWith(`${prefix}.`));
 

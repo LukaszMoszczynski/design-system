@@ -68,4 +68,14 @@ describe('checkTokens', () => {
     files['semantic/light.json'].color.text = color('{color.brand.primary}');
     expect(checkTokens(writeSet(files)).errors).toEqual([]);
   });
+  it('checks aliases inside shadow values, and lets effects alias semantic colours', () => {
+    const files = completeSet();
+    const shadow = (colorRef) => ({ $type: 'shadow', $value: { color: colorRef, offsetX: '0px', offsetY: '4px', blur: '12px', spread: '0px' } });
+    files['effects.json'] = { shadow: { card: shadow('{color.brand.primary}'), lift: shadow('{palette.primary.600}') } };
+    expect(checkTokens(writeSet(files)).errors).toEqual([]);
+    files['effects.json'].shadow.broken = shadow('{color.nope}');
+    const { errors } = checkTokens(writeSet(files));
+    expect(errors).toHaveLength(1);
+    expect(errors[0]).toContain('shadow.broken');
+  });
 });

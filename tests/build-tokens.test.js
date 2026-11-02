@@ -89,6 +89,16 @@ describe('buildTokens', () => {
     expect(fluid).toEqual({ minViewportSize: '375px', maxViewportSize: '1200px' });
   });
 
+  it('shared.css builds the shadow tokens with the colour as a reference', () => {
+    const css = read('tokens/shared.css');
+    expect(css).toContain('--shadow-card: 0px 12px 32px 0px var(--color-shadow);');
+    expect(css).toContain('--shadow-lift: 0px 4px 12px 0px var(--palette-neutral-1000);');
+  });
+
+  it('brand css carries no shadow tokens', () => {
+    for (const brand of ['dcc', 'omelanski']) expect(read(`tokens/${brand}.css`)).not.toContain('--shadow-');
+  });
+
   it('theme.json disables core defaults', () => {
     const theme = readJson('wp/omelanski.theme.json');
     expect(theme.version).toBe(3);
@@ -121,5 +131,27 @@ describe('buildTokens guards', () => {
 
   it('throws on a brand-prefixed name in shared.css', async () => {
     await expect(buildWithComponentTokens({ one: named('dcc-thing') })).rejects.toThrow(/brand-specific names: --dcc-thing/);
+  });
+
+  it('a bound shadow colour with its own alpha becomes color-mix, inset and lists are kept', async () => {
+    const dir = mkdtempSync(join(tmpdir(), 'shadow-tokens-'));
+    const out = mkdtempSync(join(tmpdir(), 'shadow-out-'));
+    try {
+      cpSync(tokensDir, dir, { recursive: true });
+      const layer = (extra) => ({ color: '{color.shadow}', offsetX: '0px', offsetY: '2px', blur: '4px', spread: '0px', ...extra });
+      writeFileSync(join(dir, 'effects.json'), JSON.stringify({
+        shadow: {
+          soft: { $type: 'shadow', $value: layer(), $extensions: { 'ds.colorAlpha': 0.08 } },
+          double: { $type: 'shadow', $value: [layer({ color: '#00000080' }), layer({ inset: true })], $extensions: { 'ds.colorAlpha': [null, 0.5] } },
+        },
+      }));
+      await buildTokens({ tokensDir: dir, outDir: out });
+      const css = readFileSync(join(out, 'tokens', 'shared.css'), 'utf8');
+      expect(css).toContain('--shadow-soft: 0px 2px 4px 0px color-mix(in srgb, var(--color-shadow) 8%, transparent);');
+      expect(css).toContain('--shadow-double: 0px 2px 4px 0px #00000080, inset 0px 2px 4px 0px color-mix(in srgb, var(--color-shadow) 50%, transparent);');
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+      rmSync(out, { recursive: true, force: true });
+    }
   });
 });

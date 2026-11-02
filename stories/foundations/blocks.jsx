@@ -30,7 +30,10 @@ function Panel({ title, children }) {
   );
 }
 
-function TokenLabel({ token, value = resolved(token.name) }) {
+// Subscribes on its own, so the printed value follows the toolbar even when only the label re-renders.
+function TokenLabel({ token }) {
+  useBrandTheme();
+  const value = resolved(token.name);
   return (
     <div className="ds-token">
       <code className="ds-token__name">{token.name}</code>
@@ -140,24 +143,20 @@ export function RadiusScale({ tokens, title }) {
   );
 }
 
-// Shadow samples: the shadow colour token on two card elevations. Offsets and blur are sample values for
-// this page only; the Figma effect styles (Shadow/Card, Shadow/Lift) are not exported as tokens yet.
-export function ShadowSamples({ token }) {
-  const samples = [
-    { label: 'Card', shadow: `0 2px 8px color-mix(in srgb, var(${token.name}) 12%, transparent)` },
-    { label: 'Lift', shadow: `0 12px 32px color-mix(in srgb, var(${token.name}) 20%, transparent)` },
-  ];
+// Shadow tokens (tokens/effects.json, from the Figma effect styles) next to the shadow colour.
+export function ShadowSamples({ shadows, color }) {
   return (
-    <Panel title="color.shadow">
+    <Panel title="shadow">
       <div className="ds-radius-grid">
         <div className="ds-swatch">
-          <div className="ds-swatch__color" style={{ background: `var(${token.name})` }} />
-          <TokenLabel token={token} />
+          <div className="ds-swatch__color" style={{ background: `var(${color.name})` }} />
+          <TokenLabel token={color} />
         </div>
-        {samples.map((sample) => (
-          <div className="ds-shadow" key={sample.label}>
-            <div className="ds-shadow__box" style={{ boxShadow: sample.shadow }}>{sample.label}</div>
-            <code className="ds-token__value">{sample.shadow}</code>
+        {shadows.map((token) => (
+          <div className="ds-shadow" key={token.name}>
+            <div className="ds-shadow__box" style={{ boxShadow: `var(${token.name})` }}>{token.path.split('.').at(-1)}</div>
+            <TokenLabel token={token} />
+            {token.description && <p className="ds-swatch__note">{token.description}</p>}
           </div>
         ))}
       </div>

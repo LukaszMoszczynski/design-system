@@ -4,6 +4,15 @@ import { join, relative, resolve, sep } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 const WHOLE_ALIAS = /^\{([^{}]+)\}$/;
+// Collections that may also alias another collection's groups: shadows take their colour from Semantic.
+const EXTRA_ALIAS_COLLECTIONS = { effects: ['semantic'] };
+
+// Whole-value aliases in a token value, including inside composite values (shadow objects and lists).
+function aliasesIn(value) {
+  if (typeof value === 'string') return WHOLE_ALIAS.test(value) ? [value] : [];
+  if (value && typeof value === 'object') return Object.values(value).flatMap(aliasesIn);
+  return [];
+}
 
 function listJsonFiles(dir) {
   return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
@@ -51,15 +60,16 @@ export function checkTokens(dir) {
   }
 
   for (const file of files) {
-    const allowedGroups = new Set([...brandGroups, ...groupsByCollection.get(file.collection)]);
+    const extraGroups = (EXTRA_ALIAS_COLLECTIONS[file.collection] ?? []).flatMap((collection) => [...(groupsByCollection.get(collection) ?? [])]);
+    const allowedGroups = new Set([...brandGroups, ...groupsByCollection.get(file.collection), ...extraGroups]);
     for (const [path, token] of file.tokens) {
-      const match = typeof token.$value === 'string' ? WHOLE_ALIAS.exec(token.$value) : null;
-      if (!match) continue;
-      const target = match[1];
-      if (!allPaths.has(target)) {
-        errors.push(`${file.name}: ${path} aliases ${token.$value}, which does not resolve`);
-      } else if (!allowedGroups.has(topGroup(target))) {
-        errors.push(`${file.name}: ${path} aliases ${token.$value}; "${topGroup(target)}" is not a brand group or a group of its own collection`);
+      for (const reference of aliasesIn(token.$value)) {
+        const target = WHOLE_ALIAS.exec(reference)[1];
+        if (!allPaths.has(target)) {
+          errors.push(`${file.name}: ${path} aliases ${reference}, which does not resolve`);
+        } else if (!allowedGroups.has(topGroup(target))) {
+          errors.push(`${file.name}: ${path} aliases ${reference}; "${topGroup(target)}" is not a brand group or a group of its own collection`);
+        }
       }
     }
   }

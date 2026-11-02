@@ -423,6 +423,8 @@
   --buy-box-width: 384px;
   --buy-box-field-height: 50px;
   --mobile-menu-row-padding: 16px;
+  --shadow-card: 0px 12px 32px 0px var(--color-shadow);
+  --shadow-lift: 0px 4px 12px 0px var(--palette-neutral-1000);
 }
 
 :root[data-theme="dark"] {

@@ -12,7 +12,9 @@ Figma (file `JfRuc3T6MhLuse40bo2g9W`) is the source of truth for tokens.
    `use_figma` caps a return value at 48 KB, so export in several runs by setting `ONLY`
    (collection names) and `FROM`/`TO` (variable slice) at the top of the script, then merge the
    `collections` arrays.
-2. `npm run sync:write` writes `tokens/**` (one DTCG file per collection mode).
+   Every run also returns `effectStyles` (the Shadow/* effect styles); keep them in the merged file.
+2. `npm run sync:write` writes `tokens/**` (one DTCG file per collection mode, plus `tokens/effects.json`
+   with the shadows, built into `shared.css` as `--shadow-<name>`).
 3. `npm run tokens:check` verifies aliases resolve, every brand has the same tokens, and aliases
    only point at brand groups or their own collection.
 4. `npm run tokens` builds the CSS from the tokens (added in the next task).

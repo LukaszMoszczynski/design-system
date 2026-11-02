@@ -1,6 +1,6 @@
 // Builds dist/tokens/<brand>.css, dist/tokens/shared.css and dist/wp/<brand>.theme.json
 // from the DTCG token files in tokens/ with Style Dictionary 4.
-import { mkdirSync, readdirSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readdirSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import StyleDictionary from 'style-dictionary';
@@ -24,8 +24,26 @@ function fontStack(token) {
   return `"${token.$value}", ${fallback}`;
 }
 
+// A DTCG shadow (one layer or a list) as a box-shadow value. The colour stays a reference; a bound colour
+// with an alpha of its own ($extensions["ds.colorAlpha"]) is mixed with transparent.
+function shadowValue(token, namesByPath) {
+  const layers = [token.original.$value].flat();
+  const alphas = [token.$extensions?.['ds.colorAlpha'] ?? null].flat();
+  return layers.map((layer, index) => {
+    let color = layer.color.replace(/^\{([^{}]+)\}$/, (_match, path) => {
+      const name = namesByPath.get(path);
+      if (!name) throw new Error(`${token.path.join('.')} aliases {${path}}, which is not in the build`);
+      return `var(--${name})`;
+    });
+    const alpha = alphas.length === 1 ? alphas[0] : alphas[index];
+    if (alpha !== null && alpha !== undefined) color = `color-mix(in srgb, ${color} ${trimNumber(alpha * 100)}%, transparent)`;
+    return `${layer.inset ? 'inset ' : ''}${layer.offsetX} ${layer.offsetY} ${layer.blur} ${layer.spread} ${color}`;
+  }).join(', ');
+}
+
 // Aliases become var(--name); raw values stay literal.
 function declaredValue(token, namesByPath) {
+  if (token.$type === 'shadow') return shadowValue(token, namesByPath);
   const original = token.original.$value;
   if (typeof original === 'string' && /\{[^{}]+\}/.test(original)) {
     return original.replace(/\{([^{}]+)\}/g, (_match, path) => {
@@ -220,7 +238,9 @@ export async function buildTokens({ tokensDir, outDir }) {
   const desktopTokens = await resolvedTokens([referenceFile, file('breakpoint', 'desktop.json')]);
   const desktopValues = new Map(desktopTokens.filter(sharedFilter).map((token) => [cssName(token), token.original.$value]));
 
-  const root = await render([referenceFile, file('semantic', 'light.json'), file('breakpoint', 'desktop.json'), file('component.json')], 'ds/css-shared', { section: 'root', fluid }, sharedFilter);
+  // effects.json (shadows) is optional: it only exists once the Figma effect styles are synced.
+  const effects = existsSync(file('effects.json')) ? [file('effects.json')] : [];
+  const root = await render([referenceFile, file('semantic', 'light.json'), file('breakpoint', 'desktop.json'), file('component.json'), ...effects], 'ds/css-shared', { section: 'root', fluid }, sharedFilter);
   const dark = await render([referenceFile, file('semantic', 'dark.json')], 'ds/css-shared', { section: 'dark', fluid }, sharedFilter);
   const mobile = await render([referenceFile, file('breakpoint', 'mobile.json')], 'ds/css-shared', { section: 'mobile', fluid, desktopValues }, sharedFilter);
   const sharedNames = [...`${root}${dark}${mobile}`.matchAll(/^\s*--([\w-]+):/gm)].map((match) => match[1]);

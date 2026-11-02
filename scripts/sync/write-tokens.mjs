@@ -87,6 +87,35 @@ function filePathFor(collection, mode) {
   return `${directory}/${toKebab(mode.name)}.json`;
 }
 
+// One Figma shadow effect -> DTCG shadow value. A colour bound to a variable becomes an alias; Figma
+// then reports the variable's colour, so an alpha below 1 is kept apart as ds.colorAlpha.
+function shadowValue(effect) {
+  const value = {
+    color: effect.colorAlias ? aliasReference(effect.colorAlias) : toHex(effect.color),
+    offsetX: `${roundNumber(effect.offsetX)}px`,
+    offsetY: `${roundNumber(effect.offsetY)}px`,
+    blur: `${roundNumber(effect.blur)}px`,
+    spread: `${roundNumber(effect.spread)}px`,
+  };
+  if (effect.type === 'INNER_SHADOW') value.inset = true;
+  return value;
+}
+
+function effectTokens(effectStyles) {
+  const tree = {};
+  for (const style of effectStyles) {
+    if (style.effects.length === 0) continue;
+    const values = style.effects.map(shadowValue);
+    const token = { $type: 'shadow', $value: values.length === 1 ? values[0] : values };
+    if (style.description) token.$description = style.description;
+    // ds.colorAlpha: one number, or one entry per effect (null = no alpha of its own) for a list.
+    const alphas = style.effects.map((effect) => (effect.colorAlias && effect.color.a < 1 ? roundNumber(effect.color.a) : null));
+    if (alphas.some((alpha) => alpha !== null)) token.$extensions = { 'ds.colorAlpha': alphas.length === 1 ? alphas[0] : alphas };
+    insertToken(tree, style.name.split('/').map(toKebab).join('/'), token);
+  }
+  return tree;
+}
+
 export function writeTokens(raw, outDir) {
   const written = [];
   const brandCollection = raw.collections.find((collection) => toKebab(collection.name) === 'brand');
@@ -103,6 +132,11 @@ export function writeTokens(raw, outDir) {
       writeFileSync(file, `${JSON.stringify(tree, null, 2)}\n`);
       written.push(file);
     }
+  }
+  if (raw.effectStyles?.length > 0) {
+    const file = join(outDir, 'effects.json');
+    writeFileSync(file, `${JSON.stringify(effectTokens(raw.effectStyles), null, 2)}\n`);
+    written.push(file);
   }
   return written;
 }

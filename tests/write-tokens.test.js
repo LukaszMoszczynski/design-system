@@ -101,3 +101,48 @@ describe('writeTokens', () => {
     });
   });
 });
+
+describe('writeTokens effect styles', () => {
+  const shadow = (overrides = {}) => ({
+    type: 'DROP_SHADOW', offsetX: 0, offsetY: 12, blur: 32, spread: 0,
+    color: { r: 0.2157, g: 0.149, b: 0.3843, a: 1 }, colorAlias: 'Semantic/color/shadow', ...overrides,
+  });
+  const writeEffects = (effectStyles) => {
+    const out = mkdtempSync(join(tmpdir(), 'tokens-'));
+    const written = writeTokens({ collections: [], effectStyles }, out);
+    return { written, tokens: read(out, 'effects.json') };
+  };
+
+  it('writes effects.json with a DTCG shadow token whose bound colour is an alias', () => {
+    const { written, tokens } = writeEffects([{ name: 'Shadow/Card', description: 'Card shadow', effects: [shadow()] }]);
+    expect(written.at(-1)).toMatch(/effects\.json$/);
+    expect(tokens.shadow.card).toEqual({
+      $type: 'shadow',
+      $value: { color: '{color.shadow}', offsetX: '0px', offsetY: '12px', blur: '32px', spread: '0px' },
+      $description: 'Card shadow',
+    });
+  });
+
+  it('keeps the effect alpha of a bound colour as ds.colorAlpha', () => {
+    const { tokens } = writeEffects([{ name: 'Shadow/Soft', description: '', effects: [shadow({ color: { r: 0, g: 0, b: 0, a: 0.08 } })] }]);
+    expect(tokens.shadow.soft.$extensions).toEqual({ 'ds.colorAlpha': 0.08 });
+  });
+
+  it('writes an unbound colour as hex, inner shadows as inset, and several effects as a list', () => {
+    const { tokens } = writeEffects([{
+      name: 'Shadow/Double',
+      description: '',
+      effects: [shadow({ colorAlias: null, color: { r: 0, g: 0, b: 0, a: 0.5 } }), shadow({ type: 'INNER_SHADOW', offsetY: 2, blur: 4 })],
+    }]);
+    expect(tokens.shadow.double.$value).toEqual([
+      { color: '#00000080', offsetX: '0px', offsetY: '12px', blur: '32px', spread: '0px' },
+      { color: '{color.shadow}', offsetX: '0px', offsetY: '2px', blur: '4px', spread: '0px', inset: true },
+    ]);
+  });
+
+  it('writes no effects.json when the export has no effect styles', () => {
+    const out = mkdtempSync(join(tmpdir(), 'tokens-'));
+    writeTokens({ collections: [] }, out);
+    expect(existsSync(join(out, 'effects.json'))).toBe(false);
+  });
+});
