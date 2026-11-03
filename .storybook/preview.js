@@ -1,12 +1,9 @@
 import '../dist/tokens/shared.css';
-import '../dist/tokens/dcc.css';
-import '../dist/tokens/omelanski.css';
-import '../brands/dcc/fonts.css';
-import '../brands/omelanski/fonts.css';
 import 'swiper/swiper-bundle.css';
 import Swiper from 'swiper/bundle';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { BRAND_ITEMS } from './brands.js';
 import { DEFAULT_GLOBALS, followToolbarOnDocsPages, withBrandTheme, withComponentScripts } from './decorators.js';
 import { withForcedState } from './state.js';
 
@@ -28,10 +25,7 @@ const preview = {
       toolbar: {
         title: 'Brand',
         icon: 'paintbrush',
-        items: [
-          { value: 'dcc', title: 'DCC' },
-          { value: 'omelanski', title: 'Omelanski' },
-        ],
+        items: BRAND_ITEMS,
         dynamicTitle: true,
       },
     },

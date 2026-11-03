@@ -152,6 +152,4 @@ WordPress: `<?php echo esc_html( $attributes['text'] ); ?>` in place of the text
 The full site guide is the root `README.md` ("Use in a WordPress site"). Short form: tokens CSS and `base.css` first, then
 component CSS ordered atoms → molecules → organisms → sections; GSAP + ScrollTrigger, then Swiper, then the component
 scripts (classic, auto-init, `window.DS.<name>.init(root)`: `reveal`, `accordion`, `carousel`, `header`, `mobileMenu`,
-`buyBox`); `data-brand` (and optional `data-theme="dark"`) on `<html>`. Components with a README list their CSS parts,
-markup hooks and WordPress notes: `molecules/accordion`, `organisms/buy-box`, `call-to-action`, `carousel`, `footer`,
-`header`, `mega-menu`, `mobile-menu`.
+`buyBox`); `data-brand` (and optional `data-theme="dark"`) on `<html>`. Every component folder has a `README.md` listing its CSS parts, markup hooks and WordPress notes.

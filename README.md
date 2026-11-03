@@ -59,7 +59,8 @@ Nothing here is installed as a package: a site copies files. Replace `<brand>` w
    attribute the brand colours do not apply.
 3. Merge the `settings` of `dist/wp/<brand>.theme.json` into the theme's `theme.json` (palette, font families, font sizes,
    spacing, layout). It turns the WordPress core palette, font sizes and spacing sizes off (`defaultPalette`,
-   `defaultFontSizes`, `defaultSpacingSizes` = false, custom values off), so the editor offers brand values only.
+   `defaultFontSizes`, `defaultSpacingSizes` = false, custom values off), so the editor offers brand values only. The palette is the static Light hex values, so the block editor does not follow
+   `data-theme="dark"`.
    Fluid type runs between 375 px and 1200 px viewport (`typography.fluid`).
 
 ### 2. Component CSS, in this order
@@ -76,8 +77,7 @@ Copy only what the site uses.
 
 ### 3. Markup
 
-Paste the markup from each component's README (`components/<level>/<name>/README.md`; atoms and others are described in
-`components/README.md`, and `<name>.template.js` is the exact source) into the block's `render.php`. Replace the
+Paste the markup from each component's README (`components/<level>/<name>/README.md`; every component folder has its own `README.md`; `components/README.md` holds the shared rules, and `<name>.template.js` is the exact source) into the block's `render.php`. Replace the
 interpolated values with `esc_html()` / `esc_attr()` / `esc_url()` echoes. Classes (`ds-*`) and `data-ds-*` attributes stay
 exactly as they are: the CSS and scripts read them (for example the carousel contract in
 `components/organisms/carousel/README.md`).
@@ -108,6 +108,7 @@ wp_enqueue_style( 'ds-tokens', get_theme_file_uri( 'ds/tokens/shared.css' ) );
 wp_enqueue_style( 'ds-brand',  get_theme_file_uri( 'ds/tokens/dcc.css' ), array( 'ds-tokens' ) );
 wp_enqueue_style( 'ds-fonts',  get_theme_file_uri( 'ds/brands/dcc/fonts.css' ), array( 'ds-brand' ) );
 wp_enqueue_style( 'ds-base',   get_theme_file_uri( 'ds/components/base/base.css' ), array( 'ds-brand' ) );
+wp_enqueue_style( 'ds-swiper', get_theme_file_uri( 'js/swiper-bundle.min.css' ) ); // Swiper CSS, for the carousel
 // atoms, molecules, organisms, sections: each depends on the one before
 wp_enqueue_script( 'gsap', get_theme_file_uri( 'js/gsap.min.js' ), array(), null, true );
 wp_enqueue_script( 'scrolltrigger', get_theme_file_uri( 'js/ScrollTrigger.min.js' ), array( 'gsap' ), null, true );
@@ -131,7 +132,9 @@ A brand is a mode in the Figma collection **Brand**, not a new file. Omelanski i
 4. Sync the tokens (see "Sync tokens"; it runs through Claude with the Figma MCP, because Figma Enterprise variable
    export is not available): `use_figma` export, `npm run sync:write`, which creates `tokens/brands/<brand>.json`.
 5. `npm run tokens` checks the tokens and builds `dist/tokens/<brand>.css` and `dist/wp/<brand>.theme.json`.
-6. Add `brands/<brand>/fonts.css` and `brands/<brand>/fonts/` (self-hosted woff2), and import it in `.storybook/preview.js`
-   (next to the token CSS imports).
-7. Add the brand to the toolbar `items` in `.storybook/preview.js` and to `BRANDS` in `.storybook/decorators.js`.
-8. Add it to the `BRANDS` list in `tests/token-usage.test.js` and the expected folders in `tests/fonts.test.js`, then run `npm test`.
+6. Add `brands/<brand>/fonts.css` and `brands/<brand>/fonts/` (self-hosted woff2), and optionally
+   `brands/<brand>/brand.json` `{ "title": "Acme" }` for the toolbar name (default: the capitalised folder name).
+
+That is all: add files only. The Storybook toolbar, the token and font imports, and the tests derive the brand list from
+`dist/tokens/<brand>.css`, `brands/<brand>/fonts.css` and `tokens/brands/<brand>.json`, so no shared file is edited.
+Run `npm test` and `npm run build-storybook` to check.

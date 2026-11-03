@@ -2,7 +2,9 @@ import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { globFiles } from '../scripts/glob-files.mjs';
 
-const BRANDS = ['dcc', 'omelanski'];
+import { listBrands } from '../scripts/list-brands.mjs';
+
+const BRANDS = listBrands();
 const defined = (file) => new Set([...readFileSync(file, 'utf8').matchAll(/(--[\w-]+)\s*:/g)].map((match) => match[1]));
 const shared = defined('dist/tokens/shared.css');
 

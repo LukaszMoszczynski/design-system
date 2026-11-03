@@ -3,6 +3,7 @@
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { listBrands } from '../scripts/list-brands.mjs';
 
 const BRANDS_DIR = resolve(import.meta.dirname, '../brands');
 const POLISH_LETTERS = [0x0105, 0x0142];
@@ -30,8 +31,8 @@ const brandFontFiles = readdirSync(BRANDS_DIR)
   .filter((file) => existsSync(file));
 
 describe('brand fonts.css', () => {
-  it('exists for dcc and omelanski', () => {
-    expect(brandFontFiles.map((file) => file.split(/[\\/]/).at(-2)).sort()).toEqual(['dcc', 'omelanski']);
+  it('exists for every brand in tokens/brands', () => {
+    expect(brandFontFiles.map((file) => file.split(/[\\/]/).at(-2)).sort()).toEqual(listBrands());
   });
 
   it.each(brandFontFiles)('every family in %s has a face covering ą and ł', (file) => {

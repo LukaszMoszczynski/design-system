@@ -3,7 +3,9 @@
 import { addons } from 'storybook/preview-api';
 import { GLOBALS_UPDATED, SET_GLOBALS } from 'storybook/internal/core-events';
 
-export const BRANDS = ['dcc', 'omelanski'];
+import { BRANDS } from './brands.js';
+
+export { BRANDS };
 export const THEMES = ['light', 'dark'];
 export const DEFAULT_GLOBALS = { brand: 'dcc', theme: 'light' };
 
