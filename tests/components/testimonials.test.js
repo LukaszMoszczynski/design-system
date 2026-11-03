@@ -9,6 +9,7 @@ describe('testimonials template', () => {
     expect(markup).toContain('data-ds-items="3"');
     expect(markup).toContain('data-ds-nav="below"');
     expect(markup).toContain('data-ds-centered');
+    expect(markup).toContain('data-ds-mobile-arrows="off"');
     expect(markup.match(/<figure class="ds-card-testimonial">/g)).toHaveLength(DEFAULT_TESTIMONIALS.length);
     // The carousel draws the active card; no card is active in the markup.
     expect(markup).not.toContain('ds-card-testimonial is-active');

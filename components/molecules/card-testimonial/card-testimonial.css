@@ -1,6 +1,7 @@
 /* Card/Testimonial (.dcc-opinia): soft card, radius 32, padding 36 28 52; the accent quote mark (135 × 82) right-aligned
    in the top row, 36 px above the quote (body 16/24); the caption 40 px below: a 48 px round photo, 12 px gap, the author
-   (heading font Medium, XL) and the role (body 16). is-active: primary card, on-brand text (the mark stays accent).
+   (heading font Medium, XL) and the role (body 16). is-active (the template's active arg, or set by a centred carousel on its active card): primary card, on-brand text
+   (the mark stays accent).
    Phones (≤ 781 px): padding 24 20, radius 16, a 68 × 41 mark, 24 px gaps, author 16, role 12. */
 .ds-card-testimonial {
   display: flex;
@@ -13,9 +14,7 @@
   transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-.ds-card-testimonial.is-active,
-/* The active slide of a centred carousel (carousel.js data-ds-centered: the testimonials' middle card). */
-.ds-carousel__slide.is-active > .ds-card-testimonial {
+.ds-card-testimonial.is-active {
   background: var(--color-surface-brand);
   color: var(--color-text-on-brand);
 }

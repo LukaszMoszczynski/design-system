@@ -22,8 +22,7 @@
   padding-top: var(--space-64);
 }
 
-/* Phones: the heading on the left, 32 px gaps, dots only (Figma Mobile; the site hides the arrows unless a counter
-   stands in for the dots). */
+/* Phones: the heading on the left, 32 px gaps (the carousel's mobileArrows off shows the dots only). */
 @media (max-width: 781px) {
   .ds-testimonials__head {
     margin-bottom: var(--space-32);
@@ -37,10 +36,6 @@
 
   .ds-testimonials .ds-carousel[data-ds-nav] > .ds-carousel__nav {
     padding-top: var(--space-32);
-  }
-
-  .ds-testimonials .ds-carousel[data-ds-pagination='dots'] .ds-carousel-arrow {
-    display: none;
   }
 }
 

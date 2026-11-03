@@ -4,7 +4,8 @@ Figma: Sections → Section/Text + image (`91:219`: Variant Image right, Image l
 Image right and Panorama × Mobile). DCC: blocks/tekst-obraz (render.php, style.css; `obraz-prawo`, `obraz-lewo`,
 `panorama`, `srodek`, `zdjecia`).
 CSS: `atoms/icon/icon.css`, `atoms/text/text.css`, `atoms/button/button.css`, `atoms/link/link.css`,
-`atoms/number/number.css`, `molecules/heading-group/heading-group.css`, `molecules/badge-circular/badge-circular.css`
+`atoms/number/number.css`, `molecules/heading-group/heading-group.css`, `molecules/numbered-list/numbered-list.css`,
+`molecules/badge-circular/badge-circular.css` (the `accent` variant)
 + `sections/text-image/text-image.css`.
 JS (optional): `base/reveal.js` (the text and the photos lift in with GSAP when scrolled into view).
 
@@ -12,9 +13,9 @@ JS (optional): `base/reveal.js` (the text and the photos lift in with GSAP when 
   - `variant`: `image-right` (default), `image-left`, `panorama`, `centered`, `photos`.
   - `overline`, `title`, `text`, `steps`, `actions`: default the variant's own Polish copy (`TEXT_IMAGE_COPY`); an empty
     `title` falls back to it, `overline: ''` / `text: ''` / `steps: []` / `actions: []` leave the part out.
-  - `steps`: strings, the numbered list (Letter circle + 2XL text; Image left's default content).
-  - `actions`: `[{ text, href }]`: Primary then Light buttons (Centered: Accent, uppercase); Panorama: uppercase
-    `arrow` text links.
+  - `steps`: strings, the Numbered list molecule (Image left's default content).
+  - `actions`: `[{ text, href }]`: Primary then Light buttons (Centered: Accent, `uppercase`); Panorama: `arrow` text
+    links with `uppercase`.
   - `image` / `image2` (+ alts): the photo (Photos: the wide one, then the narrow one). Without an image the frame keeps
     the muted placeholder colour.
   - `background`: Centered's faint illustration (20 %, decorative). `badgeText`: Photos' Badge/Circular (empty: none).
@@ -26,7 +27,7 @@ JS (optional): `base/reveal.js` (the text and the photos lift in with GSAP when 
       <div class="ds-text-image__text" data-ds-reveal>
         <header class="ds-heading-group ds-heading-group--stacked">…</header>
         <p class="ds-text ds-text--body ds-text-image__prose">…</p>
-        <!-- image-left: <ol class="ds-text-image__steps" role="list"><li class="ds-text-image__step"><span class="ds-letter-circle ds-letter-circle--step">1</span><span class="ds-text ds-text--2xl ds-text-image__step-text">…</span></li>…</ol> -->
+        <!-- image-left: <div class="ds-text-image__steps"><ol class="ds-numbered-list" role="list">…</ol></div> (Numbered list) -->
         <div class="ds-text-image__buttons"><a class="ds-button ds-button--primary" href="…">…</a></div>
       </div>
       <figure class="ds-text-image__media" data-ds-reveal><img class="ds-text-image__image" src="…" alt="…" loading="lazy"></figure>

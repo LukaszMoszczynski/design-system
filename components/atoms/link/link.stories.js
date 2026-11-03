@@ -29,9 +29,10 @@ export default {
       options: LINK_VARIANTS,
       description: "Figma Kind: Inline (here split into `inline`, underlined for running text, and `list`, Figma's look for link lists), Arrow, Brand, Footer, Bold, Inverse.",
     },
+    uppercase: { control: 'boolean', description: 'The text in capitals (Text + image / Panorama).' },
     ...STATE_ARG_TYPES,
   },
-  args: { text: 'Zobacz szczegóły', href: '#', variant: 'inline', state: 'default' },
+  args: { text: 'Zobacz szczegóły', href: '#', variant: 'inline', uppercase: false, state: 'default' },
   parameters: {
     stateTargets: LINK,
     docs: {

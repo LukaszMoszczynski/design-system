@@ -13,18 +13,21 @@ describe('text + image template', () => {
     expect(renderTextImage({ variant: 'centered' })).toContain('ds-heading-group--centered');
   });
 
-  it('image left numbers its steps with Letter circles', () => {
+  it('image left numbers its steps with the Numbered list', () => {
     const markup = renderTextImage({ variant: 'image-left' });
-    expect(markup.match(/<li class="ds-text-image__step">/g)).toHaveLength(4);
+    expect(markup).toContain('<div class="ds-text-image__steps"><ol class="ds-numbered-list"');
+    expect(markup.match(/<li class="ds-numbered-list__item">/g)).toHaveLength(4);
     expect(markup).toContain('<span class="ds-letter-circle ds-letter-circle--step">4</span>');
     expect(renderTextImage({ variant: 'image-right', steps: ['A', 'B'] }).match(/ds-letter-circle--step/g)).toHaveLength(2);
   });
 
   it('picks the actions per variant: primary buttons, accent on centered, text links on panorama', () => {
     expect(renderTextImage({ variant: 'image-right' })).toContain('ds-button--primary');
-    expect(renderTextImage({ variant: 'centered' })).toContain('ds-button--accent');
+    expect(renderTextImage({ variant: 'centered' })).toContain('ds-button ds-button--accent ds-button--uppercase');
+    expect(renderTextImage({ variant: 'image-right' })).not.toContain('ds-button--uppercase');
+    expect(renderTextImage({ variant: 'centered' })).toContain('ds-text--question ds-text--mobile-body');
     const panorama = renderTextImage({ variant: 'panorama' });
-    expect(panorama.match(/ds-link--arrow/g)).toHaveLength(2);
+    expect(panorama.match(/ds-link--arrow ds-link--uppercase/g)).toHaveLength(2);
     expect(panorama).not.toContain('ds-button');
     expect(renderTextImage({ variant: 'image-right', actions: [] })).not.toContain('ds-text-image__buttons');
   });
@@ -32,7 +35,7 @@ describe('text + image template', () => {
   it('photos: two frames round the card and its badge; the empty frame stays without an image', () => {
     const markup = renderTextImage({ variant: 'photos', image: 'a.jpg' });
     expect(markup).toContain('ds-text-image__trio');
-    expect(markup).toContain('ds-badge-circular ds-text-image__badge');
+    expect(markup).toContain('ds-badge-circular ds-badge-circular--accent ds-text-image__badge');
     expect(markup.match(/<figure class="ds-text-image__media/g)).toHaveLength(2);
     expect(markup.match(/<img class="ds-text-image__image"/g)).toHaveLength(1);
     expect(renderTextImage({ variant: 'photos', badgeText: '' })).not.toContain('ds-badge-circular');

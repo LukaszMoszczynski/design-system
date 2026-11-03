@@ -46,6 +46,19 @@
   height: var(--size-24);
 }
 
+/* Accent (Text + image / Photos): accent disc, on-brand wording, primary dot. */
+.ds-badge-circular--accent .ds-badge-circular__disc {
+  fill: var(--color-brand-accent);
+}
+
+.ds-badge-circular--accent .ds-badge-circular__text {
+  fill: var(--color-text-on-brand);
+}
+
+.ds-badge-circular--accent .ds-badge-circular__dot {
+  background: var(--color-brand-primary);
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .ds-badge-circular__text {
     transform-origin: 0 0;

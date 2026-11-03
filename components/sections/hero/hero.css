@@ -33,14 +33,16 @@
   color: inherit;
 }
 
-/* The wrappers take their parts' metrics, so the line box is the Text style's (no taller strut). */
+/* The title and lead wrappers hold inline Text spans only: no strut of their own, so each line box is the Text style's
+   (the heading's own 4XL strut would make an overline title taller on phones). */
+.ds-hero__title,
 .ds-hero__lead {
-  font-size: var(--font-size-body);
-  line-height: var(--line-height-body);
+  font-size: 0;
+  line-height: 0;
 }
 
 /* Figma breaks the copy greedily (base.css balances headings and avoids short last lines). */
-.ds-hero :is(.ds-hero__title, .ds-hero__lead, .ds-hero__subtitle) {
+.ds-hero :is(.ds-hero__title, .ds-hero__lead, .ds-hero__subtitle > *) {
   text-wrap: wrap;
 }
 
@@ -106,27 +108,14 @@
   margin-top: var(--hero-button-gap);
 }
 
-/* Contact: a large two-tone lead in the heading font, the button 64 px below. */
+/* Contact: a large two-tone lead (Text lead-large), the button 64 px below. */
 .ds-hero--contact .ds-hero__lead {
   max-width: var(--hero-contact-lead-max);
   margin-top: var(--hero-lead-gap);
-  font-size: var(--font-size-lead-large);
-  line-height: var(--line-height-lead-large);
-}
-
-.ds-hero--contact .ds-hero__lead > .ds-text {
-  font-family: var(--font-heading);
-  font-size: inherit;
-  line-height: inherit;
 }
 
 .ds-hero--contact .ds-hero__buttons {
   margin-top: var(--hero-contact-button-gap);
-}
-
-/* On the blue box the Light button keeps an accent circle at rest (hover and focus are the Button's own look). */
-.ds-hero .ds-button--light:not(:hover, :focus-visible) .ds-button__icon {
-  background: var(--color-brand-accent);
 }
 
 /* The tiles: three in a 1104 px row overlapping the box bottom by 65 px. */
@@ -183,14 +172,11 @@
 .ds-hero--subpage .ds-hero__lead {
   max-width: var(--hero-subpage-lead-max);
   margin-top: var(--hero-lead-gap);
-  font-size: var(--font-size-3xl);
-  line-height: var(--font-line-height-3xl);
 }
 
 .ds-hero--subpage .ds-hero__subtitle {
   margin-top: var(--hero-subpage-subtitle-gap);
-  font-weight: var(--font-weight-medium);
-  line-height: var(--line-height-name);
+  color: var(--color-brand-accent);
 }
 
 /* The illustration on the right (Figma 360 px, 120 px from the right edge, 30 px from the top). Missing tokens:
@@ -264,16 +250,6 @@
     background: var(--color-surface-brand);
   }
 
-  .ds-hero__title > .ds-text--4xl {
-    font-size: var(--font-size-3xl);
-    line-height: var(--font-line-height-3xl);
-  }
-
-  .ds-hero__title {
-    font-size: var(--font-size-3xl);
-    line-height: var(--font-line-height-3xl);
-  }
-
   .ds-hero--large .ds-hero__lead,
   .ds-hero--contact .ds-hero__lead {
     margin-top: var(--hero-mobile-lead-gap);
@@ -290,7 +266,7 @@
   }
 
   /* Subpage: breadcrumbs (16 / 20 px) above a deep → primary box (32 px padding); the title reads as an accent
-     overline, the lead stays 3XL white, the subtitle is white body text. */
+     overline and the subtitle as white body text (their Text mobile styles), the lead stays 3XL white. */
   .ds-hero__crumbs {
     order: -1;
     padding-block: var(--space-16) var(--space-20);
@@ -305,16 +281,6 @@
     background: linear-gradient(90deg, var(--color-brand-primary-deep) 0%, var(--color-surface-brand) 75%);
   }
 
-  .ds-hero--subpage .ds-hero__title,
-  .ds-hero--subpage .ds-hero__title > .ds-text--4xl {
-    font-family: var(--font-heading);
-    font-weight: var(--font-weight-medium);
-    font-size: var(--font-size-overline);
-    line-height: var(--line-height-overline);
-    letter-spacing: calc(var(--font-size-overline) * 0.06);
-    text-transform: uppercase;
-  }
-
   .ds-hero--subpage .ds-hero__lead {
     margin-top: var(--hero-mobile-lead-gap);
   }
@@ -322,9 +288,5 @@
   .ds-hero--subpage .ds-hero__subtitle {
     margin-top: var(--hero-mobile-button-gap);
     color: var(--color-text-on-brand);
-    font-family: var(--font-body);
-    font-weight: var(--font-weight-regular);
-    font-size: var(--font-size-body);
-    line-height: var(--line-height-body);
   }
 }

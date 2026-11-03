@@ -63,6 +63,17 @@
   color: var(--color-text-on-brand);
 }
 
+/* accentIcon: the accent circle at rest (hover and focus keep the shared look). */
+.ds-button--accent-icon:not(:hover, :focus-visible) .ds-button__icon {
+  background: var(--color-brand-accent);
+  color: var(--color-text-on-brand);
+}
+
+/* uppercase: the label in capitals. */
+.ds-button--uppercase .ds-button__label {
+  text-transform: uppercase;
+}
+
 /* Pill: no circle, the label centred. */
 .ds-button--pill {
   justify-content: center;

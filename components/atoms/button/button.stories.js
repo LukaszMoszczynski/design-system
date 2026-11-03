@@ -14,11 +14,13 @@ export default {
     text: { control: 'text', description: 'Visible text.' },
     href: { control: 'text', description: 'With a URL the button is an `<a>`, without one a `<button type="button">`.' },
     variant: { control: 'inline-radio', options: BUTTON_VARIANTS, description: 'Figma Style: Primary, Accent, Light.' },
+    accentIcon: { control: 'boolean', description: 'The accent circle at rest (a Light button on a blue surface: Hero, Call to action).' },
+    uppercase: { control: 'boolean', description: 'The label in capitals (Text + image / Centered).' },
     shape: { control: 'inline-radio', options: BUTTON_SHAPES, description: 'Figma Shape: Arrow (label + icon circle) or Pill.' },
     disabled: { control: 'boolean', description: 'Figma State=Disabled (proposal: the site has no disabled button).' },
     ...STATE_ARG_TYPES,
   },
-  args: { text: 'Poznaj ofertę', href: '', variant: 'primary', shape: 'arrow', disabled: false, state: 'default' },
+  args: { text: 'Poznaj ofertę', href: '', variant: 'primary', shape: 'arrow', disabled: false, accentIcon: false, uppercase: false, state: 'default' },
   parameters: {
     stateTargets: BUTTON,
     docs: {

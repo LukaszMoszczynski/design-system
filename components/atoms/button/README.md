@@ -3,7 +3,7 @@
 Figma: Atoms → Button (`3:125`), Button/Outline (`3:130`), Button/Arrow (`3:137`). DCC: `.dcc-btn*` and `.dcc-arrow` (assets/css/base.css).
 CSS: `atoms/button/button.css` plus `atoms/icon/icon.css`. No JS.
 
-## Button — `renderButton({ text, href, variant, shape, disabled, tag, type })` (`tag: 'span'`: the same look as a `<span>`, for the visual button inside a card that is itself the link; `type: 'submit'`: a submit button, for a form such as the Buy box)
+## Button — `renderButton({ text, href, variant, shape, disabled, tag, type, accentIcon, uppercase })` (`tag: 'span'`: the same look as a `<span>`, for the visual button inside a card that is itself the link; `type: 'submit'`: a submit button, for a form such as the Buy box)
 
 ```html
 <a class="ds-button ds-button--primary" href="/oferta/">
@@ -18,6 +18,8 @@ CSS: `atoms/button/button.css` plus `atoms/icon/icon.css`. No JS.
   `<a role="link" aria-disabled="true">` with no `href`.
 - States: hover and `:focus-visible` share the primary → primary-deep gradient and the accent circle, the arrow nudges
   2 px up-right; focus adds the 2 px ring 3 px outside. Disabled is a proposal: the site has none. There is no pressed state.
+- `accentIcon`: the accent circle at rest (`ds-button--accent-icon`; a Light button on a blue surface, Hero). `uppercase`:
+  the label in capitals (`ds-button--uppercase`; Text + image / Centered).
 - Shape of every button: `--button-radius` (Component tokens).
 
 ## Button/Outline — `renderButtonOutline({ text, href })`

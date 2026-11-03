@@ -23,6 +23,7 @@ export const DEFAULT_CAROUSEL_HEADING = {
 // heading: the Heading group args, or null for a carousel without one. With nav above-right the group is split (the
 // lead in the right column), as in Figma; a given heading.variant wins.
 // centered (data-ds-centered): the active slide sits in the middle and carries is-active (the testimonials' centre card).
+// mobileArrows false (data-ds-mobile-arrows="off"): phones show the dots without the arrows (a counter keeps them).
 export function renderCarousel({
   slides = [],
   items = 3,
@@ -32,6 +33,7 @@ export function renderCarousel({
   ariaLabel = '',
   id = '',
   centered = false,
+  mobileArrows = true,
 } = {}) {
   const itemCount = CAROUSEL_ITEMS.includes(Number(items)) ? Number(items) : 3;
   const navName = CAROUSEL_NAVS.includes(nav) ? nav : 'below';
@@ -43,6 +45,6 @@ export function renderCarousel({
   const list = slides.map((slide) => `<li class="ds-carousel__slide">${slide}</li>`).join('');
   const trackId = id ? ` id="${escapeHtml(id)}"` : '';
   const track = `<div class="ds-carousel__clip"><div class="ds-carousel__viewport"><ul class="ds-carousel__track" role="list"${trackId}>${list}</ul></div></div>`;
-  const attributes = `data-ds-carousel data-ds-items="${itemCount}" data-ds-nav="${navName}" data-ds-pagination="${paginationName}" aria-roledescription="karuzela" aria-label="${escapeHtml(name)}"${centered ? ' data-ds-centered' : ''}`;
+  const attributes = `data-ds-carousel data-ds-items="${itemCount}" data-ds-nav="${navName}" data-ds-pagination="${paginationName}" aria-roledescription="karuzela" aria-label="${escapeHtml(name)}"${centered ? ' data-ds-centered' : ''}${mobileArrows ? '' : ' data-ds-mobile-arrows="off"'}`;
   return `<section class="ds-carousel" ${attributes}>${head}${navName === 'above-right' ? controls : ''}${track}${navName === 'below' ? controls : ''}</section>`;
 }

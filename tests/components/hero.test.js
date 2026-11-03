@@ -11,11 +11,19 @@ describe('hero template', () => {
 
   it('colours the accent part of the title and the lead with the Text atom', () => {
     const large = renderHero({ variant: 'large' });
-    expect(large).toMatch(/<h1 class="ds-hero__title"><span class="ds-text ds-text--4xl">Jak <\/span><span class="ds-text ds-text--4xl ds-text--accent">poukładać relacje i kompetencje<\/span>/);
-    expect(renderHero({ variant: 'contact' })).toContain('ds-text--body ds-text--accent">Umów się na sesję');
+    expect(large).toMatch(/<h1 class="ds-hero__title"><span class="ds-text ds-text--4xl ds-text--mobile-3xl">Jak <\/span><span class="ds-text ds-text--4xl ds-text--mobile-3xl ds-text--accent">poukładać relacje i kompetencje<\/span>/);
+    expect(renderHero({ variant: 'contact' })).toContain('ds-text--lead-large ds-text--accent">Umów się na sesję');
     // A title of its own drops the variant's accent unless one is given with it.
     expect(renderHero({ title: 'Nowy tytuł' })).not.toContain('ds-text--accent');
     expect(renderHero({ title: 'Nowy tytuł', titleAccent: 'tytuł' })).toContain('ds-text--accent">tytuł</span>');
+  });
+
+  it('the phone styles come from the Text atom: subpage title overline, subtitle body; the button has the accent circle', () => {
+    const subpage = renderHero({ variant: 'subpage-violet' });
+    expect(subpage).toContain('ds-text--4xl ds-text--mobile-overline');
+    expect(subpage).toContain('<div class="ds-hero__subtitle"><p class="ds-text ds-text--2xl-medium ds-text--mobile-body">');
+    expect(subpage).toContain('ds-text--3xl">Programy dla liderów');
+    expect(renderHero()).toContain('ds-button ds-button--light ds-button--accent-icon');
   });
 
   it('accentParts splits round the first occurrence and drops empty parts', () => {

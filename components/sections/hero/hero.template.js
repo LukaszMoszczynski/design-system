@@ -81,10 +81,11 @@ export function accentParts(text, accent) {
   ].filter((part) => part.text !== '');
 }
 
-// A block whose text has an accent part: the wrapper carries the place, each part is an inline Text span.
-function renderAccentText({ text, accent, variant, tag, className, tone = 'inherit' }) {
+// A block whose text has an accent part: the wrapper carries the place, each part is an inline Text span (mobile: the
+// Text style below 782 px).
+function renderAccentText({ text, accent, variant, mobile = '', tag, className }) {
   const parts = accentParts(text, accent)
-    .map((part) => renderText({ text: part.text, variant, tag: 'span', tone: part.accent ? 'accent' : tone }))
+    .map((part) => renderText({ text: part.text, variant, mobile, tag: 'span', tone: part.accent ? 'accent' : 'inherit' }))
     .join('');
   return `<${tag} class="${className}">${parts}</${tag}>`;
 }
@@ -117,13 +118,14 @@ export function renderHero({
   const tileList = subpage ? [] : tiles ?? DEFAULT_HERO_TILES;
   const tag = HERO_HEADING_TAGS.includes(headingTag) ? headingTag : 'h1';
 
-  const titleMarkup = renderAccentText({ text: titleText, accent: titleAccentText, variant: '4xl', tag, className: 'ds-hero__title' });
-  const leadVariant = subpage ? '3xl' : 'body';
+  // Phones: the title reads 3XL (Large, Contact) or as an overline (Subpage); the subpage subtitle is body text.
+  const titleMarkup = renderAccentText({ text: titleText, accent: titleAccentText, variant: '4xl', mobile: subpage ? 'overline' : '3xl', tag, className: 'ds-hero__title' });
+  const leadVariant = { large: 'body', contact: 'lead-large' }[variantName] ?? '3xl';
   const leadMarkup = leadText ? renderAccentText({ text: leadText, accent: leadAccentText, variant: leadVariant, tag: 'p', className: 'ds-hero__lead' }) : '';
   const subtitleMarkup = subtitleText
-    ? renderText({ text: subtitleText, variant: subpage ? '2xl' : 'lg', tone: subpage ? 'accent' : 'inherit', className: 'ds-hero__subtitle' })
+    ? `<div class="ds-hero__subtitle">${renderText({ text: subtitleText, variant: subpage ? '2xl-medium' : 'lg', mobile: subpage ? 'body' : '' })}</div>`
     : '';
-  const buttonMarkup = buttonArgs?.text ? `<div class="ds-hero__buttons">${renderButton({ text: buttonArgs.text, href: buttonArgs.href ?? '', variant: 'light' })}</div>` : '';
+  const buttonMarkup = buttonArgs?.text ? `<div class="ds-hero__buttons">${renderButton({ text: buttonArgs.text, href: buttonArgs.href ?? '', variant: 'light', accentIcon: true })}</div>` : '';
 
   const photo = image && !subpage ? `<img class="ds-hero__photo" src="${escapeHtml(image)}" alt="${escapeHtml(imageAlt)}" fetchpriority="high">` : '';
   const art = illustration && subpage ? `<div class="ds-hero__illustration"><img src="${escapeHtml(illustration)}" alt=""></div>` : '';

@@ -8,14 +8,14 @@
 // - photos: a wide heading, 120 px gap, then a row photo · soft card · photo with the accent Badge/Circular on the card.
 // Each variant has its own Polish copy (TEXT_IMAGE_COPY); a non-empty arg wins. The text and the photos carry
 // data-ds-reveal (base/reveal.js lifts them in with GSAP, as the site's data-reveal).
-// Composes Heading group, Text, Button, Link, Letter circle and Badge/Circular.
+// Composes Heading group, Text, Button, Link, Numbered list and Badge/Circular.
 import { escapeHtml } from '../../_shared/escape.js';
 import { renderButton } from '../../atoms/button/button.template.js';
 import { renderLink } from '../../atoms/link/link.template.js';
-import { renderLetterCircle } from '../../atoms/number/number.template.js';
 import { renderText } from '../../atoms/text/text.template.js';
 import { renderBadgeCircular } from '../../molecules/badge-circular/badge-circular.template.js';
 import { renderHeadingGroup } from '../../molecules/heading-group/heading-group.template.js';
+import { renderNumberedList } from '../../molecules/numbered-list/numbered-list.template.js';
 
 export const TEXT_IMAGE_VARIANTS = ['image-right', 'image-left', 'panorama', 'centered', 'photos'];
 export const TEXT_IMAGE_HEADING_TAGS = ['h2', 'h3'];
@@ -60,18 +60,15 @@ const BUTTON_STYLES = { centered: ['accent', 'light'] };
 function renderActions(variant, actions) {
   if (!actions.length) return '';
   if (variant === 'panorama') {
-    return `<div class="ds-text-image__links">${actions.map((action) => renderLink({ text: action.text, href: action.href ?? '#', variant: 'arrow' })).join('')}</div>`;
+    return `<div class="ds-text-image__links">${actions.map((action) => renderLink({ text: action.text, href: action.href ?? '#', variant: 'arrow', uppercase: true })).join('')}</div>`;
   }
   const [first, rest] = BUTTON_STYLES[variant] ?? ['primary', 'light'];
-  return `<div class="ds-text-image__buttons">${actions.map((action, index) => renderButton({ text: action.text, href: action.href ?? '', variant: index === 0 ? first : rest })).join('')}</div>`;
+  const uppercase = variant === 'centered';
+  return `<div class="ds-text-image__buttons">${actions.map((action, index) => renderButton({ text: action.text, href: action.href ?? '', variant: index === 0 ? first : rest, uppercase })).join('')}</div>`;
 }
 
 function renderSteps(steps) {
-  if (!steps.length) return '';
-  const items = steps
-    .map((step, index) => `<li class="ds-text-image__step">${renderLetterCircle({ text: String(index + 1) })}${renderText({ text: step, variant: '2xl', tag: 'span', className: 'ds-text-image__step-text' })}</li>`)
-    .join('');
-  return `<ol class="ds-text-image__steps" role="list">${items}</ol>`;
+  return steps.length ? `<div class="ds-text-image__steps">${renderNumberedList({ items: steps })}</div>` : '';
 }
 
 // A photo frame: the image when given, otherwise the empty soft frame (Figma's "Photo (replace fill)").
@@ -108,12 +105,13 @@ export function renderTextImage({
     headingTag: tag,
   });
   const bodyText = text ?? copy.text;
-  const prose = bodyText ? renderText({ text: bodyText, variant: variantName === 'centered' ? 'question' : 'body', className: 'ds-text-image__prose' }) : '';
+  const centered = variantName === 'centered';
+  const prose = bodyText ? renderText({ text: bodyText, variant: centered ? 'question' : 'body', mobile: centered ? 'body' : '', className: 'ds-text-image__prose' }) : '';
   const actionMarkup = renderActions(variantName, actions ?? copy.actions);
   const classes = `ds-text-image ds-text-image--${variantName}`;
 
   if (variantName === 'photos') {
-    const card = `<div class="ds-text-image__card">${prose}${badgeText ? renderBadgeCircular({ text: badgeText, className: 'ds-text-image__badge' }) : ''}</div>`;
+    const card = `<div class="ds-text-image__card">${prose}${badgeText ? renderBadgeCircular({ text: badgeText, variant: 'accent', className: 'ds-text-image__badge' }) : ''}</div>`;
     return `<section class="${classes}"><div class="ds-text-image__container"><div class="ds-text-image__head" data-ds-reveal>${heading}</div></div><div class="ds-text-image__trio">${renderMedia(image, imageAlt, 'ds-text-image__media--first')}${card}${renderMedia(image2, image2Alt, 'ds-text-image__media--last')}</div></section>`;
   }
 

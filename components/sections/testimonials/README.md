@@ -19,7 +19,7 @@ marks it `is-active`); optional `base/reveal.js` (the heading lifts in with GSAP
     <div class="ds-testimonials__container">
       <div class="ds-testimonials__head" data-ds-reveal><header class="ds-heading-group ds-heading-group--centered">…</header></div>
       <section class="ds-carousel" data-ds-carousel data-ds-items="3" data-ds-nav="below" data-ds-pagination="dots"
-               aria-roledescription="karuzela" aria-label="Co mówią nasi klienci…" data-ds-centered>
+               aria-roledescription="karuzela" aria-label="Co mówią nasi klienci…" data-ds-centered data-ds-mobile-arrows="off">
         <div class="ds-carousel__clip"><div class="ds-carousel__viewport"><ul class="ds-carousel__track" role="list">
           <li class="ds-carousel__slide"><figure class="ds-card-testimonial">…</figure></li>…
         </ul></div></div>
@@ -29,9 +29,10 @@ marks it `is-active`); optional `base/reveal.js` (the heading lifts in with GSAP
   </section>
   ```
 
-- Layout: the heading 84 px above three whole cards (24 px apart) from 1025 px, the centre one primary
-  (`li.ds-carousel__slide.is-active`); the controls 64 px below. Phones: the heading on the left, one card with the
-  next peeking, dots only, 32 px gaps. Without Swiper the cards stay a scroll-snap row with none active.
+- Layout: the heading 84 px above three whole cards (24 px apart) from 1025 px, the centre one primary (carousel.js
+  sets `is-active` on the active slide and its card); the controls 64 px below. With three or fewer testimonials the
+  row does not centre: it locks, the controls hide and the middle card is active. Phones: the heading on the left, one card with the
+  next peeking, dots only (`mobileArrows: false`), 32 px gaps. Without Swiper the cards stay a scroll-snap row with none active.
 
 WordPress: print the markup in the block's `render.php` (`esc_html()` quote with `nl2br`, author and role; the photo
 `esc_url()` with `alt=""`); enqueue Swiper before `carousel.js`.

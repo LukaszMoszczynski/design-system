@@ -20,9 +20,17 @@ function openTag({ href, disabled, classes, tag, type }) {
   return { open: `<button type="${type === 'submit' ? 'submit' : 'button'}" class="${classes}"${disabled ? ' disabled' : ''}>`, close: '</button>' };
 }
 
-export function renderButton({ text = 'Poznaj ofertę', href = '', variant = 'primary', shape = 'arrow', disabled = false, tag = '', type = 'button' } = {}) {
+// accentIcon: the accent circle at rest (a Light button on a blue surface: Hero, Call to action); uppercase: the label
+// in capitals (Figma Text + image / Centered).
+export function renderButton({ text = 'Poznaj ofertę', href = '', variant = 'primary', shape = 'arrow', disabled = false, tag = '', type = 'button', accentIcon = false, uppercase = false } = {}) {
   const variantName = BUTTON_VARIANTS.includes(variant) ? variant : 'primary';
-  const classes = ['ds-button', `ds-button--${variantName}`, shape === 'pill' ? 'ds-button--pill' : ''].filter(Boolean).join(' ');
+  const classes = [
+    'ds-button',
+    `ds-button--${variantName}`,
+    shape === 'pill' ? 'ds-button--pill' : '',
+    accentIcon && shape !== 'pill' ? 'ds-button--accent-icon' : '',
+    uppercase ? 'ds-button--uppercase' : '',
+  ].filter(Boolean).join(' ');
   const { open, close } = openTag({ href, disabled, classes, tag, type });
   const icon = shape === 'pill' ? '' : `<span class="ds-button__icon">${renderIcon({ name: 'arrow-diagonal' })}</span>`;
   return `${open}<span class="ds-button__label">${escapeHtml(text)}</span>${icon}${close}`;

@@ -57,47 +57,9 @@
   order: -1;
 }
 
-/* The numbered steps (Image left): 49 px primary circles, 2XL medium text, 1 px dividers; the hovered row's number
-   turns accent and grows (the site). */
+/* The numbered steps (Image left, the Numbered list molecule) 24 px under the heading. */
 .ds-text-image__steps {
-  display: grid;
-  margin: var(--space-24) 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.ds-text-image__step {
-  display: grid;
-  grid-template-columns: var(--text-image-list-number) minmax(0, 1fr);
-  gap: var(--text-image-list-gap);
-  align-items: center;
-  padding-block: var(--text-image-list-padding-y);
-  border-bottom: 1px solid var(--color-border-strong);
-}
-
-.ds-text-image__step:last-child {
-  border-bottom: 0;
-}
-
-.ds-text-image__step-text {
-  font-weight: var(--font-weight-medium);
-  line-height: var(--line-height-name);
-}
-
-.ds-text-image__step .ds-letter-circle {
-  transition: background-color 0.25s ease, transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-@media (hover: hover) {
-  .ds-text-image__step:hover .ds-letter-circle {
-    background: var(--color-brand-accent);
-  }
-}
-
-@media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  .ds-text-image__step:hover .ds-letter-circle {
-    transform: scale(1.18);
-  }
+  margin-top: var(--space-24);
 }
 
 /* Panorama: heading 690 | aside 365, 140 px apart; the wide photo 72 px below (1200 × 518, radius 28). */
@@ -124,10 +86,6 @@
   margin-top: var(--space-16);
 }
 
-.ds-text-image__links .ds-link {
-  text-transform: uppercase;
-}
-
 .ds-text-image__media--wide {
   aspect-ratio: 1200 / 518;
   border-radius: var(--text-image-wide-radius);
@@ -140,6 +98,7 @@
   isolation: isolate;
 }
 
+/* Missing token: the 1600 px illustration width (Figma; built from the viewport size meanwhile). */
 .ds-text-image__background {
   position: absolute;
   top: 50%;
@@ -165,10 +124,6 @@
 
 .ds-text-image--centered .ds-text-image__buttons {
   justify-content: center;
-}
-
-.ds-text-image--centered .ds-button__label {
-  text-transform: uppercase;
 }
 
 /* Photos: the heading up to 1140 px, 120 px above a 326 px row 786 · card · 282 (radius 32, 24 px apart) up to
@@ -208,25 +163,13 @@
   background: var(--color-surface-soft);
 }
 
+/* Missing tokens: the badge offsets over the card corner (-48 / -68 px; built from the spacing scale). */
 .ds-text-image__badge {
   position: absolute;
   top: calc(var(--space-48) * -1);
   right: calc((var(--space-64) + var(--space-4)) * -1);
   width: var(--text-image-badge-size);
   height: var(--text-image-badge-size);
-}
-
-/* The site's photos badge: accent disc, on-brand wording, primary dot. */
-.ds-text-image__badge .ds-badge-circular__disc {
-  fill: var(--color-brand-accent);
-}
-
-.ds-text-image__badge .ds-badge-circular__text {
-  fill: var(--color-text-on-brand);
-}
-
-.ds-text-image__badge .ds-badge-circular__dot {
-  background: var(--color-brand-primary);
 }
 
 /* Tablets: the panorama split stacks. */
@@ -255,6 +198,7 @@
     padding: var(--space-64) var(--space-24) var(--space-24);
   }
 
+  /* Missing token: the 96 px tablet badge (built from the spacing scale). */
   .ds-text-image__badge {
     top: calc(var(--space-40) * -1);
     right: var(--space-8);
@@ -293,10 +237,6 @@
     border-radius: var(--radius-xl);
   }
 
-  .ds-text-image--centered .ds-text-image__prose {
-    font-size: var(--font-size-body);
-    line-height: var(--line-height-body);
-  }
 }
 
 /* Figma breaks the copy greedily (base.css balances headings and avoids short last lines). */

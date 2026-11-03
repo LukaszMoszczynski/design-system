@@ -10,8 +10,10 @@
 // - Only links in slides fully on screen are in the tab order (otherwise Tab slides the loop on for ever, WCAG 2.1.2);
 //   the others leave it and come back when they slide in.
 // - data-ds-centered: Swiper centres the active slide (from the second one on desktop) and the script puts is-active on
-//   it, the card's active look (Card/Testimonial); from 1025 px all items are whole cards (an even count would halve the
-//   outer two around a centred one).
+//   it and on the card inside (Card/Testimonial's active look); from 1025 px all items are whole cards (an even count
+//   would halve the outer two around a centred one). With no more slides than items it does not centre (centring gives
+//   every slide a snap point, so Swiper would never lock): the row locks and its middle card is the active one.
+// - data-ds-mobile-arrows="off": phones show the dots without the arrows (carousel.css; a counter keeps them).
 // - prefers-reduced-motion: the slide speed is 0. The gap follows the --carousel-slide-gap token (per brand, per breakpoint).
 // Without window.Swiper nothing is wired: the slides stay a scrollable row (carousel.css) and init can run again once
 // Swiper has loaded. Classic script, idempotent through data-ds-ready (see components/README.md, JS convention).
@@ -70,6 +72,7 @@
     const dots = usesCounter ? null : element.querySelector('[data-ds-carousel-dots]');
     const counter = usesCounter ? element.querySelector('.ds-carousel-controls__counter') : null;
     const centered = 'dsCentered' in element.dataset;
+    const centering = centered && count > items;
     const breakpoints = {
       // 782 = the phone/tablet switch of the tokens (max-width: 781px): tablets show a peek.
       782: { slidesPerView: Math.min(2, items) + 0.15 },
@@ -90,7 +93,17 @@
         else dot.removeAttribute('aria-current');
       });
       if (counter) counter.textContent = `${active + 1} / ${count}`;
-      if (centered) slides.forEach((slide, index) => slide.classList.toggle('is-active', index === active));
+      syncActive(swiper);
+    }
+
+    // Centred: the active slide and the card in it carry is-active; a locked row (all in view) marks its middle card.
+    function syncActive(swiper) {
+      if (!centered || !count) return;
+      const active = swiper.isLocked ? Math.floor((count - 1) / 2) : swiper.realIndex % count;
+      slides.forEach((slide, index) => {
+        slide.classList.toggle('is-active', index === active);
+        slide.firstElementChild?.classList.toggle('is-active', index === active);
+      });
     }
 
     // Slides fully inside the viewport (1 px of slack for rounding) keep their links tabbable. A slide wider than the
@@ -126,9 +139,9 @@
       spaceBetween: slideGap(element),
       watchOverflow: true,
       watchSlidesProgress: true,
-      centeredSlides: centered,
+      centeredSlides: centering,
       // Desktop shows the second card in the middle, as in Figma; a phone starts at the first.
-      initialSlide: centered && count > 2 && window.innerWidth >= 1200 ? 1 : 0,
+      initialSlide: centering && window.innerWidth >= 1200 ? 1 : 0,
       breakpoints,
       navigation: { prevEl: prev, nextEl: next, disabledClass: 'is-disabled', lockClass: 'is-locked', hiddenClass: 'is-hidden' },
       a11y: {
@@ -146,8 +159,14 @@
         beforeResize: (instance) => {
           instance.params.spaceBetween = slideGap(element);
         },
-        lock: () => element.classList.add('is-static'),
-        unlock: () => element.classList.remove('is-static'),
+        lock: (instance) => {
+          element.classList.add('is-static');
+          syncActive(instance);
+        },
+        unlock: (instance) => {
+          element.classList.remove('is-static');
+          syncActive(instance);
+        },
       },
     });
 

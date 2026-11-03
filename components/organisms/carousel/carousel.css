@@ -149,3 +149,11 @@
     padding-bottom: 0;
   }
 }
+
+/* data-ds-mobile-arrows="off": phones show the dots only (Figma Testimonials, Mobile). A counter cannot be tapped, so
+   its arrows stay. */
+@media (max-width: 781px) {
+  .ds-carousel[data-ds-mobile-arrows='off'][data-ds-pagination='dots'] .ds-carousel-arrow {
+    display: none;
+  }
+}

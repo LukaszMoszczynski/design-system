@@ -198,15 +198,43 @@ describe('carousel script', () => {
     expect(plain.initialSlide ?? 0).toBe(0);
   });
 
-  it('centered: the active slide gets is-active and it follows the slide', () => {
+  it('centered: the active slide and its card get is-active and it follows the slide', () => {
     document.body.innerHTML = renderCarousel({ slides: slides(6), centered: true });
     loadScript(SCRIPT, window);
     const active = () => [...document.querySelectorAll('.ds-carousel__slide')].map((slide) => slide.classList.contains('is-active'));
+    // The card inside carries the state too, so a card styles its own is-active without knowing the carousel.
+    const cards = () => [...document.querySelectorAll('.ds-carousel__slide > a')].map((card) => card.classList.contains('is-active'));
     instances[0].realIndex = 1;
     instances[0].params.on.slideChange(instances[0]);
     expect(active()).toEqual([false, true, false, false, false, false]);
+    expect(cards()).toEqual([false, true, false, false, false, false]);
     instances[0].slideToLoop(4);
     expect(active()).toEqual([false, false, false, false, true, false]);
+    expect(cards()).toEqual([false, false, false, false, true, false]);
+  });
+
+  // No more slides than fit (3 at 3 items): centring would give every slide its own snap point, so Swiper never locks
+  // and the arrows move the row off a whole-card view. Without centring it locks, the controls hide, and the middle
+  // card of the row is the active one.
+  it('centered with no more slides than items does not centre; once locked the middle card is active', () => {
+    document.body.innerHTML = renderCarousel({ slides: slides(3), centered: true });
+    loadScript(SCRIPT, window);
+    const [instance] = instances;
+    expect(instance.params.centeredSlides).toBe(false);
+    expect(instance.params.initialSlide).toBe(0);
+    instance.isLocked = true;
+    instance.params.on.lock(instance);
+    const element = document.querySelector('.ds-carousel');
+    expect(element.classList.contains('is-static')).toBe(true);
+    const active = [...document.querySelectorAll('.ds-carousel__slide')].map((slide) => slide.classList.contains('is-active'));
+    expect(active).toEqual([false, true, false]);
+  });
+
+  it('centered with more slides than items stays centred', () => {
+    document.body.innerHTML = renderCarousel({ slides: slides(4), centered: true });
+    loadScript(SCRIPT, window);
+    expect(instances[0].params.centeredSlides).toBe(true);
+    expect(instances[0].params.initialSlide).toBe(1);
   });
 
   it('not centered: no slide gets is-active', () => {
@@ -239,6 +267,11 @@ describe('carousel template', () => {
     expect(markup).toContain('data-ds-pagination="counter"');
     expect(markup).toContain('&lt;b&gt;&quot;Programy&quot;&lt;/b&gt;');
     expect(markup.match(/class="ds-carousel__slide"/g)).toHaveLength(3);
+  });
+
+  it('mobileArrows: false writes data-ds-mobile-arrows="off"', () => {
+    expect(renderCarousel({ slides: slides(3), mobileArrows: false })).toContain('data-ds-mobile-arrows="off"');
+    expect(renderCarousel({ slides: slides(3) })).not.toContain('data-ds-mobile-arrows');
   });
 
   it('centered writes data-ds-centered', () => {

@@ -56,6 +56,6 @@ export function renderTestimonials({
   const tag = TESTIMONIALS_HEADING_TAGS.includes(headingTag) ? headingTag : 'h2';
   const heading = renderHeadingGroup({ overline, title, lead, leadStrong: '', variant: 'centered', headingTag: tag });
   const slides = items.map((item) => renderCardTestimonial({ photo, ...item, active: false }));
-  const carousel = renderCarousel({ slides, items: 3, nav: 'below', heading: null, centered: true, ariaLabel: ariaLabel || title || 'Opinie klientów' });
+  const carousel = renderCarousel({ slides, items: 3, nav: 'below', heading: null, centered: true, mobileArrows: false, ariaLabel: ariaLabel || title || 'Opinie klientów' });
   return `<section class="ds-testimonials"><div class="ds-testimonials__container"><div class="ds-testimonials__head" data-ds-reveal>${heading}</div>${carousel}</div></section>`;
 }

@@ -3,7 +3,7 @@
 Figma: Atoms → Link · Label → Link (`4:49`). DCC: `.dcc-karta__links a`, `.dcc-btn--link`, `.dcc-karty--obszar .dcc-karta__more`, `.dcc-footer a`.
 CSS: `atoms/link/link.css` plus `atoms/icon/icon.css`. No JS.
 
-`renderLink({ text, href, variant })`, `variant` one of `inline`, `list`, `arrow`, `brand`, `footer`, `bold`, `inverse`: (an empty `href` prints a `<span>` with the same look, for the visual link inside a card that is itself the link)
+`renderLink({ text, href, variant, uppercase })`, `variant` one of `inline`, `list`, `arrow`, `brand`, `footer`, `bold`, `inverse`: (an empty `href` prints a `<span>` with the same look, for the visual link inside a card that is itself the link)
 
 ```html
 <a class="ds-link ds-link--inline" href="/kontakt/">Zobacz szczegóły</a>
@@ -28,3 +28,5 @@ Focus adds the 2 px ring 3 px outside, on a 3 px radius.
 text must not be told apart by colour alone, so `inline` is underlined at rest; Figma's look is the `list` variant, for
 link lists and groups, which the user perceives as one set of links.
 WordPress: `esc_url()` for `href`, `esc_html()` for the text.
+
+`uppercase` (`ds-link--uppercase`): the text in capitals (Text + image / Panorama).

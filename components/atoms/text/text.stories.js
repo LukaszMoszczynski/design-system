@@ -5,6 +5,7 @@ const SAMPLES = {
   number: '1500',
   button: 'Poznaj ofertę',
   question: 'Jak wygląda pierwsze spotkanie?',
+  'lead-large': 'Umów się na sesję przy kawie osobiście, hybrydowo albo online.',
   overline: 'Szkolenia dla firm',
 };
 
@@ -14,15 +15,16 @@ export default {
   argTypes: {
     text: { control: 'text', description: 'Visible text.' },
     variant: { control: 'select', options: TEXT_VARIANTS, description: 'Figma Style. Desktop/Mobile come from the fluid tokens: resize the viewport.' },
+    mobile: { control: 'select', options: ['', ...TEXT_VARIANTS], description: 'Another variant below 782 px (ds-text--mobile-{variant}); empty: the same.' },
     tone: { control: 'select', options: TEXT_TONES, description: 'Colour: inherit (default, from the surface) or a text token.' },
     tag: { control: 'select', options: TEXT_TAGS, description: 'HTML element; independent of the look.' },
   },
-  args: { text: 'Rozwijamy liderów i zespoły', variant: 'body', tone: 'inherit', tag: 'p' },
+  args: { text: 'Rozwijamy liderów i zespoły', variant: 'body', mobile: '', tone: 'inherit', tag: 'p' },
   parameters: {
     docs: {
       description: {
         component:
-          '`.ds-text ds-text--{variant}` (+ `ds-text--{default|muted|primary|accent|on-brand}` tone; colour is inherited without one). Size scale desktop → mobile: 4XL 56→32, 3XL 44→28, 2XL 32→24, XL 28→20, LG 20→16, Body 16, Small 12, Overline 20→12, Number 64, Button 20→16, Question 20→16. Figma Viewport=Mobile is the same story in the Mobile 390 viewport.',
+          '`.ds-text ds-text--{variant}` (+ `ds-text--{default|muted|primary|accent|on-brand}` tone; colour is inherited without one). Size scale desktop → mobile: 4XL 56→32, 3XL 44→28, 2XL 32→24, XL 28→20, LG 20→16, Body 16, Small 12, Overline 20→12, Number 64, Button 20→16, Question 20→16, 2XL medium 32→24 (heading font Medium), Lead large 24→20 (heading font Regular). `mobile` swaps in another style below 782 px (`ds-text--mobile-{variant}`). Figma Viewport=Mobile is the same story in the Mobile 390 viewport.',
       },
     },
   },

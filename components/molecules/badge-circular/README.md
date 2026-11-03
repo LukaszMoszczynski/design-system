@@ -3,7 +3,7 @@
 Figma: Molecules → Badge/Circular (`51:51`). DCC: `dcc_badge()` (inc/helpers.php), `.dcc-badge` (assets/css/base.css), blocks/wezwanie.
 CSS: `atoms/icon/icon.css` + `molecules/badge-circular/badge-circular.css`. No JS.
 
-`renderBadgeCircular({ text, icon, id, className })` (`icon`: `arrow` | `check`; `className`: the placing component may resize or recolour it, e.g. the recommendation card) →
+`renderBadgeCircular({ text, icon, variant, id, className })` (`icon`: `arrow` | `check`; `variant`: `default` | `accent`; `className`: the placing component may resize or recolour it, e.g. the recommendation card) →
 
 ```html
 <span class="ds-badge-circular" role="img" aria-label="Wyzwanie? Znajdziemy rozwiązanie">
@@ -22,3 +22,6 @@ CSS: `atoms/icon/icon.css` + `molecules/badge-circular/badge-circular.css`. No J
   prints several badges from PHP.
 
 WordPress: `esc_attr()` for `aria-label`, `esc_html()` inside `textPath`, a unique path id per badge (`wp_unique_id()`).
+
+`variant`: `default` (card-colour disc, text-colour wording, accent dot) or `accent` (`ds-badge-circular--accent`: accent
+disc, on-brand wording, primary dot; Text + image / Photos).

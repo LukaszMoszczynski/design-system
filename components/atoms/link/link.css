@@ -93,3 +93,8 @@
     transform: translate(2px, -2px);
   }
 }
+
+/* uppercase: the text in capitals (Text + image / Panorama). */
+.ds-link--uppercase {
+  text-transform: uppercase;
+}

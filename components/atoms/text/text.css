@@ -20,6 +20,7 @@
   font-weight: var(--font-weight-bold);
 }
 
+.ds-text--2xl-medium,
 .ds-text--xl,
 .ds-text--lg,
 .ds-text--overline,
@@ -34,6 +35,12 @@
   font-weight: var(--font-weight-regular);
 }
 
+/* Lead large (Figma Text/Lead large Ubuntu): the heading font, regular. */
+.ds-text--lead-large {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-regular);
+}
+
 .ds-text--body-bold,
 .ds-text--small {
   font-family: var(--font-body);
@@ -43,6 +50,7 @@
 .ds-text--4xl { font-size: var(--font-size-4xl); line-height: var(--font-line-height-4xl); }
 .ds-text--3xl { font-size: var(--font-size-3xl); line-height: var(--font-line-height-3xl); }
 .ds-text--2xl { font-size: var(--font-size-2xl); line-height: var(--font-line-height-2xl); }
+.ds-text--2xl-medium { font-size: var(--font-size-2xl); line-height: var(--line-height-name); }
 .ds-text--xl { font-size: var(--font-size-xl); line-height: var(--font-line-height-xl); }
 .ds-text--lg { font-size: var(--font-size-lg); line-height: var(--font-line-height-lg); }
 .ds-text--body,
@@ -51,6 +59,7 @@
 .ds-text--number { font-size: var(--font-size-number); line-height: var(--line-height-number); }
 .ds-text--button { font-size: var(--font-size-button); line-height: var(--line-height-button); }
 .ds-text--question { font-size: var(--font-size-lg); line-height: var(--line-height-question); }
+.ds-text--lead-large { font-size: var(--font-size-lead-large); line-height: var(--line-height-lead-large); }
 
 /* Overline: uppercase, tracked 6 % of its size (Figma: 1.2 px at 20, 0.72 px at 12; no letter-spacing token). */
 .ds-text--overline {
@@ -58,4 +67,69 @@
   line-height: var(--line-height-overline);
   letter-spacing: calc(var(--font-size-overline) * 0.06);
   text-transform: uppercase;
+}
+
+/* mobile (ds-text--mobile-{variant}): another Text style below 782 px, for a text whose phone look is a different style
+   (Figma Hero: the 4XL title reads 3XL, the subpage title an overline, the subtitle body text). Later in the file than
+   the variants, so it wins at the same specificity. */
+@media (max-width: 781px) {
+  [class*='ds-text--mobile-'] {
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  .ds-text--mobile-4xl,
+  .ds-text--mobile-3xl,
+  .ds-text--mobile-2xl,
+  .ds-text--mobile-number {
+    font-family: var(--font-heading);
+    font-weight: var(--font-weight-bold);
+  }
+
+  .ds-text--mobile-2xl-medium,
+  .ds-text--mobile-xl,
+  .ds-text--mobile-lg,
+  .ds-text--mobile-overline,
+  .ds-text--mobile-button {
+    font-family: var(--font-heading);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .ds-text--mobile-lead-large {
+    font-family: var(--font-heading);
+    font-weight: var(--font-weight-regular);
+  }
+
+  .ds-text--mobile-body,
+  .ds-text--mobile-question {
+    font-family: var(--font-body);
+    font-weight: var(--font-weight-regular);
+  }
+
+  .ds-text--mobile-body-bold,
+  .ds-text--mobile-small {
+    font-family: var(--font-body);
+    font-weight: var(--font-weight-bold);
+  }
+
+  .ds-text--mobile-4xl { font-size: var(--font-size-4xl); line-height: var(--font-line-height-4xl); }
+  .ds-text--mobile-3xl { font-size: var(--font-size-3xl); line-height: var(--font-line-height-3xl); }
+  .ds-text--mobile-2xl { font-size: var(--font-size-2xl); line-height: var(--font-line-height-2xl); }
+  .ds-text--mobile-2xl-medium { font-size: var(--font-size-2xl); line-height: var(--line-height-name); }
+  .ds-text--mobile-xl { font-size: var(--font-size-xl); line-height: var(--font-line-height-xl); }
+  .ds-text--mobile-lg { font-size: var(--font-size-lg); line-height: var(--font-line-height-lg); }
+  .ds-text--mobile-body,
+  .ds-text--mobile-body-bold { font-size: var(--font-size-body); line-height: var(--line-height-body); }
+  .ds-text--mobile-small { font-size: var(--font-size-small); line-height: var(--line-height-small); }
+  .ds-text--mobile-number { font-size: var(--font-size-number); line-height: var(--line-height-number); }
+  .ds-text--mobile-button { font-size: var(--font-size-button); line-height: var(--line-height-button); }
+  .ds-text--mobile-question { font-size: var(--font-size-lg); line-height: var(--line-height-question); }
+  .ds-text--mobile-lead-large { font-size: var(--font-size-lead-large); line-height: var(--line-height-lead-large); }
+
+  .ds-text--mobile-overline {
+    font-size: var(--font-size-overline);
+    line-height: var(--line-height-overline);
+    letter-spacing: calc(var(--font-size-overline) * 0.06);
+    text-transform: uppercase;
+  }
 }
