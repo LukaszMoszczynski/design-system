@@ -48,6 +48,30 @@ if (!function_exists('ds_string')) {
     }
 }
 
+if (!function_exists('ds_number')) {
+    // JS Number(value): numbers as they are, numeric strings parsed, '' / null / false → 0, true → 1, else NAN.
+    function ds_number(mixed $value): int|float
+    {
+        if (is_int($value) || is_float($value)) {
+            return $value;
+        }
+        if ($value === null || $value === false) {
+            return 0;
+        }
+        if ($value === true) {
+            return 1;
+        }
+        if (is_string($value)) {
+            $trimmed = trim($value);
+            if ($trimmed === '') {
+                return 0;
+            }
+            return is_numeric($trimmed) ? $trimmed + 0 : NAN;
+        }
+        return NAN;
+    }
+}
+
 if (!function_exists('ds_pick')) {
     // The keys of $source that are present, as JS passes { text: item.text } (a missing key stays missing, so the
     // callee's default applies; null stays null).
