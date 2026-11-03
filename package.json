@@ -11,7 +11,8 @@
     "check-css-values": "node scripts/check-css-values.mjs",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "test-storybook": "test-storybook"
+    "test-storybook": "test-storybook",
+    "test:php": "vitest run tests/php-parity.test.js"
   },
   "devDependencies": {
     "@storybook/addon-a11y": "^10.6.5",
