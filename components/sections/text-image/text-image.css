@@ -1,0 +1,305 @@
+/* Text + image (.dcc-tekst-obraz, blocks/tekst-obraz/style.css): section.ds-text-image > .ds-text-image__container
+   (the grid of .ds-text-image__text and .ds-text-image__media, the panorama split, the centred text) and, for photos,
+   .ds-text-image__trio. Text styles come from the atoms and the Heading group; this file lays them out. */
+.ds-text-image {
+  position: relative;
+  padding-block: var(--space-section-y);
+}
+
+.ds-text-image__container {
+  position: relative;
+  box-sizing: content-box;
+  max-width: var(--size-container);
+  margin-inline: auto;
+  padding-inline: var(--space-gutter);
+}
+
+.ds-text-image__text {
+  min-width: 0;
+}
+
+.ds-text-image__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-16);
+  margin-top: var(--space-32);
+}
+
+/* A photo frame: the soft placeholder colour until the image is in. */
+.ds-text-image__media {
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  border-radius: var(--card-radius);
+  background: var(--color-surface-muted);
+}
+
+.ds-text-image__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Image right / left: two equal columns 72 px apart, vertically centred; the photo 4:3. */
+.ds-text-image__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--text-image-column-gap);
+  align-items: center;
+}
+
+.ds-text-image__grid > .ds-text-image__media {
+  aspect-ratio: 4 / 3;
+}
+
+.ds-text-image--image-left .ds-text-image__grid > .ds-text-image__media {
+  order: -1;
+}
+
+/* The numbered steps (Image left): 49 px primary circles, 2XL medium text, 1 px dividers; the hovered row's number
+   turns accent and grows (the site). */
+.ds-text-image__steps {
+  display: grid;
+  margin: var(--space-24) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-text-image__step {
+  display: grid;
+  grid-template-columns: var(--text-image-list-number) minmax(0, 1fr);
+  gap: var(--text-image-list-gap);
+  align-items: center;
+  padding-block: var(--text-image-list-padding-y);
+  border-bottom: 1px solid var(--color-border-strong);
+}
+
+.ds-text-image__step:last-child {
+  border-bottom: 0;
+}
+
+.ds-text-image__step-text {
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-name);
+}
+
+.ds-text-image__step .ds-letter-circle {
+  transition: background-color 0.25s ease, transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@media (hover: hover) {
+  .ds-text-image__step:hover .ds-letter-circle {
+    background: var(--color-brand-accent);
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .ds-text-image__step:hover .ds-letter-circle {
+    transform: scale(1.18);
+  }
+}
+
+/* Panorama: heading 690 | aside 365, 140 px apart; the wide photo 72 px below (1200 × 518, radius 28). */
+.ds-text-image__split {
+  display: grid;
+  grid-template-columns: minmax(0, 690fr) minmax(0, 365fr);
+  gap: var(--space-32) var(--text-image-split-gap);
+  align-items: center;
+  margin-bottom: var(--text-image-column-gap);
+}
+
+.ds-text-image__split > .ds-heading-group {
+  max-width: none;
+}
+
+.ds-text-image__aside {
+  min-width: 0;
+}
+
+.ds-text-image__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8) var(--space-32);
+  margin-top: var(--space-16);
+}
+
+.ds-text-image__links .ds-link {
+  text-transform: uppercase;
+}
+
+.ds-text-image__media--wide {
+  aspect-ratio: 1200 / 518;
+  border-radius: var(--text-image-wide-radius);
+}
+
+/* Centered: the text centred in 900 px over the faint background illustration (20 %), 8 px to the 20 px prose,
+   an uppercase accent button 32 px below. */
+.ds-text-image--centered {
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.ds-text-image__background {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: -1;
+  width: max(100%, calc(var(--size-viewport) + var(--size-160)));
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.2;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.ds-text-image--centered .ds-text-image__text {
+  max-width: var(--text-image-centered-max);
+  margin-inline: auto;
+  text-align: center;
+}
+
+.ds-text-image--centered .ds-text-image__prose {
+  margin-top: var(--space-8);
+}
+
+.ds-text-image--centered .ds-text-image__buttons {
+  justify-content: center;
+}
+
+.ds-text-image--centered .ds-button__label {
+  text-transform: uppercase;
+}
+
+/* Photos: the heading up to 1140 px, 120 px above a 326 px row 786 · card · 282 (radius 32, 24 px apart) up to
+   1392 px wide; the accent badge with a primary dot over the card's top-right corner.
+   Missing token: the 1140 px heading width (built from the container meanwhile, see the Task 9 report). */
+.ds-text-image__head > .ds-heading-group {
+  max-width: calc(var(--size-container) - var(--space-48) * 2 - var(--space-4));
+  margin-inline: auto;
+}
+
+.ds-text-image__head {
+  margin-bottom: var(--text-image-heading-gap);
+}
+
+.ds-text-image__trio {
+  display: grid;
+  grid-template-columns: minmax(0, 786fr) minmax(0, 276fr) minmax(0, 282fr);
+  grid-template-rows: var(--text-image-trio-height);
+  gap: var(--text-image-trio-gap);
+  box-sizing: content-box;
+  max-width: var(--text-image-trio-max);
+  margin-inline: auto;
+  padding-inline: var(--space-gutter);
+}
+
+.ds-text-image__trio > .ds-text-image__media {
+  border-radius: var(--radius-3xl);
+}
+
+.ds-text-image__card {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  padding: var(--text-image-card-padding);
+  border-radius: var(--radius-3xl);
+  background: var(--color-surface-soft);
+}
+
+.ds-text-image__badge {
+  position: absolute;
+  top: calc(var(--space-48) * -1);
+  right: calc((var(--space-64) + var(--space-4)) * -1);
+  width: var(--text-image-badge-size);
+  height: var(--text-image-badge-size);
+}
+
+/* The site's photos badge: accent disc, on-brand wording, primary dot. */
+.ds-text-image__badge .ds-badge-circular__disc {
+  fill: var(--color-brand-accent);
+}
+
+.ds-text-image__badge .ds-badge-circular__text {
+  fill: var(--color-text-on-brand);
+}
+
+.ds-text-image__badge .ds-badge-circular__dot {
+  background: var(--color-brand-primary);
+}
+
+/* Tablets: the panorama split stacks. */
+@media (max-width: 1024px) {
+  .ds-text-image__split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Photos stack below 901 px (the site); the badge moves inside the card's corner. */
+@media (max-width: 900px) {
+  .ds-text-image__head {
+    margin-bottom: var(--space-48);
+  }
+
+  .ds-text-image__trio {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+  }
+
+  .ds-text-image__trio > .ds-text-image__media {
+    aspect-ratio: 4 / 3;
+  }
+
+  .ds-text-image__card {
+    padding: var(--space-64) var(--space-24) var(--space-24);
+  }
+
+  .ds-text-image__badge {
+    top: calc(var(--space-40) * -1);
+    right: var(--space-8);
+    width: calc(var(--space-48) * 2);
+    height: calc(var(--space-48) * 2);
+  }
+}
+
+/* Phones: one column, the photo above the text (radius 20), 32 px apart; full-width buttons 24 px below. */
+@media (max-width: 781px) {
+  .ds-text-image__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-32);
+  }
+
+  .ds-text-image__grid > .ds-text-image__media {
+    order: -1;
+    border-radius: var(--radius-xl);
+  }
+
+  .ds-text-image__buttons {
+    flex-direction: column;
+    margin-top: var(--space-24);
+  }
+
+  .ds-text-image__buttons .ds-button {
+    justify-content: flex-start;
+  }
+
+  .ds-text-image__split {
+    margin-bottom: var(--space-32);
+  }
+
+  .ds-text-image__media--wide {
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-xl);
+  }
+
+  .ds-text-image--centered .ds-text-image__prose {
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+  }
+}
+
+/* Figma breaks the copy greedily (base.css balances headings and avoids short last lines). */
+.ds-text-image :is(.ds-heading-group__title, .ds-text-image__prose) {
+  text-wrap: wrap;
+}
