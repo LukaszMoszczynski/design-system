@@ -1,0 +1,837 @@
+{
+  "5b437060584b5a0ffd0e037fa1adbe4c8cd84592": {
+    "component": "atoms/badge-pill",
+    "level": "atom",
+    "figmaName": "Badge pill",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [
+      "atoms/label"
+    ],
+    "js": false,
+    "vendor": []
+  },
+  "d23c881c1b7d6774fdf0ac67fc765ea2a19be9f1": {
+    "component": "atoms/breadcrumbs",
+    "level": "atom",
+    "figmaName": "Breadcrumb/Item",
+    "keyed": "figma",
+    "primary": false,
+    "dependsOn": [],
+    "js": false,
+    "vendor": []
+  },
+  "9db4e7aab179da0e064616bb69b03c4e8f7721ca": {
+    "component": "atoms/breadcrumbs",
+    "level": "atom",
+    "figmaName": "Breadcrumb/Separator",
+    "keyed": "figma",
+    "primary": false,
+    "dependsOn": [],
+    "js": false,
+    "vendor": []
+  },
+  "ef45dc572b8a6db2172e5094b0563bf3f0e6563e": {
+    "component": "atoms/breadcrumbs",
+    "level": "atom",
+    "figmaName": "Breadcrumbs",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [],
+    "js": false,
+    "vendor": []
+  },
+  "248c1942b2da517e40c4101bb08bcdbc1eb8d478": {
+    "component": "atoms/button",
+    "level": "atom",
+    "figmaName": "Button",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [
+      "atoms/icon"
+    ],
+    "js": false,
+    "vendor": []
+  },
+  "700f75c561921f2cdf2404438b84c5bea1c05e8c": {
+    "component": "atoms/button",
+    "level": "atom",
+    "figmaName": "Button/Outline",
+    "keyed": "figma",
+    "primary": false,
+    "dependsOn": [
+      "atoms/icon"
+    ],
+    "js": false,
+    "vendor": []
+  },
+  "4f8c9faa99ea19e8259db71aab107ad59a128546": {
+    "component": "atoms/button",
+    "level": "atom",
+    "figmaName": "Button/Arrow",
+    "keyed": "figma",
+    "primary": false,
+    "dependsOn": [
+      "atoms/icon"
+    ],
+    "js": false,
+    "vendor": []
+  },
+  "50fccac76798e682caf53523b4f05e4855f6a9e6": {
+    "component": "atoms/carousel-controls",
+    "level": "atom",
+    "figmaName": "Pagination/Dot",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [
+      "atoms/icon"
+    ],
+    "js": false,
+    "vendor": []
+  },
+  "22f4ed71fd081a2f1a0a2724006678fbe82685da": {
+    "component": "atoms/carousel-controls",
+    "level": "atom",
+    "figmaName": "Carousel/Arrow",
+    "keyed": "figma",
+    "primary": false,
+    "dependsOn": [
+      "atoms/icon"
+    ],
+    "js": false,
+    "vendor": []
+  },
+  "09351b38386861df06383d977599e2c1936a9b1e": {
+    "component": "atoms/form-field",
+    "level": "atom",
+    "figmaName": "Field",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [
+      "atoms/icon"
+    ],
+    "js": false,
+    "vendor": []
+  },
+  "89e65b668bc5fed7e709561af9cd73e450ffc256": {
+    "component": "atoms/form-field",
+    "level": "atom",
+    "figmaName": "Checkbox",
+    "keyed": "figma",
+    "primary": false,
+    "dependsOn": [
+      "atoms/icon"
+    ],
+    "js": false,
+    "vendor": []
+  },
+  "3956f57618a65bbe5365fac3fe924f2d327b76c0": {
+    "component": "atoms/form-field",
+    "level": "atom",
+    "figmaName": "Newsletter field",
+    "keyed": "figma",
+    "primary": false,
+    "dependsOn": [
+      "atoms/icon"
+    ],
+    "js": false,
+    "vendor": []
+  },
+  "661d9466f11e3321aee482ee1467b5e0ec89f4b1": {
+    "component": "atoms/form-field",
+    "level": "atom",
+    "figmaName": "Quantity stepper",
+    "keyed": "figma",
+    "primary": false,
+    "dependsOn": [
+      "atoms/icon"
+    ],
+    "js": false,
+    "vendor": []
+  },
+  "1fb27a040f5efeffae4858d0f6c6b1adca9dc006": {
+    "component": "atoms/icon",
+    "level": "atom",
+    "figmaName": "Icon/Chevron",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [],
+    "js": false,
+    "vendor": []
+  },
+  "8696b7b83e0a71b73ae8a63322bc6d74822f5a61": {
+    "component": "atoms/icon",
+    "level": "atom",
+    "figmaName": "Icon/Plus-minus",
+    "keyed": "figma",
+    "primary": false,
+    "dependsOn": [],
+    "js": false,
+    "vendor": []
+  },
+  "17365f41b5e9075b0641fb036fd5cc7509297909": {
+    "component": "atoms/icon",
+    "level": "atom",
+    "figmaName": "Icon/Arrow diagonal",
+    "keyed": "figma",
+    "primary": false,
+    "dependsOn": [],
+    "js": false,
+    "vendor": []
+  },
+  "3cfe7f536e43af81b5b5024d86fc46693cae9a5e": {
+    "component": "atoms/label",
+    "level": "atom",
+    "figmaName": "Label",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [],
+    "js": false,
+    "vendor": []
+  },
+  "c3177d8df4a522ffb2f010c17aca54a5727fda94": {
+    "component": "atoms/link",
+    "level": "atom",
+    "figmaName": "Link",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [
+      "atoms/icon"
+    ],
+    "js": false,
+    "vendor": []
+  },
+  "cde2236c3332b0e3e9a795cd5086415b88cd3bf1": {
+    "component": "atoms/nav-link",
+    "level": "atom",
+    "figmaName": "Nav link",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [],
+    "js": false,
+    "vendor": []
+  },
+  "11bc5c47bf5a2fe388c65a9f3b1a7349c61b3d88": {
+    "component": "atoms/nav-link",
+    "level": "atom",
+    "figmaName": "Nav CTA",
+    "keyed": "figma",
+    "primary": false,
+    "dependsOn": [],
+    "js": false,
+    "vendor": []
+  },
+  "24afa85be0adf93b4388fe06a55ee4993eaa2185": {
+    "component": "atoms/nav-link",
+    "level": "atom",
+    "figmaName": "Icon/Burger",
+    "keyed": "figma",
+    "primary": false,
+    "dependsOn": [],
+    "js": false,
+    "vendor": []
+  },
+  "d299d3de4b9901007523830153da0fbc0efb8126": {
+    "component": "atoms/number",
+    "level": "atom",
+    "figmaName": "Letter circle",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [],
+    "js": false,
+    "vendor": []
+  },
+  "af5e7f572b89b785686f5940b8fbfec5cfb79d19": {
+    "component": "atoms/number",
+    "level": "atom",
+    "figmaName": "Page number",
+    "keyed": "figma",
+    "primary": false,
+    "dependsOn": [],
+    "js": false,
+    "vendor": []
+  },
+  "792391d448c4c2dbb5eb5923d87fc7c5481db89a": {
+    "component": "atoms/social-button",
+    "level": "atom",
+    "figmaName": "Icon/Social",
+    "keyed": "figma",
+    "primary": false,
+    "dependsOn": [],
+    "js": false,
+    "vendor": []
+  },
+  "e3f501faa0c5e49545bda6ef056571eaee8797e7": {
+    "component": "atoms/social-button",
+    "level": "atom",
+    "figmaName": "Social button",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [],
+    "js": false,
+    "vendor": []
+  },
+  "75c2fc84d94cbe899f4a4b2ef8588fac37cee2ee": {
+    "component": "atoms/tag",
+    "level": "atom",
+    "figmaName": "Tag",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [],
+    "js": false,
+    "vendor": []
+  },
+  "38d41b08e473289e115257c0691e1b6cca37a9d3": {
+    "component": "atoms/text",
+    "level": "atom",
+    "figmaName": "Text",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [],
+    "js": false,
+    "vendor": []
+  },
+  "base": {
+    "component": "base",
+    "level": "base",
+    "figmaName": null,
+    "keyed": "name",
+    "primary": true,
+    "dependsOn": [],
+    "js": false,
+    "vendor": []
+  },
+  "eba390985160782cbefb90cd1103f7f9171daa66": {
+    "component": "molecules/accordion",
+    "level": "molecule",
+    "figmaName": "Accordion/Item",
+    "keyed": "figma",
+    "primary": false,
+    "dependsOn": [
+      "atoms/icon",
+      "atoms/text"
+    ],
+    "js": true,
+    "vendor": [
+      "gsap"
+    ]
+  },
+  "7443fdc27a5fa40e735355a67015b90d3be0a285": {
+    "component": "molecules/accordion",
+    "level": "molecule",
+    "figmaName": "Accordion",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [
+      "atoms/icon",
+      "atoms/text"
+    ],
+    "js": true,
+    "vendor": [
+      "gsap"
+    ]
+  },
+  "361a5870c332d4f6f1a17463c95403b4834da68e": {
+    "component": "molecules/accordion-challenge",
+    "level": "molecule",
+    "figmaName": "Accordion/Challenge",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [
+      "atoms/icon",
+      "atoms/link",
+      "atoms/text",
+      "molecules/accordion"
+    ],
+    "js": false,
+    "vendor": [
+      "gsap"
+    ]
+  },
+  "0673954347a8464dd6e1b3143c08b906fff1a690": {
+    "component": "molecules/badge-circular",
+    "level": "molecule",
+    "figmaName": "Badge/Circular",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [
+      "atoms/icon"
+    ],
+    "js": false,
+    "vendor": []
+  },
+  "Benefits": {
+    "component": "molecules/benefits",
+    "level": "molecule",
+    "figmaName": "Benefits",
+    "keyed": "name",
+    "primary": true,
+    "dependsOn": [
+      "atoms/icon",
+      "atoms/tag"
+    ],
+    "js": false,
+    "vendor": []
+  },
+  "a57594228f8ccaa03b118fc1190e550b5dacb3e3": {
+    "component": "molecules/card-contact",
+    "level": "molecule",
+    "figmaName": "Card/Contact",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [
+      "atoms/icon",
+      "atoms/link",
+      "atoms/social-button",
+      "atoms/text",
+      "molecules/social-row"
+    ],
+    "js": false,
+    "vendor": []
+  },
+  "2f21efc58c8cab35bd6a1140d568314b5cc49d6f": {
+    "component": "molecules/card-hero-tile",
+    "level": "molecule",
+    "figmaName": "Card/Hero tile",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [
+      "atoms/button",
+      "atoms/icon",
+      "atoms/link",
+      "atoms/tag",
+      "atoms/text"
+    ],
+    "js": false,
+    "vendor": []
+  },
+  "76c2a0d8a3729c5eef02c5d36b2beebff289a5d0": {
+    "component": "molecules/card-industry-step",
+    "level": "molecule",
+    "figmaName": "Card/Industry step",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [
+      "atoms/number",
+      "atoms/text"
+    ],
+    "js": false,
+    "vendor": []
+  },
+  "24271228fd10ebb92031c7182aa7afd701d56b8b": {
+    "component": "molecules/card-partner",
+    "level": "molecule",
+    "figmaName": "Card/Partner",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [
+      "atoms/text"
+    ],
+    "js": false,
+    "vendor": []
+  },
+  "161618157437a73ed7e1bf04c875750296469f39": {
+    "component": "molecules/card-person",
+    "level": "molecule",
+    "figmaName": "Card/Person",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [
+      "atoms/text"
+    ],
+    "js": false,
+    "vendor": []
+  },
+  "ab4341b5eeb8863997ceac78deb92716801e8ad0": {
+    "component": "molecules/card-post",
+    "level": "molecule",
+    "figmaName": "Card/Post",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [
+      "atoms/button",
+      "atoms/icon",
+      "atoms/tag",
+      "atoms/text"
+    ],
+    "js": false,
+    "vendor": []
+  },
+  "d06760be1879644622f8fa815373ea953f6016ff": {
+    "component": "molecules/card-product",
+    "level": "molecule",
+    "figmaName": "Card/Product",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [
+      "atoms/badge-pill",
+      "atoms/button",
+      "atoms/icon",
+      "atoms/label",
+      "atoms/link",
+      "atoms/text"
+    ],
+    "js": false,
+    "vendor": []
+  },
+  "634e341b3a6fc73c761c76fa48b06f99fce2a519": {
+    "component": "molecules/card-program",
+    "level": "molecule",
+    "figmaName": "Card/Program",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [
+      "atoms/button",
+      "atoms/icon",
+      "atoms/text"
+    ],
+    "js": false,
+    "vendor": []
+  },
+  "ff36295af0c771f6ab2b93557092929cb15719f6": {
+    "component": "molecules/card-recommendation",
+    "level": "molecule",
+    "figmaName": "Card/Recommendation",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [
+      "atoms/icon",
+      "atoms/tag",
+      "atoms/text",
+      "molecules/badge-circular",
+      "molecules/benefits",
+      "molecules/check-item"
+    ],
+    "js": false,
+    "vendor": []
+  },
+  "3187bac3bd19c3252fa2de6af1bb9585c8a0b2d9": {
+    "component": "molecules/card-testimonial",
+    "level": "molecule",
+    "figmaName": "Card/Testimonial",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [
+      "atoms/text"
+    ],
+    "js": false,
+    "vendor": []
+  },
+  "7e6a224290de7a671997ed8babc91c2745fd1b38": {
+    "component": "molecules/card-tile",
+    "level": "molecule",
+    "figmaName": "Card/Tile",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [
+      "atoms/text"
+    ],
+    "js": false,
+    "vendor": []
+  },
+  "ecbfe7662e5c4f2d2c390c4ff33189cc1da51935": {
+    "component": "molecules/card-training",
+    "level": "molecule",
+    "figmaName": "Card/Training",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [
+      "atoms/button",
+      "atoms/icon",
+      "atoms/tag",
+      "atoms/text",
+      "molecules/accordion",
+      "molecules/benefits",
+      "molecules/check-item"
+    ],
+    "js": false,
+    "vendor": [
+      "gsap"
+    ]
+  },
+  "8b2e3c07e3166c2f703ed8144b71cd6a7b85dec9": {
+    "component": "molecules/check-item",
+    "level": "molecule",
+    "figmaName": "Check item",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [],
+    "js": false,
+    "vendor": []
+  },
+  "3f0426a337827ef0fc20c26b957f8bc1c067ba4d": {
+    "component": "molecules/heading-group",
+    "level": "molecule",
+    "figmaName": "Heading group",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [
+      "atoms/text"
+    ],
+    "js": false,
+    "vendor": []
+  },
+  "e11689a1d519ef641eeb697c587ffebafefce5b5": {
+    "component": "molecules/model-step",
+    "level": "molecule",
+    "figmaName": "Model step",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [
+      "atoms/number"
+    ],
+    "js": false,
+    "vendor": []
+  },
+  "28f95b22677c42082862dd7c232e840ab221a0e3": {
+    "component": "molecules/model-word",
+    "level": "molecule",
+    "figmaName": "Model word",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [
+      "atoms/number"
+    ],
+    "js": false,
+    "vendor": []
+  },
+  "Numbered list": {
+    "component": "molecules/numbered-list",
+    "level": "molecule",
+    "figmaName": "Numbered list",
+    "keyed": "name",
+    "primary": true,
+    "dependsOn": [
+      "atoms/number",
+      "atoms/text"
+    ],
+    "js": false,
+    "vendor": []
+  },
+  "5e6c4004d4db5c6d0ea4e37989cc95e84fac1419": {
+    "component": "molecules/pagination",
+    "level": "molecule",
+    "figmaName": "Pagination",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [
+      "atoms/carousel-controls",
+      "atoms/icon",
+      "atoms/number"
+    ],
+    "js": false,
+    "vendor": []
+  },
+  "6b83063f1ffc9f7088d95cc5905aeb8622a0631f": {
+    "component": "molecules/pagination",
+    "level": "molecule",
+    "figmaName": "Pagination/Pages",
+    "keyed": "figma",
+    "primary": false,
+    "dependsOn": [
+      "atoms/carousel-controls",
+      "atoms/icon",
+      "atoms/number"
+    ],
+    "js": false,
+    "vendor": []
+  },
+  "9a7fe2ff81aecc51390cef92c8cac63af7d59c6c": {
+    "component": "molecules/social-row",
+    "level": "molecule",
+    "figmaName": "Social row",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [
+      "atoms/social-button"
+    ],
+    "js": false,
+    "vendor": []
+  },
+  "15f56e1a39c4008cf9d06f5ed4d1984d1a3d2e5f": {
+    "component": "organisms/buy-box",
+    "level": "organism",
+    "figmaName": "Buy box",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [
+      "atoms/button",
+      "atoms/form-field",
+      "atoms/icon"
+    ],
+    "js": true,
+    "vendor": []
+  },
+  "2330d37094a52cfa2ff56dd8cfb5582c400f7d3b": {
+    "component": "organisms/call-to-action",
+    "level": "organism",
+    "figmaName": "Call to action",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [
+      "atoms/button",
+      "atoms/icon",
+      "atoms/link",
+      "atoms/text",
+      "molecules/badge-circular"
+    ],
+    "js": false,
+    "vendor": []
+  },
+  "88ad915e431d419a652a1b076fd3f761ff709bfa": {
+    "component": "organisms/carousel",
+    "level": "organism",
+    "figmaName": "Carousel",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [
+      "atoms/carousel-controls",
+      "atoms/icon",
+      "atoms/text",
+      "molecules/heading-group"
+    ],
+    "js": true,
+    "vendor": [
+      "swiper"
+    ]
+  },
+  "7ffb12862bde1b274cab7d223b8e60185d3af091": {
+    "component": "organisms/footer",
+    "level": "organism",
+    "figmaName": "Footer",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [
+      "atoms/form-field",
+      "atoms/icon",
+      "atoms/link",
+      "atoms/social-button",
+      "molecules/social-row"
+    ],
+    "js": false,
+    "vendor": []
+  },
+  "d3df90844c5da3390305098637d37bb6403eef2b": {
+    "component": "organisms/header",
+    "level": "organism",
+    "figmaName": "Header",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [
+      "atoms/button",
+      "atoms/icon",
+      "atoms/nav-link",
+      "atoms/text",
+      "molecules/accordion",
+      "organisms/mega-menu",
+      "organisms/mobile-menu"
+    ],
+    "js": true,
+    "vendor": [
+      "gsap"
+    ]
+  },
+  "991e4c0c9b44b02dff42f8b81283e7e8fe0a82f4": {
+    "component": "organisms/mega-menu",
+    "level": "organism",
+    "figmaName": "Mega menu",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [
+      "atoms/button",
+      "atoms/icon"
+    ],
+    "js": false,
+    "vendor": []
+  },
+  "e90e011e2f396bd0963a786437bba16310d177c4": {
+    "component": "organisms/mobile-menu",
+    "level": "organism",
+    "figmaName": "Mobile menu",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [
+      "atoms/button",
+      "atoms/icon",
+      "atoms/text",
+      "molecules/accordion"
+    ],
+    "js": true,
+    "vendor": [
+      "gsap"
+    ]
+  },
+  "ad7884540b9a67cb17b8470bd7395544594f0079": {
+    "component": "sections/faq",
+    "level": "section",
+    "figmaName": "Section/FAQ",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [
+      "atoms/icon",
+      "atoms/text",
+      "molecules/accordion",
+      "molecules/heading-group"
+    ],
+    "js": false,
+    "vendor": [
+      "gsap"
+    ]
+  },
+  "1db4fdd6042608219cc0b57d4e5f8f0ae915d23c": {
+    "component": "sections/hero",
+    "level": "section",
+    "figmaName": "Section/Hero",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [
+      "atoms/breadcrumbs",
+      "atoms/button",
+      "atoms/icon",
+      "atoms/link",
+      "atoms/tag",
+      "atoms/text",
+      "molecules/card-hero-tile"
+    ],
+    "js": false,
+    "vendor": []
+  },
+  "d907441ba81a1ce8cd4ecedc85b6c5c8cc11a5bc": {
+    "component": "sections/testimonials",
+    "level": "section",
+    "figmaName": "Section/Testimonials",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [
+      "atoms/carousel-controls",
+      "atoms/icon",
+      "atoms/text",
+      "molecules/card-testimonial",
+      "molecules/heading-group",
+      "organisms/carousel"
+    ],
+    "js": false,
+    "vendor": [
+      "swiper"
+    ]
+  },
+  "8ba8250fcb3ab37c22e19b3b98c7d7b031bc61a7": {
+    "component": "sections/text-image",
+    "level": "section",
+    "figmaName": "Section/Text + image",
+    "keyed": "figma",
+    "primary": true,
+    "dependsOn": [
+      "atoms/button",
+      "atoms/icon",
+      "atoms/link",
+      "atoms/number",
+      "atoms/text",
+      "molecules/badge-circular",
+      "molecules/heading-group",
+      "molecules/numbered-list"
+    ],
+    "js": false,
+    "vendor": []
+  }
+}
