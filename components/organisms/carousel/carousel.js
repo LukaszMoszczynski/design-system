@@ -9,6 +9,9 @@
 //   the counter text, and a dot click slides there.
 // - Only links in slides fully on screen are in the tab order (otherwise Tab slides the loop on for ever, WCAG 2.1.2);
 //   the others leave it and come back when they slide in.
+// - data-ds-centered: Swiper centres the active slide (from the second one on desktop) and the script puts is-active on
+//   it, the card's active look (Card/Testimonial); from 1025 px all items are whole cards (an even count would halve the
+//   outer two around a centred one).
 // - prefers-reduced-motion: the slide speed is 0. The gap follows the --carousel-slide-gap token (per brand, per breakpoint).
 // Without window.Swiper nothing is wired: the slides stay a scrollable row (carousel.css) and init can run again once
 // Swiper has loaded. Classic script, idempotent through data-ds-ready (see components/README.md, JS convention).
@@ -66,11 +69,12 @@
     const usesCounter = element.dataset.dsPagination === 'counter';
     const dots = usesCounter ? null : element.querySelector('[data-ds-carousel-dots]');
     const counter = usesCounter ? element.querySelector('.ds-carousel-controls__counter') : null;
+    const centered = 'dsCentered' in element.dataset;
     const breakpoints = {
       // 782 = the phone/tablet switch of the tokens (max-width: 781px): tablets show a peek.
       782: { slidesPerView: Math.min(2, items) + 0.15 },
       // Desktop: whole cards only.
-      1025: { slidesPerView: Math.min(2, items) },
+      1025: { slidesPerView: centered ? items : Math.min(2, items) },
       1200: { slidesPerView: items },
     };
     const mostInView = Math.max(1, ...Object.values(breakpoints).map((breakpoint) => Math.ceil(breakpoint.slidesPerView)));
@@ -86,6 +90,7 @@
         else dot.removeAttribute('aria-current');
       });
       if (counter) counter.textContent = `${active + 1} / ${count}`;
+      if (centered) slides.forEach((slide, index) => slide.classList.toggle('is-active', index === active));
     }
 
     // Slides fully inside the viewport (1 px of slack for rounding) keep their links tabbable. A slide wider than the
@@ -121,6 +126,9 @@
       spaceBetween: slideGap(element),
       watchOverflow: true,
       watchSlidesProgress: true,
+      centeredSlides: centered,
+      // Desktop shows the second card in the middle, as in Figma; a phone starts at the first.
+      initialSlide: centered && count > 2 && window.innerWidth >= 1200 ? 1 : 0,
       breakpoints,
       navigation: { prevEl: prev, nextEl: next, disabledClass: 'is-disabled', lockClass: 'is-locked', hiddenClass: 'is-hidden' },
       a11y: {

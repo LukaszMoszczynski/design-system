@@ -6,7 +6,7 @@ CSS: `atoms/icon/icon.css`, `atoms/text/text.css`, `atoms/carousel-controls/caro
 `molecules/heading-group/heading-group.css`, the CSS of the cards in the slides + `organisms/carousel/carousel.css`.
 JS: `organisms/carousel/carousel.js` (needs `window.Swiper`, Swiper 11).
 
-- `renderCarousel({ slides, items, nav, pagination, heading, ariaLabel, id })`:
+- `renderCarousel({ slides, items, nav, pagination, heading, ariaLabel, id, centered })`:
   - `slides`: an array of markup strings, one card each (any card template: `renderCardProgram`, `renderCardTile`,
     `renderCardPost`…). Each goes into an `li.ds-carousel__slide`.
   - `items` (`2`, `3`, `4`; default 3): whole cards per view from 1200 px (`data-ds-items`).
@@ -14,6 +14,8 @@ JS: `organisms/carousel/carousel.js` (needs `window.Swiper`, Swiper 11).
   - `pagination` (`dots`, `counter`; default dots): one dot per slide, or the „3 / 16” counter (`data-ds-pagination`).
   - `heading`: the Heading group args (`overline`, `title`, `lead`, `leadStrong`, `headingTag`, `variant`), or `null`.
     With `nav: 'above-right'` the group is split unless `heading.variant` says otherwise.
+  - `centered` (default false): the active slide sits in the middle and gets `is-active` (`data-ds-centered`; the
+    Testimonials section's primary centre card). From 1025 px all `items` are whole cards; desktop starts on the second slide.
   - `ariaLabel`: the region name (default: the heading title, else „Karuzela”). `id`: the track id (aria-controls of
     the arrows); the script makes one when it is empty.
 
@@ -43,6 +45,7 @@ JS: `organisms/carousel/carousel.js` (needs `window.Swiper`, Swiper 11).
   | `.ds-carousel[data-ds-carousel]` | carousel.js | the element the script wires; without `data-ds-carousel` nothing happens |
   | `data-ds-items="2\|3\|4"` | carousel.js, carousel.css | cards per view from 1200 px: the breakpoints, the loop rule and the row without Swiper |
   | `data-ds-nav="below\|beside-heading\|above-right"` | carousel.css | the nav placement. It must match where `div.ds-carousel__nav` sits: after the clip (below), last in `div.ds-carousel__head` after the heading group (beside-heading), or between the head and the clip (above-right) |
+  | `data-ds-centered` (optional) | carousel.js | the active slide in the middle, marked `is-active` (Card/Testimonial's active look) |
   | `data-ds-pagination="dots\|counter"` | carousel.js | which control the script keeps in step: the dots' `aria-current` or the counter text. Render the matching Carousel controls (`counter: true` for counter) |
   | `.ds-carousel__viewport > .ds-carousel__track > .ds-carousel__slide` | carousel.js | the Swiper element, its wrapperClass and slideClass; any card inside a slide |
   | `[data-ds-carousel-prev]`, `[data-ds-carousel-next]`, `[data-ds-carousel-dots]` with `[data-ds-dot]`, `.ds-carousel-controls__counter` | carousel.js | the Carousel controls atom's hooks |
@@ -61,6 +64,8 @@ JS: `organisms/carousel/carousel.js` (needs `window.Swiper`, Swiper 11).
   - the arrows get `aria-controls` (the track id); a dot click slides there, the current dot gets `aria-current`, the
     counter text follows the slide;
   - only the links of slides fully on screen stay in the tab order (WCAG 2.1.2); the others come back when they slide in;
+  - `data-ds-centered`: `centeredSlides`, the second slide first from 1200 px (with more than two slides), and
+    `is-active` on the active `li.ds-carousel__slide` (Card/Testimonial draws its active look there);
   - `prefers-reduced-motion: reduce`: speed 0 (instant). Swiper does the motion, not GSAP;
   - without `window.Swiper` nothing is wired: the slides stay a row that scrolls sideways with snap, the controls are
     hidden. Call `init()` again once Swiper has loaded. It is idempotent (`data-ds-ready`).

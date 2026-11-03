@@ -1,0 +1,50 @@
+/* Testimonials (.dcc-opinie, blocks/opinie/style.css): section.ds-testimonials > .ds-testimonials__container >
+   .ds-testimonials__head (a centred Heading group) + the Carousel organism (centred, Card/Testimonial slides).
+   The cards and the carousel draw themselves; this file spaces them as Figma does. */
+.ds-testimonials {
+  padding-block: var(--space-section-y);
+}
+
+.ds-testimonials__container {
+  box-sizing: content-box;
+  max-width: var(--size-container);
+  margin-inline: auto;
+  padding-inline: var(--space-gutter);
+}
+
+/* Missing token: the 84 px under the heading (the site: clamp(32px, 6vw, 84px)); built from the spacing scale. */
+.ds-testimonials__head {
+  margin-bottom: calc(var(--space-40) * 2 + var(--space-4));
+}
+
+/* The controls 64 px under the slides (the carousel's own offset is 40). */
+.ds-testimonials .ds-carousel[data-ds-nav='below'] > .ds-carousel__nav {
+  padding-top: var(--space-64);
+}
+
+/* Phones: the heading on the left, 32 px gaps, dots only (Figma Mobile; the site hides the arrows unless a counter
+   stands in for the dots). */
+@media (max-width: 781px) {
+  .ds-testimonials__head {
+    margin-bottom: var(--space-32);
+  }
+
+  .ds-testimonials__head > .ds-heading-group {
+    justify-items: start;
+    margin-inline: 0;
+    text-align: start;
+  }
+
+  .ds-testimonials .ds-carousel[data-ds-nav] > .ds-carousel__nav {
+    padding-top: var(--space-32);
+  }
+
+  .ds-testimonials .ds-carousel[data-ds-pagination='dots'] .ds-carousel-arrow {
+    display: none;
+  }
+}
+
+/* Figma breaks the title greedily (base.css balances headings). */
+.ds-testimonials__head .ds-heading-group__title {
+  text-wrap: wrap;
+}

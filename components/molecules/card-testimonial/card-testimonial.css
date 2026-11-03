@@ -13,7 +13,9 @@
   transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-.ds-card-testimonial.is-active {
+.ds-card-testimonial.is-active,
+/* The active slide of a centred carousel (carousel.js data-ds-centered: the testimonials' middle card). */
+.ds-carousel__slide.is-active > .ds-card-testimonial {
   background: var(--color-surface-brand);
   color: var(--color-text-on-brand);
 }

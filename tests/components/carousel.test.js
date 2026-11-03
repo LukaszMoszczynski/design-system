@@ -185,6 +185,37 @@ describe('carousel script', () => {
     expect(instances).toHaveLength(1);
   });
 
+  // Centered (data-ds-centered, the testimonials): Swiper centres the active slide, which carries is-active (the card's
+  // active look); from 1025 px every item is a whole card (an even count would cut the outer cards in half).
+  it('centered: centredSlides, whole cards from 1025 px, the second slide first on desktop', () => {
+    document.body.innerHTML = renderCarousel({ slides: slides(6), centered: true }) + renderCarousel({ slides: slides(6) });
+    loadScript(SCRIPT, window);
+    const [centered, plain] = instances.map((instance) => instance.params);
+    expect(centered.centeredSlides).toBe(true);
+    expect(centered.breakpoints[1025].slidesPerView).toBe(3);
+    expect(centered.initialSlide).toBe(1);
+    expect(plain.centeredSlides).toBeFalsy();
+    expect(plain.initialSlide ?? 0).toBe(0);
+  });
+
+  it('centered: the active slide gets is-active and it follows the slide', () => {
+    document.body.innerHTML = renderCarousel({ slides: slides(6), centered: true });
+    loadScript(SCRIPT, window);
+    const active = () => [...document.querySelectorAll('.ds-carousel__slide')].map((slide) => slide.classList.contains('is-active'));
+    instances[0].realIndex = 1;
+    instances[0].params.on.slideChange(instances[0]);
+    expect(active()).toEqual([false, true, false, false, false, false]);
+    instances[0].slideToLoop(4);
+    expect(active()).toEqual([false, false, false, false, true, false]);
+  });
+
+  it('not centered: no slide gets is-active', () => {
+    document.body.innerHTML = renderCarousel({ slides: slides(6) });
+    loadScript(SCRIPT, window);
+    instances[0].slideToLoop(2);
+    expect(document.querySelectorAll('.ds-carousel__slide.is-active')).toHaveLength(0);
+  });
+
   it('without window.Swiper the slides stay a plain row', () => {
     delete window.Swiper;
     document.body.innerHTML = renderCarousel({ slides: slides(5) });
@@ -208,6 +239,11 @@ describe('carousel template', () => {
     expect(markup).toContain('data-ds-pagination="counter"');
     expect(markup).toContain('&lt;b&gt;&quot;Programy&quot;&lt;/b&gt;');
     expect(markup.match(/class="ds-carousel__slide"/g)).toHaveLength(3);
+  });
+
+  it('centered writes data-ds-centered', () => {
+    expect(renderCarousel({ slides: slides(3), centered: true })).toContain('data-ds-centered');
+    expect(renderCarousel({ slides: slides(3) })).not.toContain('data-ds-centered');
   });
 
   it('falls back to 3 items, nav below and dots for unknown values', () => {
