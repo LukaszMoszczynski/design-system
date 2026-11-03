@@ -44,14 +44,14 @@ export default {
 export const Playground = {};
 
 // Figma Section/Testimonials has one desktop layout: the carousel with the centre card active, and the three-card row
-// without sliding (no Swiper: a scroll-snap row, nothing active).
+// with only three testimonials (nothing to slide). Each carousel region gets its own name (one landmark name per page).
 export const Overview = {
   ...OVERVIEW_STATE,
   render: () =>
     overviewGrid(
       [
         overviewCell('Desktop: six testimonials, looping, the centre card active', renderTestimonials()),
-        overviewCell('Three testimonials: all in view, nothing to slide (the controls hide)', renderTestimonials({ items: DEFAULT_TESTIMONIALS.slice(0, 3) })),
+        overviewCell('Three testimonials: all in view, nothing to slide (the controls hide)', renderTestimonials({ items: DEFAULT_TESTIMONIALS.slice(0, 3), ariaLabel: 'Trzy opinie klientów' })),
       ],
       '1240px',
     ),

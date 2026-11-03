@@ -60,7 +60,8 @@ export const Overview = {
   ...OVERVIEW_STATE,
   render: () =>
     overviewGrid(
-      HERO_VARIANTS.map((variant) => overviewCell(variant, hero({ variant }), true)),
+      // One trail on the page: several navs with the same name would repeat a landmark.
+      HERO_VARIANTS.map((variant) => overviewCell(variant, hero({ variant, breadcrumbs: variant === 'subpage-light' ? undefined : [] }), true)),
       '1240px',
     ),
 };

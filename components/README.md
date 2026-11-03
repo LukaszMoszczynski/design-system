@@ -119,6 +119,13 @@ enqueues them.
 - **Header**: the Mega menu panel sits inside the Oferta `li`, right after its toggle (focus order); the Mobile menu
   after the bar. Load `header.js` and `mobile-menu.js` (and `accordion.js` for the drawer's Oferta row).
 
+## Sections
+
+`sections/<name>` (Hero, Text + image, FAQ, Testimonials) build their markup only by calling the `render*` functions of
+the parts they compose (from the `*.template.js` files, never from stories); their own CSS places those parts (and paints
+a section surface such as the hero box). `Sections/Overview` stacks all four on one page to judge the brand and theme
+switch. The carousel's `centered` option (`data-ds-centered`) is the testimonials' centre card.
+
 ## Documenting a component
 
 For each component give: the markup with every class and attribute, the CSS files to copy, the JS file and its `init`
