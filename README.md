@@ -37,3 +37,101 @@ Live at https://lukaszmoszczynski.github.io/design-system/, deployed on every pu
 - Component markup lives in `components/<level>/<name>/<name>.template.js`, which exports
   `render<PascalName>(args)` returning an HTML string; `<name>.stories.js` imports it.
 - Placeholder images: `public/placeholders/*.svg`, referenced as `./placeholders/<name>.svg`.
+
+## Use in a WordPress site
+
+Nothing here is installed as a package: a site copies files. Replace `<brand>` with `dcc` or `omelanski`.
+
+### 1. Tokens, fonts and the brand attribute
+
+1. Copy `dist/tokens/shared.css`, `dist/tokens/<brand>.css` and `brands/<brand>/fonts.css` with its `brands/<brand>/fonts/` folder
+   (keep them side by side: `fonts.css` loads `./fonts/*.woff2`).
+2. Put the brand on `<html>` with the `language_attributes` filter. Dark mode is opt-in with `data-theme="dark"`;
+   leave it out for light.
+
+   ```php
+   add_filter( 'language_attributes', function ( $output ) {
+       return $output . ' data-brand="dcc"'; // add ' data-theme="dark"' only for a dark site
+   } );
+   ```
+
+   The token CSS is scoped to `:root[data-brand="<brand>"]` and `:root[data-theme="dark"]`, so without the
+   attribute the brand colours do not apply.
+3. Merge the `settings` of `dist/wp/<brand>.theme.json` into the theme's `theme.json` (palette, font families, font sizes,
+   spacing, layout). It turns the WordPress core palette, font sizes and spacing sizes off (`defaultPalette`,
+   `defaultFontSizes`, `defaultSpacingSizes` = false, custom values off), so the editor offers brand values only.
+   Fluid type runs between 375 px and 1200 px viewport (`typography.fluid`).
+
+### 2. Component CSS, in this order
+
+Enqueue (all front end and editor) in the order **tokens → base → atoms → molecules → organisms → sections**:
+
+1. `shared.css`, `<brand>.css`, `fonts.css`
+2. `components/base/base.css` (reset and page defaults)
+3. the `components/atoms/<name>/<name>.css` you use
+4. `components/molecules/<name>/…`, then `components/organisms/<name>/…`, then `components/sections/<name>/…`
+
+Copy a component together with the CSS of every part it contains: each component's README lists them under "CSS".
+Copy only what the site uses.
+
+### 3. Markup
+
+Paste the markup from each component's README (`components/<level>/<name>/README.md`; atoms and others are described in
+`components/README.md`, and `<name>.template.js` is the exact source) into the block's `render.php`. Replace the
+interpolated values with `esc_html()` / `esc_attr()` / `esc_url()` echoes. Classes (`ds-*`) and `data-ds-*` attributes stay
+exactly as they are: the CSS and scripts read them (for example the carousel contract in
+`components/organisms/carousel/README.md`).
+
+### 4. JavaScript
+
+Classic scripts, no modules. Enqueue them in the footer in this order:
+
+1. **GSAP and ScrollTrigger** (the owner's animation tool): `window.gsap`, `window.ScrollTrigger`.
+2. **Swiper 11** (`swiper-bundle.min.js` and its CSS), as `window.Swiper`. Needed by `carousel.js`.
+3. The component scripts: `components/base/reveal.js`, `molecules/accordion/accordion.js`,
+   `organisms/carousel/carousel.js`, `organisms/header/header.js`, `organisms/mobile-menu/mobile-menu.js`,
+   `organisms/buy-box/buy-box.js` (only those the site uses). Header and mobile menu go with `accordion.js`.
+
+Every script auto-inits on `DOMContentLoaded` and exposes `window.DS.<name>.init(root)`:
+`reveal`, `accordion`, `carousel`, `header`, `mobileMenu`, `buyBox`. After adding markup later (a Swup page change, an AJAX
+fragment), call `window.DS.<name>.init(container)` for the components in it; handled elements carry `data-ds-ready`, so a
+second call attaches nothing twice. There is no `destroy`: if Swup removes a carousel, Swiper's instance is left to the
+garbage collector with the DOM node.
+
+Without GSAP the components still work (instant instead of animated), and they skip motion under
+`prefers-reduced-motion: reduce`. Scroll reveal needs GSAP and ScrollTrigger.
+
+### Example (one site, DCC)
+
+```php
+wp_enqueue_style( 'ds-tokens', get_theme_file_uri( 'ds/tokens/shared.css' ) );
+wp_enqueue_style( 'ds-brand',  get_theme_file_uri( 'ds/tokens/dcc.css' ), array( 'ds-tokens' ) );
+wp_enqueue_style( 'ds-fonts',  get_theme_file_uri( 'ds/brands/dcc/fonts.css' ), array( 'ds-brand' ) );
+wp_enqueue_style( 'ds-base',   get_theme_file_uri( 'ds/components/base/base.css' ), array( 'ds-brand' ) );
+// atoms, molecules, organisms, sections: each depends on the one before
+wp_enqueue_script( 'gsap', get_theme_file_uri( 'js/gsap.min.js' ), array(), null, true );
+wp_enqueue_script( 'scrolltrigger', get_theme_file_uri( 'js/ScrollTrigger.min.js' ), array( 'gsap' ), null, true );
+wp_enqueue_script( 'swiper', get_theme_file_uri( 'js/swiper-bundle.min.js' ), array(), null, true );
+wp_enqueue_script( 'ds-carousel', get_theme_file_uri( 'ds/components/organisms/carousel/carousel.js' ), array( 'scrolltrigger', 'swiper' ), null, true );
+```
+
+### Contrast (DCC palette)
+
+Some DCC colour pairs (the accent-coloured buttons and tags, for instance) are below WCAG AA. Storybook marks those stories with
+a11y `test: 'todo'`: the a11y panel shows the result, CI does not fail. Changing the palette is the owner's decision, not
+the components'.
+
+## Add a brand
+
+A brand is a mode in the Figma collection **Brand**, not a new file. Omelanski is a placeholder brand that proves the switch.
+
+1. In Figma (file `JfRuc3T6MhLuse40bo2g9W`), collection **Brand**, add a mode named after the brand.
+2. Fill every variable (palette, fonts, radius, layout). Semantic, Breakpoint and Component collections never change per brand.
+3. Set Brand = the new mode on a page frame to preview it.
+4. Sync the tokens (see "Sync tokens"; it runs through Claude with the Figma MCP, because Figma Enterprise variable
+   export is not available): `use_figma` export, `npm run sync:write`, which creates `tokens/brands/<brand>.json`.
+5. `npm run tokens` checks the tokens and builds `dist/tokens/<brand>.css` and `dist/wp/<brand>.theme.json`.
+6. Add `brands/<brand>/fonts.css` and `brands/<brand>/fonts/` (self-hosted woff2), and import it in `.storybook/preview.js`
+   (next to the token CSS imports).
+7. Add the brand to the toolbar `items` in `.storybook/preview.js` and to `BRANDS` in `.storybook/decorators.js`.
+8. Add it to the `BRANDS` list in `tests/token-usage.test.js` and the expected folders in `tests/fonts.test.js`, then run `npm test`.
