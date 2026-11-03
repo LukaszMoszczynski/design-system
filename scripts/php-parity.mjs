@@ -4,6 +4,7 @@
 //    Overview, examples) with its merged args and records every call of an exported render* function: its file, its name
 //    and its args (a JSON copy, the same input the PHP side gets). Nested calls count too (a button inside a card), so a
 //    molecule's args to its atoms are checked as well. An exported render* function no story calls gets one case with {}.
+//    Each top-level Playground call also gets an escaping probe (string args with markup, entities and quotes).
 //    The stories import CSS-free modules, but .storybook/state.js needs a DOM, so this runs inside Vitest (happy-dom)
 //    and needs Vitest's `vi` for the module wrapping.
 // 2. renderInJs(cases, { vi }): fresh, unwrapped template modules render every case in order.
@@ -50,8 +51,9 @@ export async function collectCases({ vi }) {
   const cases = [];
   const seen = new Map();
   let currentStory = '';
+  let depth = 0;
 
-  const record = (file, exportName, args) => {
+  const record = (file, exportName, args, story = currentStory) => {
     let copy;
     try {
       copy = jsonCopy(args);
@@ -61,7 +63,18 @@ export async function collectCases({ vi }) {
     const key = `${file}|${exportName}|${JSON.stringify(copy)}`;
     if (seen.has(key)) return;
     seen.set(key, true);
-    cases.push({ component: componentOf(file), file, exportName, args: copy, story: currentStory });
+    cases.push({ component: componentOf(file), file, exportName, args: copy, story });
+  };
+
+  // The stories' copy has few characters that need escaping, so every Playground render also runs once with each
+  // top-level string arg suffixed by markup, an entity, quotes and an apostrophe (variant names then fall back to the
+  // default, on both sides).
+  const recordEscapingProbe = (file, exportName, args) => {
+    if (!/ · Playground$/.test(currentStory) || !args || typeof args !== 'object') return;
+    const probe = Object.fromEntries(
+      Object.entries(args).map(([key, value]) => [key, typeof value === 'string' && value !== '' ? `${value} <b>&amp;"'</b>` : value]),
+    );
+    record(file, exportName, probe, `${currentStory} · escaping probe`);
   };
 
   const files = templateFiles();
@@ -73,7 +86,13 @@ export async function collectCases({ vi }) {
         if (typeof value === 'function' && /^render[A-Z]/.test(name)) {
           wrapped[name] = (...callArgs) => {
             record(file, name, callArgs[0]);
-            return value(...callArgs);
+            if (depth === 0) recordEscapingProbe(file, name, callArgs[0]);
+            depth += 1;
+            try {
+              return value(...callArgs);
+            } finally {
+              depth -= 1;
+            }
           };
         }
       }
