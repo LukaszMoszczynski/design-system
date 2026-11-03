@@ -1,0 +1,17 @@
+/* FAQ (.dcc-faq, blocks/faq/style.css): section.ds-faq > .ds-faq__container > .ds-faq__head (Heading group) + the
+   Accordion, 48 px below the heading (24 px on phones). The Accordion lays out its own columns (one column: 588 px wide); this file places them. */
+.ds-faq {
+  padding-block: var(--space-section-y);
+}
+
+.ds-faq__container {
+  box-sizing: content-box;
+  max-width: var(--size-container);
+  margin-inline: auto;
+  padding-inline: var(--space-gutter);
+}
+
+.ds-faq__head {
+  margin-bottom: var(--space-heading-bottom);
+}
+
