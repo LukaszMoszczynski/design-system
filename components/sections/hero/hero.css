@@ -1,0 +1,330 @@
+/* Hero (.dcc-hero, blocks/hero/style.css): section.ds-hero > .ds-hero__box (photo, .ds-hero__inner > .ds-hero__content
+   + .ds-hero__illustration) + ul.ds-hero__tiles + .ds-hero__crumbs. Text styles come from the Text atom, the button
+   from Button, the tiles from Card/Hero tile; this file lays them out and paints the box. */
+.ds-hero {
+  display: flex;
+  flex-direction: column;
+}
+
+.ds-hero__box {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  box-sizing: border-box;
+  background: var(--color-surface-brand);
+  color: var(--color-text-on-brand);
+}
+
+.ds-hero__inner {
+  position: relative;
+  box-sizing: content-box;
+  max-width: var(--size-container);
+  margin-inline: auto;
+  padding-inline: var(--space-gutter);
+}
+
+.ds-hero__content {
+  position: relative;
+  z-index: 1;
+}
+
+.ds-hero__title {
+  margin: 0;
+  color: inherit;
+}
+
+/* The wrappers take their parts' metrics, so the line box is the Text style's (no taller strut). */
+.ds-hero__lead {
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+/* Figma breaks the copy greedily (base.css balances headings and avoids short last lines). */
+.ds-hero :is(.ds-hero__title, .ds-hero__lead, .ds-hero__subtitle) {
+  text-wrap: wrap;
+}
+
+/* Large and Contact: the photo box, its blue fade, the content 182 px down in a 700 px column. */
+.ds-hero__photo {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ds-hero--large .ds-hero__box,
+.ds-hero--contact .ds-hero__box {
+  min-height: var(--hero-large-min-height);
+  padding-block: var(--hero-large-padding-top) var(--hero-large-padding-bottom);
+}
+
+/* The fade from the left: solid past the photo's own blue edge, then soft (Figma 31 / 42 / 54 / 64 %). */
+.ds-hero.has-photo .ds-hero__box::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    90deg,
+    var(--color-surface-brand) 0%,
+    var(--color-surface-brand) 31%,
+    color-mix(in srgb, var(--color-surface-brand) 70%, transparent) 42%,
+    color-mix(in srgb, var(--color-surface-brand) 25%, transparent) 54%,
+    transparent 64%
+  );
+}
+
+.ds-hero--contact.has-photo .ds-hero__box::before {
+  background: linear-gradient(
+    90deg,
+    var(--color-surface-brand) 0%,
+    var(--color-surface-brand) 37%,
+    color-mix(in srgb, var(--color-surface-brand) 75%, transparent) 47%,
+    color-mix(in srgb, var(--color-surface-brand) 30%, transparent) 58%,
+    transparent 70%
+  );
+}
+
+.ds-hero--large .ds-hero__content,
+.ds-hero--contact .ds-hero__content {
+  max-width: var(--hero-content-max);
+}
+
+.ds-hero--large .ds-hero__lead {
+  max-width: var(--hero-lead-max);
+  margin-top: var(--hero-lead-gap);
+}
+
+.ds-hero--large .ds-hero__subtitle {
+  margin-top: var(--hero-subtitle-gap);
+}
+
+.ds-hero__buttons {
+  display: flex;
+  margin-top: var(--hero-button-gap);
+}
+
+/* Contact: a large two-tone lead in the heading font, the button 64 px below. */
+.ds-hero--contact .ds-hero__lead {
+  max-width: var(--hero-contact-lead-max);
+  margin-top: var(--hero-lead-gap);
+  font-size: var(--font-size-lead-large);
+  line-height: var(--line-height-lead-large);
+}
+
+.ds-hero--contact .ds-hero__lead > .ds-text {
+  font-family: var(--font-heading);
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.ds-hero--contact .ds-hero__buttons {
+  margin-top: var(--hero-contact-button-gap);
+}
+
+/* On the blue box the Light button keeps an accent circle at rest (hover and focus are the Button's own look). */
+.ds-hero .ds-button--light:not(:hover, :focus-visible) .ds-button__icon {
+  background: var(--color-brand-accent);
+}
+
+/* The tiles: three in a 1104 px row overlapping the box bottom by 65 px. */
+.ds-hero__tiles {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--hero-tiles-gap);
+  box-sizing: content-box;
+  width: calc(100% - var(--space-gutter) * 2);
+  max-width: var(--hero-tiles-width);
+  margin: calc(var(--hero-tiles-overlap) * -1) auto 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-hero__tile {
+  display: flex;
+  min-width: 0;
+}
+
+.ds-hero__tile > .ds-card-hero-tile {
+  flex: 1 1 auto;
+}
+
+/* Subpage: a 420 px gradient box, the title 142 px down, an accent title, a 3XL white lead, an accent 2XL subtitle. */
+.ds-hero--subpage .ds-hero__box {
+  min-height: var(--hero-subpage-min-height);
+  padding-block: var(--hero-subpage-padding-top) var(--hero-subpage-padding-bottom);
+}
+
+.ds-hero--subpage-light .ds-hero__box {
+  background: linear-gradient(90deg, var(--color-surface-soft) 0%, var(--color-surface-brand) 45.2%, var(--color-surface-brand) 100%);
+}
+
+/* Missing token: the site's dark end is its text colour; brand primary-deep is that colour in Light and stays dark in Dark. */
+.ds-hero--subpage-violet .ds-hero__box {
+  background: linear-gradient(90deg, var(--color-brand-primary-deep) 0%, var(--color-surface-brand) 60%);
+}
+
+.ds-hero--subpage-orange .ds-hero__box {
+  background: linear-gradient(90deg, var(--color-brand-accent) 0%, var(--color-brand-primary-deep) 22%, var(--color-surface-brand) 60%);
+}
+
+.ds-hero--subpage .ds-hero__content {
+  max-width: var(--hero-subpage-content-max);
+}
+
+.ds-hero--subpage .ds-hero__title {
+  color: var(--color-brand-accent);
+}
+
+.ds-hero--subpage .ds-hero__lead {
+  max-width: var(--hero-subpage-lead-max);
+  margin-top: var(--hero-lead-gap);
+  font-size: var(--font-size-3xl);
+  line-height: var(--font-line-height-3xl);
+}
+
+.ds-hero--subpage .ds-hero__subtitle {
+  margin-top: var(--hero-subpage-subtitle-gap);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-name);
+}
+
+/* The illustration on the right (Figma 360 px, 120 px from the right edge, 30 px from the top). Missing tokens:
+   hero illustration size and offsets (see the Task 9 report); built from the spacing scale meanwhile. */
+.ds-hero__illustration {
+  position: absolute;
+  top: calc(var(--space-28) + var(--space-2));
+  right: calc(var(--space-56) * 2 + var(--space-8));
+  z-index: 0;
+  width: calc(var(--size-160) * 2 + var(--space-40));
+  height: calc(var(--size-160) * 2 + var(--space-40));
+  pointer-events: none;
+}
+
+.ds-hero--subpage .ds-hero__inner {
+  position: static;
+}
+
+.ds-hero__illustration img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Breadcrumbs sit under the box on desktop (the site) and above it on phones (Figma Subpage, Mobile). */
+.ds-hero__crumbs {
+  box-sizing: content-box;
+  width: calc(100% - var(--space-gutter) * 2);
+  max-width: var(--size-container);
+  margin-inline: auto;
+  padding-top: var(--space-16);
+}
+
+/* Tablets: the tiles stack, the illustration goes. */
+@media (max-width: 1024px) {
+  .ds-hero__tiles {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--hero-mobile-tile-gap);
+    margin-top: var(--hero-mobile-tiles-gap);
+  }
+
+  .ds-hero__illustration {
+    display: none;
+  }
+}
+
+/* Phones. */
+@media (max-width: 781px) {
+  /* Large / Contact: the photo above a brand panel (32 px padding), 3XL title, 20 px to the lead, 16 px to the button. */
+  .ds-hero--large .ds-hero__box,
+  .ds-hero--contact .ds-hero__box {
+    min-height: 0;
+    padding: 0;
+    background: transparent;
+  }
+
+  .ds-hero.has-photo .ds-hero__box::before {
+    display: none;
+  }
+
+  .ds-hero__photo {
+    position: static;
+    display: block;
+    height: var(--hero-mobile-photo-height);
+  }
+
+  .ds-hero--large .ds-hero__inner,
+  .ds-hero--contact .ds-hero__inner {
+    padding-block: var(--hero-mobile-padding);
+    background: var(--color-surface-brand);
+  }
+
+  .ds-hero__title > .ds-text--4xl {
+    font-size: var(--font-size-3xl);
+    line-height: var(--font-line-height-3xl);
+  }
+
+  .ds-hero__title {
+    font-size: var(--font-size-3xl);
+    line-height: var(--font-line-height-3xl);
+  }
+
+  .ds-hero--large .ds-hero__lead,
+  .ds-hero--contact .ds-hero__lead {
+    margin-top: var(--hero-mobile-lead-gap);
+  }
+
+  .ds-hero__buttons,
+  .ds-hero--contact .ds-hero__buttons {
+    margin-top: var(--hero-mobile-button-gap);
+  }
+
+  .ds-hero__tiles {
+    width: auto;
+    margin-inline: var(--space-gutter);
+  }
+
+  /* Subpage: breadcrumbs (16 / 20 px) above a deep → primary box (32 px padding); the title reads as an accent
+     overline, the lead stays 3XL white, the subtitle is white body text. */
+  .ds-hero__crumbs {
+    order: -1;
+    padding-block: var(--space-16) var(--space-20);
+  }
+
+  .ds-hero--subpage .ds-hero__box {
+    min-height: 0;
+    padding-block: var(--hero-mobile-padding);
+  }
+
+  .ds-hero--subpage-light .ds-hero__box {
+    background: linear-gradient(90deg, var(--color-brand-primary-deep) 0%, var(--color-surface-brand) 75%);
+  }
+
+  .ds-hero--subpage .ds-hero__title,
+  .ds-hero--subpage .ds-hero__title > .ds-text--4xl {
+    font-family: var(--font-heading);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-overline);
+    line-height: var(--line-height-overline);
+    letter-spacing: calc(var(--font-size-overline) * 0.06);
+    text-transform: uppercase;
+  }
+
+  .ds-hero--subpage .ds-hero__lead {
+    margin-top: var(--hero-mobile-lead-gap);
+  }
+
+  .ds-hero--subpage .ds-hero__subtitle {
+    margin-top: var(--hero-mobile-button-gap);
+    color: var(--color-text-on-brand);
+    font-family: var(--font-body);
+    font-weight: var(--font-weight-regular);
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+  }
+}
