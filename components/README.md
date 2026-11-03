@@ -10,6 +10,7 @@ follows the rules below. `_template/` is a working example of all of them (not s
 | --- | --- |
 | `<name>.css` | Styles. Tokens only (see Guards). Classes are prefixed `ds-`. |
 | `<name>.template.js` | `export function render<PascalName>(args)` returns the HTML string. Text args go through `escapeHtml` from `components/_shared/escape.js`. Stories and sections import it. |
+| `<name>.template.php` | PHP twin: `ds_render_<snake_name>(array $args = []): string` (`renderCardProgram` → `ds_render_card_program`), same args, defaults and HTML. Plain PHP 8.4, no WordPress functions; text through `ds_escape_html` (`_shared/escape.php`), sub-components by `require_once` of the sibling twin, every function and constant guarded so several twins can be loaded together. **Change it together with the template.js**: `npm run test:php` fails on any difference. |
 | `<name>.js` | Optional behaviour, only if the component needs JS. |
 | `<name>.stories.js` | Storybook stories. |
 | `README` section | One entry per component in this file or beside it (see Documenting a component). |
@@ -61,6 +62,18 @@ Other axes keep their own names when they are independent of the look: `shape` (
 `<thing>AriaLabel` (`submitAriaLabel`). A bold lead-in term is `term` (`renderModelStep`, `challengeTerm` /
 `actionTerm` in Card/Industry step), the hashtag of Card/Hero tile is `hashtag`, a pill title above benefits is
 `benefitsTitle`. `tone` stays a text colour (Text atom, Check item list).
+
+## PHP twins (`npm run test:php`)
+
+Every `<name>.template.js` has a `<name>.template.php`; the PHP twin is what a WordPress theme copies. `tests/php-parity.test.js`
+(`scripts/php-parity.mjs`) imports every stories file, records each call of an exported `render*` function during the
+Playground, Overview and example renders (nested calls too, plus an escaping probe per Playground), renders the same args
+in JS and in PHP (`docker run php:8.4-cli php /app/scripts/php-render.php --batch`, one process) and requires identical
+HTML; only whitespace between tags is normalised. A difference fails as `component · story · first differing line`.
+It needs Docker and is skipped with a notice without it; `npm test` runs it too. One component by hand:
+`php scripts/php-render.php button '{"text":"Hej"}' [renderButtonArrow]`.
+The JS value rules the twins share (truthiness, `String()`, `Number()`, `{ text: item.text }` with a missing key) are in
+`components/_shared/values.php`.
 
 ## Guards (run by `npm test`)
 
