@@ -1,3 +1,4 @@
+import { CONTRAST_OFF } from '../../../.storybook/a11y.js';
 import { OVERVIEW_STATE, STATE_ARG_TYPES, overviewCell, overviewGrid } from '../../../.storybook/state.js';
 import { DEFAULT_FAQ } from '../../molecules/accordion/accordion.template.js';
 import { FAQ_HEADING_TAGS, FAQ_VARIANTS, renderFaq } from './faq.template.js';
@@ -30,9 +31,8 @@ export default {
   },
   parameters: {
     stateTargets: ['.ds-faq .ds-accordion-summary'],
-    // DCC palette gap: the accent overline fails colour contrast on the page colour. Reported as a11y todo until the
-    // palette is decided; tokens unchanged.
-    a11y: { test: 'todo' },
+    // DCC palette gap: the accent overline fails colour contrast on the page colour. Colour-contrast is off (the DCC palette contrast is the owner's decision, .storybook/a11y.js); every other a11y rule fails CI.
+    a11y: CONTRAST_OFF,
     docs: {
       description: {
         component:

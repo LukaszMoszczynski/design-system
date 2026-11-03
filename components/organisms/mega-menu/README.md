@@ -4,8 +4,8 @@ Figma: Organisms → Mega menu (`59:51`, one desktop variant). DCC: blocks/naglo
 CSS: `atoms/icon/icon.css`, `atoms/button/button.css` + `organisms/mega-menu/mega-menu.css`.
 JS: none of its own; `organisms/header/header.js` opens and closes it.
 
-- `renderMegaMenu({ id, label, bestsellers, areas, allText, shop, open })`:
-  - `bestsellers`: `[{ title, text, href }]` under the `label` („Szczególnie polecamy”).
+- `renderMegaMenu({ id, text, bestsellers, areas, allText, shop, open })`:
+  - `bestsellers`: `[{ title, text, href }]` under the `text` („Szczególnie polecamy”, `p.ds-mega-menu__label`).
   - `areas`: `[{ name, links: [{ text, href }], href }]`; `href` adds the „Zobacz wszystkie” (`allText`) link.
   - `shop`: `{ title, text, buttonText, href }` (the brand band with a Light pill Button), or `null`.
   - `open`: rendered without `hidden` (the standalone story). It starts hidden inside the Header.

@@ -95,11 +95,6 @@
   margin-top: var(--space-cta-buttons-gap);
 }
 
-/* On the blue card the Light buttons keep an accent circle at rest (hover and focus are the Button's own look). */
-.ds-cta--large .ds-button--light:not(:hover, :focus-visible) .ds-button__icon {
-  background: var(--color-brand-accent);
-}
-
 .ds-cta--large .ds-cta__media {
   height: var(--cta-media-height);
 }
@@ -194,9 +189,9 @@
   margin-top: var(--space-16);
 }
 
+/* The links are uppercase through the Link's own option (renderLink uppercase). */
 .ds-cta--image .ds-link {
   font-weight: var(--font-weight-bold);
-  text-transform: uppercase;
 }
 
 .ds-cta--image .ds-cta__media {

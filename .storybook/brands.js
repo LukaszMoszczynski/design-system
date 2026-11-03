@@ -2,7 +2,8 @@
 //   dist/tokens/<brand>.css (built tokens), brands/<brand>/fonts.css, optional brands/<brand>/brand.json { "title": "…" }.
 import { brandNamesFromPaths, brandTitle } from '../scripts/brands.mjs';
 
-const tokenStyles = import.meta.glob('../dist/tokens/*.css', { eager: true });
+// <brand>.site.css (plain :root, for one-brand sites) is left out: it would paint its brand over every other one.
+const tokenStyles = import.meta.glob(['../dist/tokens/*.css', '!../dist/tokens/*.site.css'], { eager: true });
 import.meta.glob('../brands/*/fonts.css', { eager: true });
 const brandFiles = import.meta.glob('../brands/*/brand.json', { eager: true, import: 'default' });
 

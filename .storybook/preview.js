@@ -5,6 +5,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { BRAND_ITEMS } from './brands.js';
 import { DEFAULT_GLOBALS, followToolbarOnDocsPages, withBrandTheme, withComponentScripts } from './decorators.js';
+import { pasteableSource } from './source.js';
 import { withForcedState } from './state.js';
 
 // Every component stylesheet, base.css included. Components load Swiper and GSAP the way a site does: from window.
@@ -19,6 +20,8 @@ followToolbarOnDocsPages();
 
 /** @type { import('@storybook/html-vite').Preview } */
 const preview = {
+  // Every component gets a Docs page: the docs.description texts and a "Show code" per story.
+  tags: ['autodocs'],
   globalTypes: {
     brand: {
       description: 'Brand',
@@ -57,6 +60,8 @@ const preview = {
     options: {
       storySort: { order: ['Foundations', 'Atoms', 'Molecules', 'Organisms', 'Sections'] },
     },
+    // Show code = the template output (render() before the decorators), minus the Storybook frame: see source.js.
+    docs: { source: { excludeDecorators: true, transform: pasteableSource } },
     // Violations fail the test runner (CI).
     a11y: { test: 'error' },
   },

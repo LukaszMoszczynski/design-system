@@ -1,3 +1,4 @@
+import { CONTRAST_OFF } from '../../.storybook/a11y.js';
 // Sections/Overview: the four example sections stacked as one page, the place to judge the brand and theme switch.
 import { renderFaq } from './faq/faq.template.js';
 import { renderHero } from './hero/hero.template.js';
@@ -11,8 +12,8 @@ import '../base/reveal.js';
 export default {
   title: 'Sections/Overview',
   parameters: {
-    // DCC palette gaps (accent text on the page and on the blue box): a11y todo, as on each section.
-    a11y: { test: 'todo' },
+    // DCC palette gaps (accent text on the page and on the blue box): colour-contrast off, as on each section (owner decision, .storybook/a11y.js).
+    a11y: CONTRAST_OFF,
     docs: { description: { component: 'Hero, Text + image, Testimonials and FAQ on one page. Switch Brand and Theme in the toolbar.' } },
   },
 };

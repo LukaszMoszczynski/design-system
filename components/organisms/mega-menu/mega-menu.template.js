@@ -27,7 +27,7 @@ export const DEFAULT_SHOP = { title: 'Szkolenia otwarte i konsultacje', text: 'K
 
 export function renderMegaMenu({
   id = 'ds-mega-menu',
-  label = 'Szczególnie polecamy',
+  text = 'Szczególnie polecamy',
   bestsellers = DEFAULT_BESTSELLERS,
   areas = DEFAULT_AREAS,
   allText = 'Zobacz wszystkie',
@@ -41,7 +41,7 @@ export function renderMegaMenu({
     )
     .join('');
   const top = bestsellers.length
-    ? `<div class="ds-mega-menu__bestsellers"><p class="ds-mega-menu__label">${escapeHtml(label)}</p><ul class="ds-mega-menu__bestseller-list" role="list">${bestsellerItems}</ul></div>`
+    ? `<div class="ds-mega-menu__bestsellers"><p class="ds-mega-menu__label">${escapeHtml(text)}</p><ul class="ds-mega-menu__bestseller-list" role="list">${bestsellerItems}</ul></div>`
     : '';
   const areaItems = areas
     .map((area) => {

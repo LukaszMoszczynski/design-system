@@ -44,6 +44,23 @@ describe('buildTokens', () => {
     expect(css).not.toContain('prefers-color-scheme');
   });
 
+  it('shared.css sets color-scheme light on :root and dark on the dark block (native controls follow the theme)', () => {
+    const css = read('tokens/shared.css');
+    expect(css).toMatch(/^:root \{\n  color-scheme: light;\n/);
+    expect(css).toContain(':root[data-theme="dark"] {\n  color-scheme: dark;\n');
+  });
+
+  it('<brand>.site.css has the brand values on a plain :root, for a one-brand site and the block editor', () => {
+    for (const brand of ['dcc', 'omelanski']) {
+      const site = read(`tokens/${brand}.site.css`);
+      const scoped = read(`tokens/${brand}.css`);
+      expect(site.startsWith(':root {\n')).toBe(true);
+      expect(site).not.toContain('data-brand');
+      expect(site).toBe(scoped.replace(`:root[data-brand="${brand}"]`, ':root'));
+    }
+    expect(read('tokens/dcc.site.css')).toContain('--palette-primary-600: #1269b0');
+  });
+
   it('h1 is fluid', () => {
     const css = read('tokens/shared.css');
     const match = /--font-size-4xl: clamp\(([\d.]+)px, [^,]+, ([\d.]+)px\);/.exec(css);

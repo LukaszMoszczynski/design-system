@@ -1,10 +1,11 @@
+import { CONTRAST_OFF } from '../../../.storybook/a11y.js';
 import { OVERVIEW_STATE, STATE_ARG_TYPES, forceState, overviewCell, overviewGrid, stateControlPlay } from '../../../.storybook/state.js';
 import { BUTTON_SHAPES, BUTTON_VARIANTS, renderButton } from './button.template.js';
 
 // Known brand contrast gap: the DCC accent (#eb6126) with white text is 3.34:1 and accent text on the page 3.23:1
-// (WCAG AA needs 4.5:1 at these sizes). The look is the brand's (Figma, live site), so the Overview, which shows the
-// accent button, reports the colour-contrast result as a11y "todo" (shown in the a11y panel, not failing CI).
-const CONTRAST_TODO = { a11y: { test: 'todo' } };
+// (WCAG AA needs 4.5:1 at these sizes). The look is the brand's (Figma, live site), so on the Overview, which shows the
+// accent button, colour-contrast is off (the DCC palette contrast is the owner's decision, .storybook/a11y.js); every other a11y rule
+// still fails CI.
 const BUTTON = ['.ds-button'];
 
 export default {
@@ -38,7 +39,7 @@ export const Playground = { play: stateControlPlay({ selector: '.ds-button', pro
 // Figma Button: Style × Shape, at rest, hover and focus. Disabled is the `disabled` control.
 export const Overview = {
   ...OVERVIEW_STATE,
-  parameters: { ...OVERVIEW_STATE.parameters, ...CONTRAST_TODO },
+  parameters: { ...OVERVIEW_STATE.parameters, a11y: CONTRAST_OFF },
   render: (args) =>
     overviewGrid(
       BUTTON_SHAPES.flatMap((shape) =>

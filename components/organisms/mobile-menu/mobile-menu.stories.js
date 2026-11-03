@@ -1,3 +1,4 @@
+import { CONTRAST_OFF } from '../../../.storybook/a11y.js';
 import { OVERVIEW_STATE, STATE_ARG_TYPES, forceState, overviewCell, overviewGrid } from '../../../.storybook/state.js';
 import { DEFAULT_MOBILE_BUTTONS, DEFAULT_MOBILE_ITEMS, renderMobileMenu } from './mobile-menu.template.js';
 // The Oferta row is a .ds-details: accordion.js animates it. The drawer itself is driven from the Header (its burger).
@@ -21,8 +22,8 @@ export default {
   parameters: {
     stateTargets: ROWS,
     // DCC palette gap: the accent „Zobacz całą ofertę”, hover rows and white on the Accent button fail colour contrast.
-    // a11y todo until the palette is decided; tokens unchanged.
-    a11y: { test: 'todo' },
+    // Colour-contrast is off (the DCC palette contrast is the owner's decision, .storybook/a11y.js); every other a11y rule fails CI.
+    a11y: CONTRAST_OFF,
     docs: {
       description: {
         component:

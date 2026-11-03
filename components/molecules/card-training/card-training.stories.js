@@ -1,3 +1,4 @@
+import { CONTRAST_OFF } from '../../../.storybook/a11y.js';
 import { OVERVIEW_STATE, STATE_ARG_TYPES, overviewCell, overviewGrid } from '../../../.storybook/state.js';
 import { CARD_HEADING_TAGS } from '../../_shared/heading-tags.js';
 import { CARD_TRAINING_VARIANTS, renderCardTraining } from './card-training.template.js';
@@ -55,7 +56,7 @@ export default {
       },
     },
     // The overline is accent text on the card (the DCC palette gap; see Atoms/Button).
-    a11y: { test: 'todo' },
+    a11y: CONTRAST_OFF,
   },
 };
 

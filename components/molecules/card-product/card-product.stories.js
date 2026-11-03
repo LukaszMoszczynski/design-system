@@ -1,3 +1,4 @@
+import { CONTRAST_OFF } from '../../../.storybook/a11y.js';
 import { OVERVIEW_STATE, STATE_ARG_TYPES, forceState, overviewCell, overviewGrid } from '../../../.storybook/state.js';
 import { BADGE_VARIANTS } from '../../atoms/badge-pill/badge-pill.template.js';
 import { CARD_HEADING_TAGS } from '../../_shared/heading-tags.js';
@@ -48,7 +49,7 @@ export default {
       },
     },
     // The meta line and the Polecane badge are accent (the DCC palette gap; see Atoms/Button).
-    a11y: { test: 'todo' },
+    a11y: CONTRAST_OFF,
   },
 };
 

@@ -1,3 +1,4 @@
+import { CONTRAST_OFF } from '../../../.storybook/a11y.js';
 import { OVERVIEW_STATE, STATE_ARG_TYPES, overviewCell, overviewGrid } from '../../../.storybook/state.js';
 import { CTA_HEADING_TAGS, CTA_VARIANTS, renderCallToAction } from './call-to-action.template.js';
 // Importing the script registers window.DS.reveal: below the fold the content lifts in with GSAP when scrolled to.
@@ -37,8 +38,8 @@ export default {
   parameters: {
     stateTargets: ['.ds-cta .ds-button', '.ds-cta .ds-link'],
     // DCC palette gaps: white on the accent Band and Accent buttons, the accent Image question and Gradient title fail
-    // colour contrast. Reported as a11y todo (a11y panel, not failing CI) until the palette is decided; tokens unchanged.
-    a11y: { test: 'todo' },
+    // colour contrast. Colour-contrast is off (the DCC palette contrast is the owner's decision, .storybook/a11y.js); every other a11y rule fails CI.
+    a11y: CONTRAST_OFF,
     docs: {
       description: {
         component:

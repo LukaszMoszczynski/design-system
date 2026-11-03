@@ -1,3 +1,4 @@
+import { CONTRAST_OFF } from '../../../.storybook/a11y.js';
 import { OVERVIEW_STATE, STATE_ARG_TYPES, overviewCell, overviewGrid } from '../../../.storybook/state.js';
 import { DEFAULT_TRAIL } from '../../atoms/breadcrumbs/breadcrumbs.template.js';
 import { DEFAULT_HERO_TILES, HERO_HEADING_TAGS, HERO_VARIANTS, renderHero } from './hero.template.js';
@@ -42,8 +43,8 @@ export default {
   parameters: {
     stateTargets: ['.ds-hero .ds-button', '.ds-hero .ds-card-hero-tile'],
     // DCC palette gaps: the accent title words and the accent subpage title / subtitle on the blue box fail colour
-    // contrast (as on the Call to action). Reported as a11y todo until the palette is decided; tokens unchanged.
-    a11y: { test: 'todo' },
+    // contrast (as on the Call to action). Colour-contrast is off (the DCC palette contrast is the owner's decision, .storybook/a11y.js); every other a11y rule fails CI.
+    a11y: CONTRAST_OFF,
     docs: {
       description: {
         component:

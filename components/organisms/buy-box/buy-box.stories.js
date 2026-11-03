@@ -1,3 +1,4 @@
+import { CONTRAST_OFF } from '../../../.storybook/a11y.js';
 import { OVERVIEW_STATE, STATE_ARG_TYPES, forceState, overviewCell, overviewGrid } from '../../../.storybook/state.js';
 import { DEFAULT_FACTS, DEFAULT_TERMS, renderBuyBox } from './buy-box.template.js';
 // Importing the script registers window.DS.buyBox; the global decorator calls init(wrapper) after every render.
@@ -42,8 +43,8 @@ export default {
   parameters: {
     stateTargets: CONTROLS,
     // DCC palette gap: white on the accent switch half and the accent submit fail colour contrast (as in Atoms/Button
-    // Accent). a11y todo until the palette is decided; tokens unchanged.
-    a11y: { test: 'todo' },
+    // Accent). Colour-contrast is off (the DCC palette contrast is the owner's decision, .storybook/a11y.js); every other a11y rule fails CI.
+    a11y: CONTRAST_OFF,
     docs: {
       description: {
         component:

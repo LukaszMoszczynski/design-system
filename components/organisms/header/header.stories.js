@@ -1,3 +1,4 @@
+import { CONTRAST_OFF } from '../../../.storybook/a11y.js';
 import { OVERVIEW_STATE, STATE_ARG_TYPES, forceState, overviewCell, overviewGrid } from '../../../.storybook/state.js';
 import { DEFAULT_HEADER_ITEMS, HEADER_TAGS, renderHeader } from './header.template.js';
 // The scripts register window.DS.header (scrolled, Mega menu), window.DS.mobileMenu (burger, drawer) and
@@ -55,8 +56,8 @@ export default {
   parameters: {
     stateTargets: OFFER,
     // DCC palette gap: the accent hover / focus link and the page-colour „Dzwonię” on the accent pill fail colour
-    // contrast (as in Atoms/Nav Link). Reported as a11y todo until the palette is decided; tokens unchanged.
-    a11y: { test: 'todo' },
+    // contrast (as in Atoms/Nav Link). Colour-contrast is off (the DCC palette contrast is the owner's decision, .storybook/a11y.js); every other a11y rule fails CI.
+    a11y: CONTRAST_OFF,
     docs: {
       description: {
         component:

@@ -1,3 +1,4 @@
+import { CONTRAST_OFF } from '../../../.storybook/a11y.js';
 import { OVERVIEW_STATE, STATE_ARG_TYPES, overviewCell, overviewGrid } from '../../../.storybook/state.js';
 import { DEFAULT_TESTIMONIALS, TESTIMONIALS_HEADING_TAGS, renderTestimonials } from './testimonials.template.js';
 // The scripts register window.DS.carousel (Swiper from window, the centre card active) and window.DS.reveal.
@@ -29,9 +30,8 @@ export default {
   },
   parameters: {
     stateTargets: ['.ds-testimonials .ds-carousel-arrow', '.ds-testimonials .ds-carousel-dot'],
-    // DCC palette gaps: the accent overline and the muted dots fail colour contrast. Reported as a11y todo until the
-    // palette is decided; tokens unchanged.
-    a11y: { test: 'todo' },
+    // DCC palette gaps: the accent overline and the muted dots fail colour contrast. Colour-contrast is off (the DCC palette contrast is the owner's decision, .storybook/a11y.js); every other a11y rule fails CI.
+    a11y: CONTRAST_OFF,
     docs: {
       description: {
         component:

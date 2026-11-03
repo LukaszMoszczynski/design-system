@@ -10,8 +10,8 @@ JS (optional): `base/reveal.js` (the content lifts in with GSAP when scrolled in
   - `variant`: `large` (default), `band`, `gradient`, `image`, `light`.
   - `title`, `subtitle`, `text`: given, they replace the variant's own Polish copy (`CTA_COPY`). The subtitle is shown on
     Large and Gradient only.
-  - `buttons`: `[{ text, href }]`. Large and Band: Light buttons (Large with accent circles); Gradient: Accent + Light
-    (primary text); Light: Accent + Primary; Image: uppercase `brand` text links.
+  - `buttons`: `[{ text, href }]`. Large and Band: Light buttons (Large with accent circles: `ds-button--accent-icon`); Gradient: Accent + Light
+    (primary text); Light: Accent + Primary; Image: uppercase `brand` text links (`ds-link--brand ds-link--uppercase`).
   - `image`, `imageAlt`: the photo of Large (356 × 460) and Image (wide). `badgeText`: Large's Badge/Circular wording
     (empty: no badge). `headingTag`: `h2` (default) or `h3`.
 
@@ -22,7 +22,7 @@ JS (optional): `base/reveal.js` (the content lifts in with GSAP when scrolled in
         <h2 class="ds-cta__title"><span class="ds-cta__title-box"><span class="ds-text ds-text--number ds-text--accent ds-cta__title-text">Nie wiesz, od czego zacząć?</span></span></h2>
         <p class="ds-text ds-text--xl ds-cta__subtitle">…</p>
         <p class="ds-text ds-text--body ds-cta__text">…</p>
-        <div class="ds-cta__buttons"><a class="ds-button ds-button--light" href="tel:…">…</a>…</div>
+        <div class="ds-cta__buttons"><a class="ds-button ds-button--light ds-button--accent-icon" href="tel:…">…</a>…</div>
       </div>
       <figure class="ds-cta__media"><img class="ds-cta__image" src="…" alt=""><span class="ds-badge-circular ds-cta__badge" …>…</span></figure>
     </div>

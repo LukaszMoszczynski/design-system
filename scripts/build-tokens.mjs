@@ -1,5 +1,9 @@
-// Builds dist/tokens/<brand>.css, dist/tokens/shared.css and dist/wp/<brand>.theme.json
+// Builds dist/tokens/<brand>.css, dist/tokens/<brand>.site.css, dist/tokens/shared.css and dist/wp/<brand>.theme.json
 // from the DTCG token files in tokens/ with Style Dictionary 4.
+//
+// <brand>.css scopes the brand values to :root[data-brand="<brand>"] (Storybook switches brands with it).
+// <brand>.site.css has the same values on a plain :root, for a one-brand site: they apply without any attribute, so
+// they also reach the WordPress block editor iframe, whose <html> never gets data-brand.
 import { existsSync, mkdirSync, readdirSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
@@ -64,9 +68,13 @@ function assertUniqueNames(declarations, where) {
   }
 }
 
-function block(selector, declarations, indent = '') {
+// properties: plain CSS properties written before the custom properties, e.g. [['color-scheme', 'dark']].
+function block(selector, declarations, indent = '', properties = []) {
   assertUniqueNames(declarations, selector);
-  const lines = declarations.map(([name, value]) => `${indent}  --${name}: ${value};`);
+  const lines = [
+    ...properties.map(([property, value]) => `${indent}  ${property}: ${value};`),
+    ...declarations.map(([name, value]) => `${indent}  --${name}: ${value};`),
+  ];
   return `${indent}${selector} {\n${lines.join('\n')}\n${indent}}`;
 }
 
@@ -75,9 +83,13 @@ StyleDictionary.registerFormat({
   format: ({ dictionary, options }) => {
     const names = namesByPathOf(dictionary);
     const declarations = dictionary.allTokens.map((token) => [cssName(token), declaredValue(token, names)]);
-    return `${block(`:root[data-brand="${options.brand}"]`, declarations)}\n`;
+    const selector = options.site ? ':root' : `:root[data-brand="${options.brand}"]`;
+    return `${block(selector, declarations)}\n`;
   },
 });
+
+// Native controls (select lists, scrollbars, autofill) follow color-scheme, so each theme block sets it.
+const COLOR_SCHEME = { root: [['color-scheme', 'light']], dark: [['color-scheme', 'dark']] };
 
 // options.section: "root" | "dark" | "mobile"
 // options.fluid: Map css name -> clamp() for font sizes and line heights that change with the breakpoint
@@ -88,7 +100,7 @@ StyleDictionary.registerFormat({
     const names = namesByPathOf(dictionary);
     const declare = (token) => [cssName(token), options.fluid.get(cssName(token)) ?? declaredValue(token, names)];
     if (options.section === 'dark') {
-      return block(':root[data-theme="dark"]', dictionary.allTokens.map(declare));
+      return block(':root[data-theme="dark"]', dictionary.allTokens.map(declare), '', COLOR_SCHEME.dark);
     }
     if (options.section === 'mobile') {
       const differing = dictionary.allTokens
@@ -97,7 +109,7 @@ StyleDictionary.registerFormat({
         .map(declare);
       return `@media (max-width: ${MOBILE_MAX_WIDTH}px) {\n${block(':root', differing, '  ')}\n}`;
     }
-    return block(':root', dictionary.allTokens.map(declare));
+    return block(':root', dictionary.allTokens.map(declare), '', COLOR_SCHEME.root);
   },
 });
 
@@ -248,6 +260,7 @@ export async function buildTokens({ tokensDir, outDir }) {
   for (const brand of brands) {
     const brandFile = file('brands', `${brand}.json`);
     writeFileSync(join(out, 'tokens', `${brand}.css`), await render([brandFile], 'ds/css-brand', { brand }));
+    writeFileSync(join(out, 'tokens', `${brand}.site.css`), await render([brandFile], 'ds/css-brand', { brand, site: true }));
     const theme = await render([brandFile, file('semantic', 'light.json'), file('breakpoint', 'desktop.json')], 'ds/wp-theme-json', { mobileSizes: mobileSizesByBrand.get(brand) });
     writeFileSync(join(out, 'wp', `${brand}.theme.json`), theme);
   }

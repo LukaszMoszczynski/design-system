@@ -1,3 +1,4 @@
+import { CONTRAST_OFF } from '../../../.storybook/a11y.js';
 import { OVERVIEW_STATE, STATE_ARG_TYPES, overviewCell, overviewGrid } from '../../../.storybook/state.js';
 import { TEXT_IMAGE_HEADING_TAGS, TEXT_IMAGE_VARIANTS, renderTextImage } from './text-image.template.js';
 // Importing the script registers window.DS.reveal: below the fold the text and photos lift in with GSAP.
@@ -41,9 +42,9 @@ export default {
   },
   parameters: {
     stateTargets: ['.ds-text-image .ds-button', '.ds-text-image .ds-link'],
-    // DCC palette gaps: the accent overline and the white label on the Accent button fail colour contrast. Reported as
-    // a11y todo (a11y panel, not failing CI) until the palette is decided; tokens unchanged.
-    a11y: { test: 'todo' },
+    // DCC palette gaps: the accent overline and the white label on the Accent button fail colour contrast.
+    // Colour-contrast is off (the DCC palette contrast is the owner's decision, .storybook/a11y.js); every other a11y rule fails CI.
+    a11y: CONTRAST_OFF,
     docs: {
       description: {
         component:

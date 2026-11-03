@@ -1,11 +1,12 @@
+import { CONTRAST_OFF } from '../../../.storybook/a11y.js';
 import { OVERVIEW_STATE, STATE_ARG_TYPES, forceState, overviewCell, overviewGrid } from '../../../.storybook/state.js';
 import { renderNavBurger, renderNavCta, renderNavLink } from './nav-link.template.js';
 
 // Known brand contrast gap: the DCC accent (#eb6126) with white text is 3.34:1 and accent text on the page 3.23:1
 // (WCAG AA needs 4.5:1 at these sizes). The look is the brand's (Figma, live site). The nav link turns accent on
-// hover/focus and the call button is accent, so the Overview reports the colour-contrast result as a11y "todo"
-// (shown in the a11y panel, not failing CI) until the palette is decided.
-const CONTRAST_TODO = { a11y: { test: 'todo' } };
+// hover/focus and the call button is accent, so on the Overview
+// colour-contrast is off (the DCC palette contrast is the owner's decision, .storybook/a11y.js); every other a11y rule
+// still fails CI.
 
 const frame = (markup) => `<div style="padding: var(--space-24)">${markup}</div>`;
 
@@ -35,7 +36,7 @@ export const Playground = {};
 // The link at rest, hover, focus and current; the call button at rest and hover; the burger closed and open.
 export const Overview = {
   ...OVERVIEW_STATE,
-  parameters: { ...OVERVIEW_STATE.parameters, ...CONTRAST_TODO },
+  parameters: { ...OVERVIEW_STATE.parameters, a11y: CONTRAST_OFF },
   render: (args) =>
     overviewGrid([
       ...['default', 'hover', 'focus'].map((state) => overviewCell(`link · ${state}`, frame(forceState(renderNavLink({ ...args, current: false }), state, ['.ds-nav-link'])))),

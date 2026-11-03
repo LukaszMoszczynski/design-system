@@ -1,3 +1,4 @@
+import { CONTRAST_OFF } from '../../../.storybook/a11y.js';
 import { overviewCell, overviewGrid } from '../../../.storybook/state.js';
 import { CARD_CONTACT_VARIANTS, renderCardContact } from './card-contact.template.js';
 
@@ -22,7 +23,7 @@ export default {
       },
     },
     // The overline is accent text on the soft card (the DCC palette gap; see Atoms/Button).
-    a11y: { test: 'todo' },
+    a11y: CONTRAST_OFF,
   },
 };
 

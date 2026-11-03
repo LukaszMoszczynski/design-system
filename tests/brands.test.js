@@ -20,8 +20,8 @@ describe('brand list', () => {
     expect(listBrands(temp)).toEqual(['acme', 'dcc', 'omelanski']);
   });
 
-  it('derives Storybook brands from built CSS paths, without shared.css', () => {
-    const paths = ['../dist/tokens/shared.css', '../dist/tokens/dcc.css', '../dist/tokens/acme.css'];
+  it('derives Storybook brands from built CSS paths, without shared.css and <brand>.site.css', () => {
+    const paths = ['../dist/tokens/shared.css', '../dist/tokens/dcc.css', '../dist/tokens/dcc.site.css', '../dist/tokens/acme.css'];
     expect(brandNamesFromPaths(paths)).toEqual(['acme', 'dcc']);
   });
 

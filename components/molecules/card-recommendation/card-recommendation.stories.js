@@ -1,3 +1,4 @@
+import { CONTRAST_OFF } from '../../../.storybook/a11y.js';
 import { overviewCell, overviewGrid } from '../../../.storybook/state.js';
 import { CARD_HEADING_TAGS } from '../../_shared/heading-tags.js';
 import { CARD_RECOMMENDATION_VARIANTS, renderCardRecommendation } from './card-recommendation.template.js';
@@ -38,7 +39,7 @@ export default {
       },
     },
     // The Blue variant puts white text on the accent pill (the DCC palette gap; see Atoms/Button).
-    a11y: { test: 'todo' },
+    a11y: CONTRAST_OFF,
   },
 };
 

@@ -1,4 +1,5 @@
 :root {
+  color-scheme: light;
   --radius-post: 32px;
   --radius-header: 40px;
   --radius-footer: 40px;
@@ -430,6 +431,7 @@
 }
 
 :root[data-theme="dark"] {
+  color-scheme: dark;
   --color-brand-primary: var(--palette-primary-400);
   --color-brand-primary-deep: var(--palette-primary-600);
   --color-brand-accent: var(--palette-accent-400);

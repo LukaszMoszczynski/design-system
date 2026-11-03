@@ -133,8 +133,8 @@ call, and the WordPress note (which dynamic values `render.php` prints where).
 
 ## Copying a component into a WordPress theme
 
-1. Copy the token CSS once: `dist/tokens/shared.css` and `dist/tokens/<brand>.css`, plus `components/base/base.css`.
-   Set `<html data-brand="…" data-theme="…">`.
+1. Copy the token CSS once: `dist/tokens/shared.css` and `dist/tokens/<brand>.site.css` (the brand on a plain `:root`, so
+   it also reaches the block editor iframe), plus `components/base/base.css`. Add `data-theme="dark"` on `<html>` for a dark site.
 2. Copy `<name>.css` (and the CSS of any component it contains) and enqueue it after the tokens.
 3. Paste the markup from the template into the block's `render.php`. Replace the interpolated args with PHP echoes
    escaped with `esc_html()` / `esc_attr()` / `esc_url()`; the structure, classes and `data-` attributes stay as they are.
@@ -152,4 +152,4 @@ WordPress: `<?php echo esc_html( $attributes['text'] ); ?>` in place of the text
 The full site guide is the root `README.md` ("Use in a WordPress site"). Short form: tokens CSS and `base.css` first, then
 component CSS ordered atoms → molecules → organisms → sections; GSAP + ScrollTrigger, then Swiper, then the component
 scripts (classic, auto-init, `window.DS.<name>.init(root)`: `reveal`, `accordion`, `carousel`, `header`, `mobileMenu`,
-`buyBox`); `data-brand` (and optional `data-theme="dark"`) on `<html>`. Every component folder has a `README.md` listing its CSS parts, markup hooks and WordPress notes.
+`buyBox`); `<brand>.site.css` for the brand (no attribute needed), optional `data-theme="dark"` on `<html>`. Every component folder has a `README.md` listing its CSS parts, markup hooks and WordPress notes.

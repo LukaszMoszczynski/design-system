@@ -4,6 +4,7 @@
 // centred), gradient (deep → primary card, two columns), image (accent question, text links, wide photo), light (soft
 // centred box). Each variant has its own Polish copy (CTA_COPY); a non-empty title / subtitle / text and the given buttons win.
 // buttons: [{ text, href }]; the variant picks the Button style (Light, Accent, Primary) or, for image, text links.
+// Large: the Light buttons keep the accent circle at rest (Button accentIcon); image: the links are uppercase (Link uppercase).
 // The content carries data-ds-reveal: base/reveal.js lifts it in with GSAP when it scrolls into view.
 // Composes Text, Button, Link and Badge/Circular.
 import { escapeHtml } from '../../_shared/escape.js';
@@ -56,10 +57,10 @@ const TITLE_STYLES = { large: 'number', band: 'xl', gradient: '4xl', image: '3xl
 function renderActions(variant, buttons) {
   if (!buttons.length) return '';
   if (variant === 'image') {
-    return `<div class="ds-cta__links">${buttons.map((button) => renderLink({ text: button.text, href: button.href, variant: 'brand' })).join('')}</div>`;
+    return `<div class="ds-cta__links">${buttons.map((button) => renderLink({ text: button.text, href: button.href, variant: 'brand', uppercase: true })).join('')}</div>`;
   }
   const [first, rest] = BUTTON_STYLES[variant];
-  return `<div class="ds-cta__buttons">${buttons.map((button, index) => renderButton({ text: button.text, href: button.href, variant: index === 0 ? first : rest })).join('')}</div>`;
+  return `<div class="ds-cta__buttons">${buttons.map((button, index) => renderButton({ text: button.text, href: button.href, variant: index === 0 ? first : rest, accentIcon: variant === 'large' })).join('')}</div>`;
 }
 
 export function renderCallToAction({

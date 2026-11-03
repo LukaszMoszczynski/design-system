@@ -1,3 +1,4 @@
+import { CONTRAST_OFF } from '../../../.storybook/a11y.js';
 import { overviewCell, overviewGrid } from '../../../.storybook/state.js';
 import { BENEFITS_VARIANTS, renderBenefits } from './benefits.template.js';
 
@@ -26,7 +27,7 @@ export default {
       },
     },
     // On-brand puts white text on the accent pill (the DCC palette gap; see Atoms/Button).
-    a11y: { test: 'todo' },
+    a11y: CONTRAST_OFF,
   },
 };
 

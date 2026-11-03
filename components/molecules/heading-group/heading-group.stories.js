@@ -1,3 +1,4 @@
+import { CONTRAST_OFF } from '../../../.storybook/a11y.js';
 import { overviewCell, overviewGrid } from '../../../.storybook/state.js';
 import { HEADING_GROUP_VARIANTS, HEADING_TAGS, renderHeadingGroup } from './heading-group.template.js';
 
@@ -30,21 +31,25 @@ export default {
       },
     },
     // The overline is accent text on the page (3.23:1, the DCC palette gap; see Atoms/Button).
-    a11y: { test: 'todo' },
+    a11y: CONTRAST_OFF,
   },
 };
 
 export const Playground = {};
 
 // Figma Layout Stacked, Split, Centered, plus the hashtag overline.
+// Each one sits in a <section>, as on a page (Carousel, FAQ, Testimonials, Text + image): the <header> of a Heading group
+// outside sectioning content (section, article, aside, nav, main) is a banner landmark, and four of them side by side failed
+// axe landmark-no-duplicate-banner and landmark-unique.
+const inSection = (markup) => `<section>${markup}</section>`;
 export const Overview = {
   render: (args) =>
     overviewGrid(
       [
-        overviewCell('Stacked', renderHeadingGroup(args)),
-        overviewCell('Split', renderHeadingGroup({ ...args, variant: 'split' })),
-        overviewCell('Centered', renderHeadingGroup({ ...args, variant: 'centered' })),
-        overviewCell('Stacked, # overline, no lead', renderHeadingGroup({ ...args, overline: '#PozytywnieRozwojowi', lead: '', leadStrong: '' })),
+        overviewCell('Stacked', inSection(renderHeadingGroup(args))),
+        overviewCell('Split', inSection(renderHeadingGroup({ ...args, variant: 'split' }))),
+        overviewCell('Centered', inSection(renderHeadingGroup({ ...args, variant: 'centered' }))),
+        overviewCell('Stacked, # overline, no lead', inSection(renderHeadingGroup({ ...args, overline: '#PozytywnieRozwojowi', lead: '', leadStrong: '' }))),
       ],
       '100%',
     ),

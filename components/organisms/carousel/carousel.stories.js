@@ -1,3 +1,4 @@
+import { CONTRAST_OFF } from '../../../.storybook/a11y.js';
 import { OVERVIEW_STATE, STATE_ARG_TYPES, overviewCell, overviewGrid } from '../../../.storybook/state.js';
 import { renderCardPost } from '../../molecules/card-post/card-post.template.js';
 import { renderCardProgram } from '../../molecules/card-program/card-program.template.js';
@@ -38,9 +39,9 @@ export default {
   args: { items: 3, nav: 'below', pagination: 'dots', card: 'program', slideCount: 6, heading: true, ariaLabel: '', state: 'default' },
   parameters: {
     // DCC palette gap: the accent overline of the Heading group fails colour contrast (as in Molecules/Heading Group).
-    // Reported as a11y todo (a11y panel, not failing CI) until the palette is decided; tokens are not changed here.
+    // Colour-contrast is off (the DCC palette contrast is the owner's decision, .storybook/a11y.js); every other a11y rule fails CI.
     // With colour contrast switched off every story passes the other axe rules.
-    a11y: { test: 'todo' },
+    a11y: CONTRAST_OFF,
     stateTargets: ['[data-ds-carousel-next]', '.ds-carousel-dot:not([aria-current])'],
     docs: {
       description: {

@@ -1,3 +1,4 @@
+import { CONTRAST_OFF } from '../../../.storybook/a11y.js';
 import { OVERVIEW_STATE, STATE_ARG_TYPES, forceState, overviewCell, overviewGrid } from '../../../.storybook/state.js';
 import { DEFAULT_FOOTER, FOOTER_TAGS, renderFooter } from './footer.template.js';
 
@@ -50,8 +51,8 @@ export default {
   parameters: {
     stateTargets: LINKS,
     // DCC palette gap: white on the accent newsletter panel and the accent hover links on the blue card fail colour
-    // contrast (as in Atoms/Link Footer). a11y todo until the palette is decided; tokens unchanged.
-    a11y: { test: 'todo' },
+    // contrast (as in Atoms/Link Footer). Colour-contrast is off (the DCC palette contrast is the owner's decision, .storybook/a11y.js); every other a11y rule fails CI.
+    a11y: CONTRAST_OFF,
     docs: {
       description: {
         component:

@@ -1,11 +1,12 @@
+import { CONTRAST_OFF } from '../../../.storybook/a11y.js';
 import { OVERVIEW_STATE, STATE_ARG_TYPES, forceState, overviewCell, overviewGrid } from '../../../.storybook/state.js';
 import { LINK_VARIANTS, renderLink } from './link.template.js';
 
 // Known brand contrast gap: the DCC accent (#eb6126) with white text is 3.34:1 and accent text on the page 3.23:1
 // (WCAG AA needs 4.5:1 at these sizes). The look is the brand's (Figma, live site). Arrow, Footer and Bold turn accent
-// on hover/focus (on the page, or on the blue footer card: 1.7:1), so the Overview, which forces those states, reports
-// the colour-contrast result as a11y "todo" (shown in the a11y panel, not failing CI) until the palette is decided.
-const CONTRAST_TODO = { a11y: { test: 'todo' } };
+// on hover/focus (on the page, or on the blue footer card: 1.7:1), so on the Overview, which forces those states,
+// colour-contrast is off (the DCC palette contrast is the owner's decision, .storybook/a11y.js); every other a11y rule
+// still fails CI.
 const LINK = ['.ds-link'];
 
 // Footer and Inverse are white links: they sit on the brand surface, as on the site. Inline sits in a paragraph.
@@ -49,7 +50,7 @@ export const Playground = {};
 // Every kind, at rest, hover and focus.
 export const Overview = {
   ...OVERVIEW_STATE,
-  parameters: { ...OVERVIEW_STATE.parameters, ...CONTRAST_TODO },
+  parameters: { ...OVERVIEW_STATE.parameters, a11y: CONTRAST_OFF },
   render: (args) =>
     overviewGrid(
       LINK_VARIANTS.flatMap((variant) =>

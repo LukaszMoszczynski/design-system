@@ -1,3 +1,4 @@
+import { CONTRAST_OFF } from '../../../.storybook/a11y.js';
 import { OVERVIEW_STATE, overviewCell, overviewGrid } from '../../../.storybook/state.js';
 import { TEXT_TAGS, TEXT_TONES, TEXT_VARIANTS, renderText } from './text.template.js';
 
@@ -44,10 +45,10 @@ export const Overview = {
 };
 
 // Tones: inherited on a blue surface, and the text tokens on the page. Accent text on the page is 3.23:1 (the brand
-// contrast gap, see Atoms/Button): reported as a11y todo.
+// contrast gap, see Atoms/Button): colour contrast is off (the DCC palette contrast is the owner's decision, .storybook/a11y.js); every other a11y rule fails CI.
 export const Tones = {
   ...OVERVIEW_STATE,
-  parameters: { ...OVERVIEW_STATE.parameters, a11y: { test: 'todo' } },
+  parameters: { ...OVERVIEW_STATE.parameters, a11y: CONTRAST_OFF },
   render: (args) =>
     overviewGrid([
       ...TEXT_TONES.map((tone) => overviewCell(tone, renderText({ ...args, tone, variant: 'lg', tag: 'p' }))),

@@ -1,3 +1,4 @@
+import { CONTRAST_OFF } from '../../../.storybook/a11y.js';
 import { OVERVIEW_STATE, STATE_ARG_TYPES, forceState, overviewCell, overviewGrid } from '../../../.storybook/state.js';
 import { DEFAULT_AREAS, DEFAULT_BESTSELLERS, DEFAULT_SHOP, renderMegaMenu } from './mega-menu.template.js';
 
@@ -9,7 +10,7 @@ export default {
   // The standalone panel is shown open; inside the Header it starts hidden and header.js opens it.
   render: (args) => frame(renderMegaMenu({ ...args, open: true })),
   argTypes: {
-    label: { control: 'text', description: 'The bestsellers label.' },
+    text: { control: 'text', description: 'The visible title above the bestsellers.' },
     bestsellers: { control: 'object', description: '[{ title, text, href }]' },
     areas: { control: 'object', description: '[{ name, links: [{ text, href }], href }]: href adds „Zobacz wszystkie”.' },
     allText: { control: 'text' },
@@ -17,12 +18,11 @@ export default {
     id: { control: 'text' },
     ...STATE_ARG_TYPES,
   },
-  args: { label: 'Szczególnie polecamy', bestsellers: DEFAULT_BESTSELLERS, areas: DEFAULT_AREAS, allText: 'Zobacz wszystkie', shop: DEFAULT_SHOP, id: 'ds-mega-menu', state: 'default' },
+  args: { text: 'Szczególnie polecamy', bestsellers: DEFAULT_BESTSELLERS, areas: DEFAULT_AREAS, allText: 'Zobacz wszystkie', shop: DEFAULT_SHOP, id: 'ds-mega-menu', state: 'default' },
   parameters: {
     stateTargets: FIRST_LINKS,
-    // DCC palette gap: the accent label and the accent hover / focus links fail colour contrast. a11y todo until the
-    // palette is decided; tokens unchanged.
-    a11y: { test: 'todo' },
+    // DCC palette gap: the accent bestsellers title and the accent hover / focus links fail colour contrast. Colour-contrast is off (the DCC palette contrast is the owner's decision, .storybook/a11y.js); every other a11y rule fails CI.
+    a11y: CONTRAST_OFF,
     docs: {
       description: {
         component:

@@ -27,12 +27,18 @@ describe('call to action template', () => {
   });
 
   it('picks the button style per variant and text links for image', () => {
-    const styles = (variant) => [...renderCallToAction({ variant }).matchAll(/ds-button--(primary|accent|light)/g)].map((match) => match[1]);
+    const styles = (variant) => [...renderCallToAction({ variant }).matchAll(/ds-button--(primary|accent|light)(?![\w-])/g)].map((match) => match[1]);
     expect(styles('large')).toEqual(['light', 'light']);
     expect(styles('gradient')).toEqual(['accent', 'light']);
     expect(styles('light')).toEqual(['accent', 'primary']);
     expect(renderCallToAction({ variant: 'image' })).toContain('ds-link--brand');
     expect(styles('image')).toEqual([]);
+  });
+
+  it('uses the Button accentIcon option on large and the Link uppercase option on image', () => {
+    expect(renderCallToAction({ variant: 'large' }).match(/ds-button--accent-icon/g)).toHaveLength(2);
+    expect(renderCallToAction({ variant: 'band' })).not.toContain('ds-button--accent-icon');
+    expect(renderCallToAction({ variant: 'image' }).match(/ds-link--uppercase/g)).toHaveLength(2);
   });
 
   it('shows the subtitle only on large and gradient, the badge only on large', () => {
